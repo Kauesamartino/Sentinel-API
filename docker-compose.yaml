@@ -1,26 +1,25 @@
 services:
   # 'services' define um ou mais serviços, cada um representando um contêiner.
 
-  postgres:
-    # 'postgres' é o nome dado a este serviço. Você pode nomear o serviço como desejar.
+  mysql:
+    # 'mysql' é o nome dado a este serviço. Você pode nomear o serviço como desejar.
 
-    image: postgres:15-alpine
+    image: mysql:8.0
     # 'image' especifica a imagem Docker a ser usada para criar o contêiner.
-    # 'postgres:15-alpine' indica que estamos usando a versão 15 da imagem do PostgreSQL, baseada na distribuição Alpine Linux, que é uma versão mais leve.
+    # 'mysql:8.0' indica que estamos usando a versão 8.0 da imagem oficial do MySQL.
 
     ports:
-      - 5432:5432
+      - 3306:3306
     # 'ports' permite mapear portas entre o contêiner e o host (sua máquina).
-    # '5432:5432' significa que a porta 5432 do contêiner será mapeada para a porta 5432 do seu host. Isso permite que você acesse o serviço PostgreSQL pela porta 5432 na sua máquina.
+    # '3306:3306' significa que a porta 3306 do contêiner (porta padrão do MySQL) será mapeada para a porta 3306 do seu host. Isso permite que você acesse o serviço MySQL pela porta 3306 na sua máquina.
 
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      MYSQL_ROOT_PASSWORD: 123456
       # 'environment' define variáveis de ambiente dentro do contêiner.
-      # 'POSTGRES_DB' define o nome do banco de dados a ser criado automaticamente quando o contêiner for iniciado pela primeira vez. Aqui, o banco de dados será chamado de 'codeconnect_dev'.
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      # 'MYSQL_ROOT_PASSWORD' define a senha para o usuário 'root' do MySQL. É **crucial** que você substitua 'your_strong_password' por uma senha forte e segura.
 
-volumes:
-  postgres_data:
+      MYSQL_DATABASE: sentinel
+      # 'MYSQL_DATABASE' define o nome do banco de dados a ser criado automaticamente quando o contêiner for iniciado pela primeira vez. Aqui, o banco de dados será chamado de 'codeconnect_dev'.
+
+      # Para MySQL, não usamos 'POSTGRES_HOST_AUTH_METHOD: trust'.
+      # A autenticação é gerenciada pela variável MYSQL_ROOT_PASSWORD.

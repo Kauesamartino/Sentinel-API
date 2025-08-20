@@ -9,7 +9,7 @@ public record DadosCadastroEstacao(
         @NotBlank(message = "{nome.obrigatorio}")
         String nome,
 
-        @NotBlank(message = "{linha.obrigatorio")
+        @NotBlank(message = "{linha.obrigatorio}")
         String linha,
 
         @NotNull
