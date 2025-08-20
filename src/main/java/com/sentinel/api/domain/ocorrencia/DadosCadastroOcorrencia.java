@@ -13,10 +13,10 @@ public record DadosCadastroOcorrencia(
         @NotBlank(message = "{descricao.obrigatorio}")
         String descricao,
 
-        @NotBlank(message = "{severidade.obrigatorio}")
+        @NotNull(message = "{severidade.obrigatorio}")
         Severidade severidade,
 
-        @NotBlank(message = "{tipoOcorrencia.obrigatorio}")
+        @NotNull(message = "{tipoOcorrencia.obrigatorio}")
         TipoOcorrencia tipoOcorrencia,
 
         @NotNull
