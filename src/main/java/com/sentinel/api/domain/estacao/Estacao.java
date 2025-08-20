@@ -25,4 +25,11 @@ public class Estacao {
 
     @Embedded
     private Endereco endereco;
+
+    public Estacao(DadosCadastroEstacao dados, CentroControleOperacoes controleOperacoes) {
+        this.nome = dados.nome();
+        this.linha = dados.linha();
+        this.controleOperacoes = controleOperacoes;
+        this.endereco = new Endereco(dados.endereco());
+    }
 }

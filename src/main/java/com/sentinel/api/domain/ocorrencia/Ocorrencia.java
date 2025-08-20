@@ -40,7 +40,7 @@ public class Ocorrencia {
     public Ocorrencia(DadosCadastroOcorrencia dados, Estacao estacao) {
         this.titulo = dados.titulo();
         this.descricao = dados.descricao();
-        this.data = dados.data();
+        this.data = LocalDateTime.now();
         this.severidade = dados.severidade();
         this.tipoOcorrencia = dados.tipoOcorrencia();
         this.estacao = estacao;

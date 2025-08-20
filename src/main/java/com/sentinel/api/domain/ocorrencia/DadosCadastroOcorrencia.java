@@ -13,9 +13,6 @@ public record DadosCadastroOcorrencia(
         @NotBlank(message = "{descricao.obrigatorio}")
         String descricao,
 
-        @NotNull @Future
-        LocalDateTime data,
-
         @NotBlank(message = "{severidade.obrigatorio}")
         Severidade severidade,
 
