@@ -1,6 +1,5 @@
 package com.sentinel.api.domain.cco;
 
-import com.sentinel.api.domain.Endereco.Endereco;
 import jakarta.persistence.*;
 import lombok.*;
 

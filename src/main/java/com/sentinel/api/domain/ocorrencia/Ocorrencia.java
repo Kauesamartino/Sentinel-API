@@ -1,8 +1,8 @@
 package com.sentinel.api.domain.ocorrencia;
 
-import com.sentinel.api.domain.cco.CentroControleOperacoes;
 import com.sentinel.api.domain.estacao.Estacao;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -36,4 +36,15 @@ public class Ocorrencia {
     private Estacao estacao;
 
     private Boolean ativo;
+
+    public Ocorrencia(DadosCadastroOcorrencia dados, Estacao estacao) {
+        this.titulo = dados.titulo();
+        this.descricao = dados.descricao();
+        this.data = dados.data();
+        this.severidade = dados.severidade();
+        this.tipoOcorrencia = dados.tipoOcorrencia();
+        this.estacao = estacao;
+        this.ativo = true;
+        this.status = Status.ABERTO;
+    }
 }

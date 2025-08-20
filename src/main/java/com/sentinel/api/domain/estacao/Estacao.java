@@ -1,6 +1,6 @@
 package com.sentinel.api.domain.estacao;
 
-import com.sentinel.api.domain.Endereco.Endereco;
+import com.sentinel.api.domain.endereco.Endereco;
 import com.sentinel.api.domain.cco.CentroControleOperacoes;
 import jakarta.persistence.*;
 import lombok.*;

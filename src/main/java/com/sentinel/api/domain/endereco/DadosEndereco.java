@@ -1,4 +1,4 @@
-package com.sentinel.api.domain.Endereco;
+package com.sentinel.api.domain.endereco;
 
 import jakarta.validation.constraints.NotBlank;
 
