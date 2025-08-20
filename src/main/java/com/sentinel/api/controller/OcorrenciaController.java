@@ -9,10 +9,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
@@ -32,6 +29,12 @@ public class OcorrenciaController {
         ocorrenciaRepository.save(ocorrencia);
         var uri = uriBuilder.path("/ocorrencias/{id}").buildAndExpand(ocorrencia.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoOcorrencia(ocorrencia));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> detalhar(@PathVariable Long id){
+        var ocorrencia = ocorrenciaRepository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoOcorrencia(ocorrencia));
     }
 
 }

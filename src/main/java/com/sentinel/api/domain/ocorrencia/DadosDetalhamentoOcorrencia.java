@@ -1,7 +1,6 @@
 package com.sentinel.api.domain.ocorrencia;
 
 import com.sentinel.api.domain.estacao.DadosDetalhamentoEstacao;
-import com.sentinel.api.domain.estacao.Estacao;
 
 import java.time.LocalDateTime;
 
