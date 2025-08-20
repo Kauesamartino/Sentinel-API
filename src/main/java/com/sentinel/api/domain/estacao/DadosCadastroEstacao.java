@@ -9,8 +9,8 @@ public record DadosCadastroEstacao(
         @NotBlank(message = "{nome.obrigatorio}")
         String nome,
 
-        @NotBlank(message = "{linha.obrigatorio}")
-        String linha,
+        @NotNull(message = "{linha.obrigatorio}")
+        Linha linha,
 
         @NotNull
         Long idCco,

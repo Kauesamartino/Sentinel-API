@@ -6,7 +6,7 @@ import com.sentinel.api.domain.endereco.Endereco;
 public record DadosDetalhamentoEstacao(
         Long id,
         String nome,
-        String linha,
+        Linha linha,
         DadosDetalhamentoCentroControleOperacoes dadosControle,
         Endereco endereco
 ) {

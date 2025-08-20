@@ -1,13 +1,13 @@
 package com.sentinel.api.controller;
 
 import com.sentinel.api.domain.estacao.EstacaoRepository;
-import com.sentinel.api.domain.ocorrencia.DadosCadastroOcorrencia;
-import com.sentinel.api.domain.ocorrencia.DadosDetalhamentoOcorrencia;
-import com.sentinel.api.domain.ocorrencia.Ocorrencia;
-import com.sentinel.api.domain.ocorrencia.OcorrenciaRepository;
+import com.sentinel.api.domain.ocorrencia.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -35,6 +35,12 @@ public class OcorrenciaController {
     public ResponseEntity<?> detalhar(@PathVariable Long id){
         var ocorrencia = ocorrenciaRepository.getReferenceById(id);
         return ResponseEntity.ok(new DadosDetalhamentoOcorrencia(ocorrencia));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<DadosListagemOcorrencias>> listar(@PageableDefault(size = 10) Pageable pageable){
+        var page = ocorrenciaRepository.findAllByAtivoTrue(pageable).map(DadosListagemOcorrencias::new);
+        return ResponseEntity.ok(page);
     }
 
 }

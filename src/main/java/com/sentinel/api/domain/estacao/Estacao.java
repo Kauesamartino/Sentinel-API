@@ -17,7 +17,9 @@ public class Estacao {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String linha;
+
+    @Enumerated(EnumType.STRING)
+    private Linha linha;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cco_id")
