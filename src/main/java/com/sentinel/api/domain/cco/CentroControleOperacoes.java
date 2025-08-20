@@ -1,6 +1,7 @@
 package com.sentinel.api.domain.cco;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.*;
 
 @Table(name = "CCOs")
@@ -16,4 +17,7 @@ public class CentroControleOperacoes {
     private Long id;
     private String nome;
 
+    public CentroControleOperacoes(DadosCadastroCentroControleOperacoes dados) {
+        this.nome = dados.nome();
+    }
 }
