@@ -31,7 +31,7 @@ public class RelatorioController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemRelatorios>> listarRelatorios(@PageableDefault(size = 10) Pageable pageable) {
+    public ResponseEntity<Page<DadosListagemRelatorios>> listar(@PageableDefault(size = 10) Pageable pageable) {
         var page = relatorioRepository.findAll(pageable).map(DadosListagemRelatorios::new);
         return ResponseEntity.ok(page);
     }
