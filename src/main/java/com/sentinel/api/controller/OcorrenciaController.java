@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Random;
+
 @RestController
 @RequestMapping("ocorrencias")
 @RequiredArgsConstructor
@@ -21,11 +23,13 @@ public class OcorrenciaController {
     private final EstacaoRepository estacaoRepository;
     private final RelatorioRepository relatorioRepository;
     private final OcorrenciaRepository ocorrenciaRepository;
+    private final Random random = new Random();
 
     @PostMapping
     @Transactional
     public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroOcorrencia dados, UriComponentsBuilder uriBuilder){
-        var estacao = estacaoRepository.getReferenceById(dados.idEstacao());
+        Long idEstacaoRandom = (long) (random.nextInt(5) + 1);
+        var estacao = estacaoRepository.getReferenceById(idEstacaoRandom);
         var ocorrencia = new Ocorrencia(dados, estacao);
         ocorrenciaRepository.save(ocorrencia);
         var uri = uriBuilder.path("/ocorrencias/{id}").buildAndExpand(ocorrencia.getId()).toUri();

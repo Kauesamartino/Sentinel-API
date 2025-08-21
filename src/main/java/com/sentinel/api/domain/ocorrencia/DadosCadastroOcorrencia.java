@@ -17,9 +17,6 @@ public record DadosCadastroOcorrencia(
         Severidade severidade,
 
         @NotNull(message = "{tipoOcorrencia.obrigatorio}")
-        TipoOcorrencia tipoOcorrencia,
-
-        @NotNull
-        Long idEstacao
+        TipoOcorrencia tipoOcorrencia
 ) {
 }
