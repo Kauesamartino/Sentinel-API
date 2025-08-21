@@ -1,10 +1,9 @@
 package com.sentinel.api.domain.ocorrencia;
 
-import jakarta.validation.constraints.Future;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDateTime;
 
 public record DadosCadastroOcorrencia(
         @NotBlank(message = "{titulo.obrigatorio}")
@@ -15,6 +14,7 @@ public record DadosCadastroOcorrencia(
 
         @NotNull(message = "{severidade.obrigatorio}")
         Severidade severidade,
+        Long idEstacao,
 
         @NotNull(message = "{tipoOcorrencia.obrigatorio}")
         TipoOcorrencia tipoOcorrencia

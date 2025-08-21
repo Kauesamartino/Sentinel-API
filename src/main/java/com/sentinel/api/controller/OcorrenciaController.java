@@ -1,6 +1,5 @@
 package com.sentinel.api.controller;
 
-import com.sentinel.api.domain.estacao.EstacaoRepository;
 import com.sentinel.api.domain.ocorrencia.*;
 import com.sentinel.api.domain.relatorio.RelatorioRepository;
 import jakarta.transaction.Transactional;
@@ -13,31 +12,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Random;
 
 @RestController
 @RequestMapping("ocorrencias")
 @RequiredArgsConstructor
 public class OcorrenciaController {
 
-    private final EstacaoRepository estacaoRepository;
     private final RelatorioRepository relatorioRepository;
     private final OcorrenciaRepository ocorrenciaRepository;
-    private final Random random = new Random();
+    private final OcorrenciaService ocorrenciaService;
 
     @PostMapping
     @Transactional
     public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroOcorrencia dados, UriComponentsBuilder uriBuilder){
-        Long idEstacaoRandom = (long) (random.nextInt(5) + 1);
-        var estacao = estacaoRepository.getReferenceById(idEstacaoRandom);
-        var ocorrencia = new Ocorrencia(dados, estacao);
-        ocorrenciaRepository.save(ocorrencia);
-        var uri = uriBuilder.path("/ocorrencias/{id}").buildAndExpand(ocorrencia.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoOcorrencia(ocorrencia));
+        var dto = ocorrenciaService.cadastrar(dados);
+        var uri = uriBuilder.path("/ocorrencias/{id}").buildAndExpand(dto.id()).toUri();
+        return ResponseEntity.created(uri).body(dto);
     }
 
     @GetMapping("relatorio/{id}")
-    public ResponseEntity<Page<DadosListagemOcorrencias>> listarOcorrenciasDeUmRelatorio(@PathVariable Long id, @PageableDefault(size = 10) Pageable pageable){
+    public ResponseEntity<Page<DadosListagemOcorrencias>> listarOcorrenciasDeUmRelatorio(@PathVariable Long id, @PageableDefault Pageable pageable){
         var relatorio = relatorioRepository.getReferenceById(id);
         var page = ocorrenciaRepository.findByDataBetweenAndTipoOcorrenciaOptional(
                 relatorio.getDataInicio(),
@@ -56,7 +50,7 @@ public class OcorrenciaController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemOcorrencias>> listar(@PageableDefault(size = 10) Pageable pageable){
+    public ResponseEntity<Page<DadosListagemOcorrencias>> listar(@PageableDefault Pageable pageable){
         var page = ocorrenciaRepository.findAllByAtivoTrue(pageable).map(DadosListagemOcorrencias::new);
         return ResponseEntity.ok(page);
     }
