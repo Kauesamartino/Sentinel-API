@@ -50,7 +50,7 @@ public class OcorrenciaController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemOcorrencias>> listar(@PageableDefault Pageable pageable){
+    public ResponseEntity<Page<DadosListagemOcorrencias>> listar(@PageableDefault(size = 50) Pageable pageable){
         var page = ocorrenciaRepository.findAllByAtivoTrue(pageable).map(DadosListagemOcorrencias::new);
         return ResponseEntity.ok(page);
     }
