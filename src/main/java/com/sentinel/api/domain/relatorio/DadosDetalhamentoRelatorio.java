@@ -1,11 +1,10 @@
 package com.sentinel.api.domain.relatorio;
 
-import com.sentinel.api.domain.ocorrencia.Severidade;
 import com.sentinel.api.domain.ocorrencia.TipoOcorrencia;
 
 import java.time.LocalDateTime;
 
-public record DadosListagemRelatorios(
+public record DadosDetalhamentoRelatorio(
         Long id,
         String titulo,
         String descricao,
@@ -13,7 +12,7 @@ public record DadosListagemRelatorios(
         LocalDateTime dataInicio,
         LocalDateTime dataFim
 ) {
-    public DadosListagemRelatorios(Relatorio relatorio) {
+    public DadosDetalhamentoRelatorio(Relatorio relatorio){
         this(
                 relatorio.getId(),
                 relatorio.getTitulo(),

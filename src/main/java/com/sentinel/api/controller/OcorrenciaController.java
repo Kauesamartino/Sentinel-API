@@ -2,6 +2,7 @@ package com.sentinel.api.controller;
 
 import com.sentinel.api.domain.estacao.EstacaoRepository;
 import com.sentinel.api.domain.ocorrencia.*;
+import com.sentinel.api.domain.relatorio.RelatorioRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class OcorrenciaController {
 
     private final EstacaoRepository estacaoRepository;
-
+    private final RelatorioRepository relatorioRepository;
     private final OcorrenciaRepository ocorrenciaRepository;
 
     @PostMapping
@@ -29,6 +30,19 @@ public class OcorrenciaController {
         ocorrenciaRepository.save(ocorrencia);
         var uri = uriBuilder.path("/ocorrencias/{id}").buildAndExpand(ocorrencia.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoOcorrencia(ocorrencia));
+    }
+
+    @GetMapping("relatorio/{id}")
+    public ResponseEntity<Page<DadosListagemOcorrencias>> listarOcorrenciasDeUmRelatorio(@PathVariable Long id, @PageableDefault(size = 10) Pageable pageable){
+        var relatorio = relatorioRepository.getReferenceById(id);
+        var page = ocorrenciaRepository.findByDataBetweenAndTipoOcorrenciaOptional(
+                relatorio.getDataInicio(),
+                relatorio.getDataFim(),
+                relatorio.getTipoOcorrencia(),
+                pageable
+        ).map(DadosListagemOcorrencias::new);
+
+        return ResponseEntity.ok(page);
     }
 
     @GetMapping("/{id}")

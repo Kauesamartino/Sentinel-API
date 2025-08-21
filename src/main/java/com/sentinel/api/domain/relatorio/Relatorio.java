@@ -2,6 +2,7 @@ package com.sentinel.api.domain.relatorio;
 
 import com.sentinel.api.domain.ocorrencia.TipoOcorrencia;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -24,5 +25,12 @@ public class Relatorio {
     private TipoOcorrencia tipoOcorrencia;
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
-    
+
+    public Relatorio(DadosCadastroRelatorio dados) {
+        this.titulo = dados.titulo();
+        this.descricao = dados.descricao();
+        this.tipoOcorrencia = dados.tipoOcorrencia();
+        this.dataInicio = dados.dataInicio();
+        this.dataFim = dados.dataFim();
+    }
 }

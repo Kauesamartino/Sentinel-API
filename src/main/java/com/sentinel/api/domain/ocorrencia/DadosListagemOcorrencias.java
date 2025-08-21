@@ -12,7 +12,7 @@ public record DadosListagemOcorrencias(
         LocalDateTime data,
         Severidade severidade,
         Status status,
-        DadosDetalhamentoEstacaoListagemMedicos dadosDetalhamentoEstacaoListagemMedicos
+        DadosDetalhamentoEstacao dadosDetalhamentoEstacao
 ) {
     public DadosListagemOcorrencias(Ocorrencia ocorrencia){
         this(
@@ -22,7 +22,7 @@ public record DadosListagemOcorrencias(
                 ocorrencia.getData(),
                 ocorrencia.getSeveridade(),
                 ocorrencia.getStatus(),
-                ocorrencia.getEstacao() != null ? new DadosDetalhamentoEstacaoListagemMedicos(ocorrencia.getEstacao()) : null
+                ocorrencia.getEstacao() != null ? new DadosDetalhamentoEstacao(ocorrencia.getEstacao()) : null
         );
     }
 
