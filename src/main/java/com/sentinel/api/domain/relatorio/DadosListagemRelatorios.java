@@ -20,6 +20,7 @@ public record DadosListagemRelatorios(
                 relatorio.getDescricao(), 
                 relatorio.getTipoOcorrencia(),
                 relatorio.getDataInicio(),
-                relatorio.getDataFim())
+                relatorio.getDataFim(),
+                relatorio.get);
     }
 }
