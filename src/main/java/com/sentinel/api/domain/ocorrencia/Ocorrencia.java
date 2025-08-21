@@ -47,4 +47,23 @@ public class Ocorrencia {
         this.ativo = true;
         this.status = Status.ABERTO;
     }
+    
+    public void atualizarInformacoes(@Valid DadosAtualizacaoOcorrencia dados){
+        if(dados.titulo() != null){
+            this.titulo = dados.titulo();
+        }
+        if (dados.descricao() != null){
+            this.descricao = dados.descricao();
+        }
+        if (dados.status() != null){
+            this.status = dados.status();
+        }
+        if (dados.tipoOcorrencia() != null){
+            this.tipoOcorrencia = dados.tipoOcorrencia();
+        }
+    }
+
+    public void excluir() {
+        this.ativo = false;
+    }
 }

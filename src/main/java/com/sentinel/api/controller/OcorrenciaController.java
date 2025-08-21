@@ -43,4 +43,19 @@ public class OcorrenciaController {
         return ResponseEntity.ok(page);
     }
 
+    @PutMapping("{id}")
+    @Transactional
+    public ResponseEntity<?> atualizar(@RequestBody @Valid DadosAtualizacaoOcorrencia dados){
+        var ocorrencia = ocorrenciaRepository.getReferenceById(dados.id());
+        ocorrencia.atualizarInformacoes(dados);
+        return ResponseEntity.ok(new  DadosDetalhamentoOcorrencia(ocorrencia));
+    }
+    
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<?> excluir(@PathVariable Long id){
+        var ocorrencia = ocorrenciaRepository.getReferenceById(id);
+        ocorrencia.excluir();
+        return ResponseEntity.noContent().build();
+    }
 }
