@@ -1,5 +1,7 @@
 package com.sentinel.api.domain.evidencia;
 
+import com.sentinel.api.domain.estacao.Estacao;
+import com.sentinel.api.domain.ocorrencia.DadosCadastroOcorrencia;
 import com.sentinel.api.domain.ocorrencia.Ocorrencia;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,4 +22,9 @@ public class Evidencia {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_ocorrencia")
     private Ocorrencia ocorrencia;
+    
+    public Evidencia(DadosCadastroEvidencia dados, Ocorrencia ocorrencia) {
+        this.key = dados.key();
+        this.ocorrencia = ocorrencia;
+    }
 }

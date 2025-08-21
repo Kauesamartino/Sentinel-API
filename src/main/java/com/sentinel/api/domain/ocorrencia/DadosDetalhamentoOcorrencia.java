@@ -16,6 +16,14 @@ public record DadosDetalhamentoOcorrencia(
         Boolean ativo
 ) {
     public DadosDetalhamentoOcorrencia(Ocorrencia ocorrencia){
-        this(ocorrencia.getId(), ocorrencia.getTitulo(), ocorrencia.getDescricao(), ocorrencia.getData(), ocorrencia.getSeveridade(), ocorrencia.getStatus(), ocorrencia.getTipoOcorrencia(), ocorrencia.getEstacao() != null ? new DadosDetalhamentoEstacao(ocorrencia.getEstacao()) : null, ocorrencia.getAtivo());
+        this(
+                ocorrencia.getId(), 
+                ocorrencia.getTitulo(), 
+                ocorrencia.getDescricao(), 
+                ocorrencia.getData(),
+                ocorrencia.getSeveridade(),
+                ocorrencia.getStatus(),
+                ocorrencia.getTipoOcorrencia(),
+                ocorrencia.getEstacao() != null ? new DadosDetalhamentoEstacao(ocorrencia.getEstacao()) : null, ocorrencia.getAtivo());
     }
 }
