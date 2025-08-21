@@ -8,15 +8,13 @@ import com.sentinel.api.domain.ocorrencia.OcorrenciaRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping(name = "evidencias")
+@RequestMapping("evidencias")
 @RequiredArgsConstructor
 public class EvidenciaController {
     
@@ -31,5 +29,11 @@ public class EvidenciaController {
         evidenciaRepository.save(evidencia);
         var uri = uriBuilder.path("/evidencias/{id}").buildAndExpand(ocorrencia.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoEvidencia(evidencia));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> detalhar(@PathVariable Long id) {
+        var evidencia =  evidenciaRepository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoEvidencia(evidencia));
     }
 }
