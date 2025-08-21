@@ -11,8 +11,7 @@ public record DadosListagemOcorrencias(
         TipoOcorrencia tipoOcorrencia,
         LocalDateTime data,
         Severidade severidade,
-        Status status,
-        DadosDetalhamentoEstacao dadosDetalhamentoEstacao
+        Status status
 ) {
     public DadosListagemOcorrencias(Ocorrencia ocorrencia){
         this(
@@ -21,8 +20,7 @@ public record DadosListagemOcorrencias(
                 ocorrencia.getTipoOcorrencia(),
                 ocorrencia.getData(),
                 ocorrencia.getSeveridade(),
-                ocorrencia.getStatus(),
-                ocorrencia.getEstacao() != null ? new DadosDetalhamentoEstacao(ocorrencia.getEstacao()) : null
+                ocorrencia.getStatus()
         );
     }
 

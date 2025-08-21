@@ -7,7 +7,6 @@ public record DadosListagemEstacoes(
         Long id,
         String nome,
         Linha linha,
-        DadosDetalhamentoCentroControleOperacoes dadosDetalhamentoCentroControleOperacoes,
         Endereco endereco
 ) {
     public DadosListagemEstacoes(Estacao estacao){
@@ -15,7 +14,6 @@ public record DadosListagemEstacoes(
                 estacao.getId(),
                 estacao.getNome(),
                 estacao.getLinha(),
-                estacao.getControleOperacoes() != null ? new DadosDetalhamentoCentroControleOperacoes(estacao.getControleOperacoes()) : null,
                 estacao.getEndereco()
         );
     }
