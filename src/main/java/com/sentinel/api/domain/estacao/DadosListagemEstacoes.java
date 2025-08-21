@@ -1,6 +1,5 @@
 package com.sentinel.api.domain.estacao;
 
-import com.sentinel.api.domain.cco.DadosDetalhamentoCentroControleOperacoes;
 import com.sentinel.api.domain.endereco.Endereco;
 
 public record DadosListagemEstacoes(

@@ -6,7 +6,6 @@ public record DadosAtualizacaoOcorrencia(
         @NotNull Long id,
         String titulo,
         String descricao,
-        Severidade severidade,
         Status status,
         TipoOcorrencia tipoOcorrencia
 ) {

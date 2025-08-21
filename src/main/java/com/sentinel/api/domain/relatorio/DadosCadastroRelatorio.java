@@ -2,6 +2,7 @@ package com.sentinel.api.domain.relatorio;
 
 import com.sentinel.api.domain.ocorrencia.TipoOcorrencia;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -14,10 +15,10 @@ public record DadosCadastroRelatorio(
 
         TipoOcorrencia tipoOcorrencia,
 
-        @NotBlank(message = "{data_inicio.obrigatorio}")
+        @NotNull(message = "{data_inicio.obrigatorio}")
         LocalDateTime dataInicio,
 
-        @NotBlank(message = "{data_fim.obrigatorio}")
+        @NotNull(message = "{data_fim.obrigatorio}")
         LocalDateTime dataFim
 ) {
 }
