@@ -19,9 +19,9 @@ RUN mvn package -DskipTests
 
 
 # ESTÁGIO 2: Execução da Aplicação
-# Usamos uma imagem leve, apenas com o Java para rodar (JRE),
+# Usamos uma imagem leve, apenas com o Java para rodar,
 # o que torna sua imagem final muito menor e mais segura.
-FROM openjdk:17-jre-slim
+FROM openjdk:17-slim
 
 # Define o diretório de trabalho
 WORKDIR /app
