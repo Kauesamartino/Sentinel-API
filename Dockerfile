@@ -1,15 +1,37 @@
-# Passo 1: Use uma imagem base do Java. A 'slim' é mais leve.
-FROM openjdk:17-jdk-slim
+# ESTÁGIO 1: Build da Aplicação
+# Usamos uma imagem que já vem com o Maven (ferramenta de build) e o JDK.
+FROM maven:3.8.5-openjdk-17 AS build
 
-# Passo 2: Defina um diretório de trabalho dentro do container
+# Define o diretório de trabalho
 WORKDIR /app
 
-# Passo 3: Copie o arquivo .jar compilado do seu projeto para o container
-# O Maven/Gradle geralmente gera o .jar na pasta 'target'
-COPY target/*.jar app.jar
+# Copia primeiro o pom.xml para aproveitar o cache do Docker.
+# Se as dependências não mudarem, o Docker não vai baixá-las de novo.
+COPY pom.xml .
+RUN mvn dependency:go-offline
 
-# Passo 4: Exponha a porta que a sua aplicação usa (padrão do Spring Boot é 8080)
+# Copia o resto do código-fonte da sua aplicação
+COPY src ./src
+
+# Executa o comando para compilar o projeto e gerar o .jar
+# -DskipTests pula a execução dos testes para um build mais rápido.
+RUN mvn package -DskipTests
+
+
+# ESTÁGIO 2: Execução da Aplicação
+# Usamos uma imagem leve, apenas com o Java para rodar (JRE),
+# o que torna sua imagem final muito menor e mais segura.
+FROM openjdk:17-jre-slim
+
+# Define o diretório de trabalho
+WORKDIR /app
+
+# Copia APENAS o arquivo .jar compilado do estágio 'build' para a imagem final.
+# O nome do .jar é definido no seu arquivo pom.xml.
+COPY --from=build /app/target/Sentinel-API-0.0.1-SNAPSHOT.jar app.jar
+
+# Expõe a porta que a sua aplicação usa
 EXPOSE 8080
 
-# Passo 5: Comando para executar a aplicação quando o container iniciar
+# Comando para iniciar a sua aplicação
 ENTRYPOINT ["java", "-jar", "app.jar"]
