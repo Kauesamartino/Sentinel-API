@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +51,7 @@ public class OcorrenciaController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemOcorrencias>> listar(@PageableDefault(size = 50) Pageable pageable){
+    public ResponseEntity<Page<DadosListagemOcorrencias>> listar(@PageableDefault(size = 20, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable){
         var page = ocorrenciaRepository.findAllByAtivoTrue(pageable).map(DadosListagemOcorrencias::new);
         return ResponseEntity.ok(page);
     }
