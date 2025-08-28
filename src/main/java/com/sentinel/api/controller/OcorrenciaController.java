@@ -63,14 +63,6 @@ public class OcorrenciaController {
         ocorrencia.atualizarInformacoes(dados);
         return ResponseEntity.ok(new  DadosDetalhamentoOcorrencia(ocorrencia));
     }
-    
-    @DeleteMapping("inativar/{id}")
-    @Transactional
-    public ResponseEntity<?> desativar(@PathVariable Long id){
-        var ocorrencia = ocorrenciaRepository.getReferenceById(id);
-        ocorrencia.excluir();
-        return ResponseEntity.noContent().build();
-    }
 
     @DeleteMapping("{id}")
     @Transactional
