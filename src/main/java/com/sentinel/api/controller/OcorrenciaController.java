@@ -66,9 +66,17 @@ public class OcorrenciaController {
     
     @DeleteMapping("inativar/{id}")
     @Transactional
-    public ResponseEntity<?> excluir(@PathVariable Long id){
+    public ResponseEntity<?> desativar(@PathVariable Long id){
         var ocorrencia = ocorrenciaRepository.getReferenceById(id);
         ocorrencia.excluir();
         return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("{id}")
+    @Transactional
+    public ResponseEntity<?> excluir(@PathVariable Long id){
+        var ocorrencia = ocorrenciaRepository.getReferenceById(id);
+        ocorrenciaRepository.deleteById(ocorrencia.getId());
+        return  ResponseEntity.noContent().build();
     }
 }
