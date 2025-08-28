@@ -64,7 +64,7 @@ public class OcorrenciaController {
         return ResponseEntity.ok(new  DadosDetalhamentoOcorrencia(ocorrencia));
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("inativar/{id}")
     @Transactional
     public ResponseEntity<?> excluir(@PathVariable Long id){
         var ocorrencia = ocorrenciaRepository.getReferenceById(id);
