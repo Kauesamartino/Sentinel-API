@@ -23,15 +23,15 @@ public class Estacao {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cco_id")
-    private CentroControleOperacoes controleOperacoes;
+    private CentroControleOperacoes cco;
 
     @Embedded
     private Endereco endereco;
 
-    public Estacao(DadosCadastroEstacao dados, CentroControleOperacoes controleOperacoes) {
+    public Estacao(DadosCadastroEstacao dados, CentroControleOperacoes cco) {
         this.nome = dados.nome();
         this.linha = dados.linha();
-        this.controleOperacoes = controleOperacoes;
+        this.cco = cco;
         this.endereco = new Endereco(dados.endereco());
     }
 }
