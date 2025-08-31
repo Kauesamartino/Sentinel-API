@@ -11,6 +11,6 @@ public record DadosDetalhamentoEstacao(
         Endereco endereco
 ) {
     public DadosDetalhamentoEstacao(Estacao estacao){
-        this(estacao.getId(), estacao.getNome(), estacao.getLinha(), estacao.getControleOperacoes()!= null ? new DadosDetalhamentoCentroControleOperacoes(estacao.getControleOperacoes()) : null, estacao.getEndereco());
+        this(estacao.getId(), estacao.getNome(), estacao.getLinha(), estacao.getCco()!= null ? new DadosDetalhamentoCentroControleOperacoes(estacao.getCco()) : null, estacao.getEndereco());
     }
 }
