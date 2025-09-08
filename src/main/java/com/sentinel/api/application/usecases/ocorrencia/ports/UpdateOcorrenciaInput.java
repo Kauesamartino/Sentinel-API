@@ -1,4 +1,4 @@
-package com.sentinel.api.application.usecases.ocorrencia;
+package com.sentinel.api.application.usecases.ocorrencia.ports;
 
 import com.sentinel.api.domain.enums.Status;
 import com.sentinel.api.domain.enums.TipoOcorrencia;

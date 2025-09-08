@@ -1,5 +1,6 @@
 package com.sentinel.api.application.usecases.ocorrencia;
 
+import com.sentinel.api.application.usecases.ocorrencia.ports.UpdateOcorrenciaInput;
 import com.sentinel.api.domain.entity.Ocorrencia;
 import com.sentinel.api.infrastructure.repository.OcorrenciaRepository;
 import com.sentinel.api.interfaces.mapper.OcorrenciaMapper;

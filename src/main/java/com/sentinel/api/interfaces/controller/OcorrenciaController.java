@@ -1,6 +1,7 @@
 package com.sentinel.api.interfaces.controller;
 
 import com.sentinel.api.application.usecases.ocorrencia.*;
+import com.sentinel.api.application.usecases.ocorrencia.ports.UpdateOcorrenciaInput;
 import com.sentinel.api.domain.entity.Ocorrencia;
 import com.sentinel.api.infrastructure.repository.RelatorioRepository;
 import com.sentinel.api.infrastructure.repository.OcorrenciaRepository;
@@ -9,7 +10,6 @@ import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaOutDetailDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.DadosListagemOcorrencias;
 import com.sentinel.api.interfaces.mapper.OcorrenciaMapper;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
