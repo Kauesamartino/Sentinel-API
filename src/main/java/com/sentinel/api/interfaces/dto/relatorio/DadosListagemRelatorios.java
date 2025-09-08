@@ -1,7 +1,7 @@
 package com.sentinel.api.interfaces.dto.relatorio;
 
 import com.sentinel.api.domain.enums.TipoOcorrencia;
-import com.sentinel.api.infrastructure.entity.Relatorio;
+import com.sentinel.api.domain.entity.Relatorio;
 
 import java.time.LocalDateTime;
 

@@ -1,6 +1,6 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.infrastructure.entity.Relatorio;
+import com.sentinel.api.domain.entity.Relatorio;
 import com.sentinel.api.infrastructure.repository.RelatorioRepository;
 import com.sentinel.api.interfaces.dto.relatorio.DadosCadastroRelatorio;
 import com.sentinel.api.interfaces.dto.relatorio.DadosDetalhamentoRelatorio;

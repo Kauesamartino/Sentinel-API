@@ -1,6 +1,6 @@
 package com.sentinel.api.infrastructure.repository;
 
-import com.sentinel.api.infrastructure.entity.Ocorrencia;
+import com.sentinel.api.domain.entity.Ocorrencia;
 import com.sentinel.api.domain.enums.TipoOcorrencia;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,6 +1,5 @@
-package com.sentinel.api.infrastructure.entity;
+package com.sentinel.api.domain.entity;
 
-import com.sentinel.api.domain.entity.Endereco;
 import com.sentinel.api.domain.enums.Linha;
 import com.sentinel.api.interfaces.dto.estacao.DadosCadastroEstacao;
 import jakarta.persistence.*;

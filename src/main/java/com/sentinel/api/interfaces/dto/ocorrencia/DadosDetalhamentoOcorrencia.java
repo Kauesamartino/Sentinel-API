@@ -1,6 +1,6 @@
 package com.sentinel.api.interfaces.dto.ocorrencia;
 
-import com.sentinel.api.infrastructure.entity.Ocorrencia;
+import com.sentinel.api.domain.entity.Ocorrencia;
 import com.sentinel.api.domain.enums.Severidade;
 import com.sentinel.api.domain.enums.Status;
 import com.sentinel.api.domain.enums.TipoOcorrencia;

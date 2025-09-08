@@ -1,4 +1,4 @@
-package com.sentinel.api.infrastructure.entity;
+package com.sentinel.api.domain.entity;
 
 import com.sentinel.api.domain.enums.Severidade;
 import com.sentinel.api.domain.enums.Status;

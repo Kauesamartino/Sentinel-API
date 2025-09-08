@@ -1,6 +1,6 @@
 package com.sentinel.api.interfaces.dto.cco;
 
-import com.sentinel.api.infrastructure.entity.CentroControleOperacoes;
+import com.sentinel.api.domain.entity.CentroControleOperacoes;
 
 public record DadosDetalhamentoCentroControleOperacoes(
         Long id,

@@ -1,6 +1,6 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.infrastructure.entity.CentroControleOperacoes;
+import com.sentinel.api.domain.entity.CentroControleOperacoes;
 import com.sentinel.api.infrastructure.repository.CentroControleOperacoesRepository;
 import com.sentinel.api.interfaces.dto.cco.DadosCadastroCentroControleOperacoes;
 import com.sentinel.api.interfaces.dto.cco.DadosDetalhamentoCentroControleOperacoes;

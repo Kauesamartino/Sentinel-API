@@ -1,6 +1,6 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.application.service.OcorrenciaService;
+import com.sentinel.api.application.usecases.ocorrencia.OcorrenciaService;
 import com.sentinel.api.infrastructure.repository.RelatorioRepository;
 import com.sentinel.api.infrastructure.repository.OcorrenciaRepository;
 import com.sentinel.api.interfaces.dto.ocorrencia.DadosAtualizacaoOcorrencia;
