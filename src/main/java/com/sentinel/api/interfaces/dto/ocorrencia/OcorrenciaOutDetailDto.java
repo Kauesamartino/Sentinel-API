@@ -8,7 +8,7 @@ import com.sentinel.api.interfaces.dto.estacao.DadosDetalhamentoEstacao;
 
 import java.time.LocalDateTime;
 
-public record DadosDetalhamentoOcorrencia(
+public record OcorrenciaOutDetailDto(
         Long id,
         String titulo,
         String descricao,
@@ -19,7 +19,7 @@ public record DadosDetalhamentoOcorrencia(
         DadosDetalhamentoEstacao dadosDetalhamentoEstacao,
         Boolean ativo
 ) {
-    public DadosDetalhamentoOcorrencia(Ocorrencia ocorrencia){
+    public OcorrenciaOutDetailDto(Ocorrencia ocorrencia){
         this(
                 ocorrencia.getId(), 
                 ocorrencia.getTitulo(), 

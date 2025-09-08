@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 
-public record DadosCadastroOcorrencia(
+public record OcorrenciaInDto(
         @NotBlank(message = "{titulo.obrigatorio}")
         String titulo,
 
@@ -17,6 +17,7 @@ public record DadosCadastroOcorrencia(
         @NotNull(message = "{severidade.obrigatorio}")
         Severidade severidade,
         Long idEstacao,
+        Boolean ativo,
 
         @NotNull(message = "{tipoOcorrencia.obrigatorio}")
         TipoOcorrencia tipoOcorrencia

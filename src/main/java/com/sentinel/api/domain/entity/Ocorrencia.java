@@ -1,10 +1,10 @@
 package com.sentinel.api.domain.entity;
 
+import com.sentinel.api.application.usecases.ocorrencia.CreateOcorrenciaInput;
 import com.sentinel.api.domain.enums.Severidade;
 import com.sentinel.api.domain.enums.Status;
 import com.sentinel.api.domain.enums.TipoOcorrencia;
 import com.sentinel.api.interfaces.dto.ocorrencia.DadosAtualizacaoOcorrencia;
-import com.sentinel.api.interfaces.dto.ocorrencia.DadosCadastroOcorrencia;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode(of = "id")
 public class Ocorrencia {
 
@@ -41,17 +41,24 @@ public class Ocorrencia {
 
     private Boolean ativo;
 
-    public Ocorrencia(DadosCadastroOcorrencia dados, Estacao estacao) {
-        this.titulo = dados.titulo();
-        this.descricao = dados.descricao();
-        this.data = LocalDateTime.now();
-        this.severidade = dados.severidade();
-        this.tipoOcorrencia = dados.tipoOcorrencia();
+    public Ocorrencia(CreateOcorrenciaInput input, Estacao estacao) {
+        if (estacao == null) {
+            throw new IllegalArgumentException("Estação é obrigatório");
+        }
+        if (input.ativo() == null) {
+            this.ativo = false;
+        } else {
+            this.ativo = input.ativo();
+        }
+
+        this.titulo = input.titulo();
+        this.descricao = input.descricao();
         this.estacao = estacao;
-        this.ativo = true;
+        this.severidade = input.severidade();
         this.status = Status.ABERTO;
+        this.tipoOcorrencia = input.tipoOcorrencia();
     }
-    
+
     public void atualizarInformacoes(@Valid DadosAtualizacaoOcorrencia dados){
         if(dados.titulo() != null){
             this.titulo = dados.titulo();

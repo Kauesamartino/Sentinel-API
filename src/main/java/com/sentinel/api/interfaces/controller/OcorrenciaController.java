@@ -1,12 +1,15 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.application.usecases.ocorrencia.OcorrenciaService;
+import com.sentinel.api.application.usecases.ocorrencia.CreateOcorrenciaInput;
+import com.sentinel.api.application.usecases.ocorrencia.CreateOcorrenciaUseCase;
+import com.sentinel.api.domain.entity.Ocorrencia;
 import com.sentinel.api.infrastructure.repository.RelatorioRepository;
 import com.sentinel.api.infrastructure.repository.OcorrenciaRepository;
 import com.sentinel.api.interfaces.dto.ocorrencia.DadosAtualizacaoOcorrencia;
-import com.sentinel.api.interfaces.dto.ocorrencia.DadosCadastroOcorrencia;
-import com.sentinel.api.interfaces.dto.ocorrencia.DadosDetalhamentoOcorrencia;
+import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
+import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaOutDetailDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.DadosListagemOcorrencias;
+import com.sentinel.api.interfaces.mapper.OcorrenciaMapper;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
 @RestController
 @RequestMapping("ocorrencias")
 @RequiredArgsConstructor
@@ -26,14 +28,17 @@ public class OcorrenciaController {
 
     private final RelatorioRepository relatorioRepository;
     private final OcorrenciaRepository ocorrenciaRepository;
-    private final OcorrenciaService ocorrenciaService;
+    private final CreateOcorrenciaUseCase createOcorrenciaUseCase;
+    private final OcorrenciaMapper mapper;
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroOcorrencia dados, UriComponentsBuilder uriBuilder){
-        var dto = ocorrenciaService.cadastrar(dados);
-        var uri = uriBuilder.path("/ocorrencias/{id}").buildAndExpand(dto.id()).toUri();
-        return ResponseEntity.created(uri).body(dto);
+    public ResponseEntity<OcorrenciaOutDetailDto> cadastrar(@RequestBody @Valid OcorrenciaInDto dados, UriComponentsBuilder uriBuilder){
+        CreateOcorrenciaInput ocorrenciaInput = mapper.inDtoToInput(dados);
+        Ocorrencia createdOcorrencia =  createOcorrenciaUseCase.execute(ocorrenciaInput);
+        OcorrenciaOutDetailDto ocorrenciaOutDetailDto = mapper.entityToOutDetailDto(createdOcorrencia);
+        var uri = uriBuilder.path("/ocorrencias/{id}").buildAndExpand(ocorrenciaOutDetailDto.id()).toUri();
+        return ResponseEntity.created(uri).body(ocorrenciaOutDetailDto);
     }
 
     @GetMapping("relatorio/{id}")
@@ -50,9 +55,9 @@ public class OcorrenciaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> detalhar(@PathVariable Long id){
+    public ResponseEntity<OcorrenciaOutDetailDto> detalhar(@PathVariable Long id){
         var ocorrencia = ocorrenciaRepository.getReferenceById(id);
-        return ResponseEntity.ok(new DadosDetalhamentoOcorrencia(ocorrencia));
+        return ResponseEntity.ok(new OcorrenciaOutDetailDto(ocorrencia));
     }
 
     @GetMapping
@@ -63,17 +68,17 @@ public class OcorrenciaController {
 
     @PutMapping("{id}")
     @Transactional
-    public ResponseEntity<?> atualizar(@RequestBody @Valid DadosAtualizacaoOcorrencia dados){
+    public ResponseEntity<OcorrenciaOutDetailDto> atualizar(@RequestBody @Valid DadosAtualizacaoOcorrencia dados){
         var ocorrencia = ocorrenciaRepository.getReferenceById(dados.id());
         ocorrencia.atualizarInformacoes(dados);
-        return ResponseEntity.ok(new  DadosDetalhamentoOcorrencia(ocorrencia));
+        return ResponseEntity.ok(new OcorrenciaOutDetailDto(ocorrencia));
     }
 
     @DeleteMapping("{id}")
     @Transactional
-    public ResponseEntity<?> excluir(@PathVariable Long id){
+    public ResponseEntity<Void> excluir(@PathVariable Long id){
         var ocorrencia = ocorrenciaRepository.getReferenceById(id);
         ocorrenciaRepository.deleteById(ocorrencia.getId());
-        return  ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build();
     }
 }
