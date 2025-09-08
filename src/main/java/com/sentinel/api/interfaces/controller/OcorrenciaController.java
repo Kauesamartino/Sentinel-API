@@ -21,6 +21,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
+
 @RestController
 @RequestMapping("ocorrencias")
 @RequiredArgsConstructor
@@ -37,7 +39,7 @@ public class OcorrenciaController {
         CreateOcorrenciaInput ocorrenciaInput = mapper.inDtoToInput(dados);
         Ocorrencia createdOcorrencia =  createOcorrenciaUseCase.execute(ocorrenciaInput);
         OcorrenciaOutDetailDto ocorrenciaOutDetailDto = mapper.entityToOutDetailDto(createdOcorrencia);
-        var uri = uriBuilder.path("/ocorrencias/{id}").buildAndExpand(ocorrenciaOutDetailDto.id()).toUri();
+        URI uri = uriBuilder.path("/ocorrencias/{id}").buildAndExpand(ocorrenciaOutDetailDto.id()).toUri();
         return ResponseEntity.created(uri).body(ocorrenciaOutDetailDto);
     }
 

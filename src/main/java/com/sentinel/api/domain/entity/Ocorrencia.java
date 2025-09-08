@@ -54,6 +54,7 @@ public class Ocorrencia {
         this.titulo = input.titulo();
         this.descricao = input.descricao();
         this.estacao = estacao;
+        this.data = LocalDateTime.now();
         this.severidade = input.severidade();
         this.status = Status.ABERTO;
         this.tipoOcorrencia = input.tipoOcorrencia();
