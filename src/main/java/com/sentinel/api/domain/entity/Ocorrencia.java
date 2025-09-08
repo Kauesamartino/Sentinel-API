@@ -1,12 +1,10 @@
 package com.sentinel.api.domain.entity;
 
-import com.sentinel.api.application.usecases.ocorrencia.CreateOcorrenciaInput;
+import com.sentinel.api.application.usecases.ocorrencia.ports.CreateOcorrenciaInput;
 import com.sentinel.api.domain.enums.Severidade;
 import com.sentinel.api.domain.enums.Status;
 import com.sentinel.api.domain.enums.TipoOcorrencia;
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import lombok.*;
 
 import java.time.LocalDateTime;
