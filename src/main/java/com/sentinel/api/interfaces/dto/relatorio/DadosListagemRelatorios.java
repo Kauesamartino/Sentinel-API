@@ -1,0 +1,26 @@
+package com.sentinel.api.interfaces.dto.relatorio;
+
+import com.sentinel.api.domain.enums.TipoOcorrencia;
+import com.sentinel.api.infrastructure.entity.Relatorio;
+
+import java.time.LocalDateTime;
+
+public record DadosListagemRelatorios(
+        Long id,
+        String titulo,
+        String descricao,
+        TipoOcorrencia tipoOcorrencia,
+        LocalDateTime dataInicio,
+        LocalDateTime dataFim
+) {
+    public DadosListagemRelatorios(Relatorio relatorio) {
+        this(
+                relatorio.getId(),
+                relatorio.getTitulo(),
+                relatorio.getDescricao(),
+                relatorio.getTipoOcorrencia(),
+                relatorio.getDataInicio(),
+                relatorio.getDataFim()
+        );
+    }
+}

@@ -1,7 +1,10 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.domain.ocorrencia.DadosDetalhamentoOcorrencia;
-import com.sentinel.api.domain.relatorio.*;
+import com.sentinel.api.infrastructure.entity.Relatorio;
+import com.sentinel.api.infrastructure.repository.RelatorioRepository;
+import com.sentinel.api.interfaces.dto.relatorio.DadosCadastroRelatorio;
+import com.sentinel.api.interfaces.dto.relatorio.DadosDetalhamentoRelatorio;
+import com.sentinel.api.interfaces.dto.relatorio.DadosListagemRelatorios;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +14,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("relatorios")

@@ -1,7 +1,12 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.domain.ocorrencia.*;
-import com.sentinel.api.domain.relatorio.RelatorioRepository;
+import com.sentinel.api.application.service.OcorrenciaService;
+import com.sentinel.api.infrastructure.repository.RelatorioRepository;
+import com.sentinel.api.infrastructure.repository.OcorrenciaRepository;
+import com.sentinel.api.interfaces.dto.ocorrencia.DadosAtualizacaoOcorrencia;
+import com.sentinel.api.interfaces.dto.ocorrencia.DadosCadastroOcorrencia;
+import com.sentinel.api.interfaces.dto.ocorrencia.DadosDetalhamentoOcorrencia;
+import com.sentinel.api.interfaces.dto.ocorrencia.DadosListagemOcorrencias;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,9 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.domain.cco.CentroControleOperacoes;
-import com.sentinel.api.domain.cco.CentroControleOperacoesRepository;
-import com.sentinel.api.domain.cco.DadosCadastroCentroControleOperacoes;
-import com.sentinel.api.domain.cco.DadosDetalhamentoCentroControleOperacoes;
+import com.sentinel.api.infrastructure.entity.CentroControleOperacoes;
+import com.sentinel.api.infrastructure.repository.CentroControleOperacoesRepository;
+import com.sentinel.api.interfaces.dto.cco.DadosCadastroCentroControleOperacoes;
+import com.sentinel.api.interfaces.dto.cco.DadosDetalhamentoCentroControleOperacoes;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
