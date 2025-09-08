@@ -3,6 +3,7 @@ package com.sentinel.api.application.usecases.ocorrencia;
 import com.sentinel.api.domain.entity.Ocorrencia;
 import com.sentinel.api.infrastructure.repository.OcorrenciaRepository;
 import com.sentinel.api.interfaces.mapper.OcorrenciaMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ public class UpdateOcorrenciaUseCase {
     private final OcorrenciaRepository repository;
     private final OcorrenciaMapper mapper;
 
+    @Transactional
     public Ocorrencia execute(Long id, UpdateOcorrenciaInput input) {
         Ocorrencia ocorrencia = repository.findById(id).orElseThrow();
 

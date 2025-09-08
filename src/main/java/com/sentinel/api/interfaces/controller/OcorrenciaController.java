@@ -35,7 +35,6 @@ public class OcorrenciaController {
     private final OcorrenciaMapper mapper;
 
     @PostMapping
-    @Transactional
     public ResponseEntity<OcorrenciaOutDetailDto> cadastrar(@RequestBody @Valid OcorrenciaInDto dados, UriComponentsBuilder uriBuilder){
         CreateOcorrenciaInput ocorrenciaInput = mapper.inDtoToInput(dados);
         Ocorrencia createdOcorrencia =  createOcorrenciaUseCase.execute(ocorrenciaInput);
@@ -70,7 +69,6 @@ public class OcorrenciaController {
     }
 
     @PutMapping("/{id}")
-    @Transactional
     public ResponseEntity<OcorrenciaOutDetailDto> atualizar(@PathVariable("id") Long id, @RequestBody @Valid OcorrenciaUpdateDto dados){
         UpdateOcorrenciaInput input = mapper.updateDtoToInput(dados);
         Ocorrencia updatedOcorrencia = updateOcorrenciaUseCase.execute(id, input);
