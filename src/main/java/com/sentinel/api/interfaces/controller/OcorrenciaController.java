@@ -1,9 +1,6 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.application.usecases.ocorrencia.CreateOcorrenciaInput;
-import com.sentinel.api.application.usecases.ocorrencia.CreateOcorrenciaUseCase;
-import com.sentinel.api.application.usecases.ocorrencia.UpdateOcorrenciaInput;
-import com.sentinel.api.application.usecases.ocorrencia.UpdateOcorrenciaUseCase;
+import com.sentinel.api.application.usecases.ocorrencia.*;
 import com.sentinel.api.domain.entity.Ocorrencia;
 import com.sentinel.api.infrastructure.repository.RelatorioRepository;
 import com.sentinel.api.infrastructure.repository.OcorrenciaRepository;
@@ -34,6 +31,7 @@ public class OcorrenciaController {
     private final OcorrenciaRepository ocorrenciaRepository;
     private final CreateOcorrenciaUseCase createOcorrenciaUseCase;
     private final UpdateOcorrenciaUseCase updateOcorrenciaUseCase;
+    private final DeleteOcorrenciaUseCase deleteOcorrenciaUseCase;
     private final OcorrenciaMapper mapper;
 
     @PostMapping
@@ -81,10 +79,8 @@ public class OcorrenciaController {
     }
 
     @DeleteMapping("/{id}")
-    @Transactional
     public ResponseEntity<Void> excluir(@PathVariable("id") Long id){
-        var ocorrencia = ocorrenciaRepository.getReferenceById(id);
-        ocorrenciaRepository.deleteById(ocorrencia.getId());
+        deleteOcorrenciaUseCase.execute(id);
         return ResponseEntity.noContent().build();
     }
 }
