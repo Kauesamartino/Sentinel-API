@@ -2,10 +2,12 @@ package com.sentinel.api.interfaces.controller;
 
 import com.sentinel.api.application.usecases.ocorrencia.CreateOcorrenciaInput;
 import com.sentinel.api.application.usecases.ocorrencia.CreateOcorrenciaUseCase;
+import com.sentinel.api.application.usecases.ocorrencia.UpdateOcorrenciaInput;
+import com.sentinel.api.application.usecases.ocorrencia.UpdateOcorrenciaUseCase;
 import com.sentinel.api.domain.entity.Ocorrencia;
 import com.sentinel.api.infrastructure.repository.RelatorioRepository;
 import com.sentinel.api.infrastructure.repository.OcorrenciaRepository;
-import com.sentinel.api.interfaces.dto.ocorrencia.DadosAtualizacaoOcorrencia;
+import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaOutDetailDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.DadosListagemOcorrencias;
@@ -31,6 +33,7 @@ public class OcorrenciaController {
     private final RelatorioRepository relatorioRepository;
     private final OcorrenciaRepository ocorrenciaRepository;
     private final CreateOcorrenciaUseCase createOcorrenciaUseCase;
+    private final UpdateOcorrenciaUseCase updateOcorrenciaUseCase;
     private final OcorrenciaMapper mapper;
 
     @PostMapping
@@ -70,10 +73,11 @@ public class OcorrenciaController {
 
     @PutMapping("{id}")
     @Transactional
-    public ResponseEntity<OcorrenciaOutDetailDto> atualizar(@RequestBody @Valid DadosAtualizacaoOcorrencia dados){
-        var ocorrencia = ocorrenciaRepository.getReferenceById(dados.id());
-        ocorrencia.atualizarInformacoes(dados);
-        return ResponseEntity.ok(new OcorrenciaOutDetailDto(ocorrencia));
+    public ResponseEntity<OcorrenciaOutDetailDto> atualizar(@PathVariable("id") Long id, @RequestBody @Valid OcorrenciaUpdateDto dados){
+        UpdateOcorrenciaInput input = mapper.updateDtoToInput(dados);
+        Ocorrencia updatedOcorrencia = updateOcorrenciaUseCase.execute(id, input);
+        OcorrenciaOutDetailDto ocorrenciaOutDetailDto = mapper.entityToOutDetailDto(updatedOcorrencia);
+        return ResponseEntity.ok(ocorrenciaOutDetailDto);
     }
 
     @DeleteMapping("{id}")
