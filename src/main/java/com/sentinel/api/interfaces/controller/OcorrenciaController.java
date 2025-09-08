@@ -71,7 +71,7 @@ public class OcorrenciaController {
         return ResponseEntity.ok(page);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<OcorrenciaOutDetailDto> atualizar(@PathVariable("id") Long id, @RequestBody @Valid OcorrenciaUpdateDto dados){
         UpdateOcorrenciaInput input = mapper.updateDtoToInput(dados);
@@ -80,9 +80,9 @@ public class OcorrenciaController {
         return ResponseEntity.ok(ocorrenciaOutDetailDto);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Void> excluir(@PathVariable Long id){
+    public ResponseEntity<Void> excluir(@PathVariable("id") Long id){
         var ocorrencia = ocorrenciaRepository.getReferenceById(id);
         ocorrenciaRepository.deleteById(ocorrencia.getId());
         return ResponseEntity.noContent().build();
