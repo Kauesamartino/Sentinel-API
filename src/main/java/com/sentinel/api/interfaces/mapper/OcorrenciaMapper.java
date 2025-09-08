@@ -1,9 +1,11 @@
 package com.sentinel.api.interfaces.mapper;
 
 import com.sentinel.api.application.usecases.ocorrencia.CreateOcorrenciaInput;
+import com.sentinel.api.application.usecases.ocorrencia.UpdateOcorrenciaInput;
 import com.sentinel.api.domain.entity.Ocorrencia;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaOutDetailDto;
+import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
 
@@ -16,5 +18,9 @@ public class OcorrenciaMapper {
 
     public OcorrenciaOutDetailDto entityToOutDetailDto(Ocorrencia createdOcorrencia) {
         return new OcorrenciaOutDetailDto(createdOcorrencia);
+    }
+
+    public UpdateOcorrenciaInput updateDtoToInput(@Valid OcorrenciaUpdateDto dados) {
+        return new UpdateOcorrenciaInput(dados.titulo(), dados.descricao(), dados.status(), dados.tipoOcorrencia());
     }
 }
