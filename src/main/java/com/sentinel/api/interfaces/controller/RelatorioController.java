@@ -1,6 +1,6 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.domain.entity.Relatorio;
+import com.sentinel.api.infrastructure.entity.JpaRelatorioEntity;
 import com.sentinel.api.infrastructure.repository.RelatorioRepository;
 import com.sentinel.api.interfaces.dto.relatorio.DadosCadastroRelatorio;
 import com.sentinel.api.interfaces.dto.relatorio.DadosDetalhamentoRelatorio;
@@ -25,7 +25,7 @@ public class RelatorioController {
     @PostMapping
     @Transactional
     public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroRelatorio dados, UriComponentsBuilder uriBuilder){
-        var relatorio = new Relatorio(dados);
+        var relatorio = new JpaRelatorioEntity(dados);
         relatorioRepository.save(relatorio);
         var uri = uriBuilder.path("/relatorios/{id}").buildAndExpand(relatorio.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoRelatorio(relatorio));

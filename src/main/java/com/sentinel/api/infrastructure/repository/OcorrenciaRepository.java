@@ -1,6 +1,6 @@
 package com.sentinel.api.infrastructure.repository;
 
-import com.sentinel.api.domain.entity.Ocorrencia;
+import com.sentinel.api.infrastructure.entity.JpaOcorrenciaEntity;
 import com.sentinel.api.domain.enums.TipoOcorrencia;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,8 +10,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 
-public interface OcorrenciaRepository extends JpaRepository<Ocorrencia, Long> {
-    Page<Ocorrencia> findAllByAtivoTrue(Pageable pageable);
+public interface OcorrenciaRepository extends JpaRepository<JpaOcorrenciaEntity, Long> {
+    Page<JpaOcorrenciaEntity> findAllByAtivoTrue(Pageable pageable);
 
     @Query("""
         SELECT o FROM Ocorrencia o
@@ -19,7 +19,7 @@ public interface OcorrenciaRepository extends JpaRepository<Ocorrencia, Long> {
           AND o.data BETWEEN :inicio AND :fim
           AND (:tipoOcorrencia IS NULL OR o.tipoOcorrencia = :tipoOcorrencia)
     """)
-    Page<Ocorrencia> findByDataBetweenAndTipoOcorrenciaOptional(
+    Page<JpaOcorrenciaEntity> findByDataBetweenAndTipoOcorrenciaOptional(
             @Param("inicio") LocalDateTime inicio,
             @Param("fim") LocalDateTime fim,
             @Param("tipoOcorrencia") TipoOcorrencia tipoOcorrencia,

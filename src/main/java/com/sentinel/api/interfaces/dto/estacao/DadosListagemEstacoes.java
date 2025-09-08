@@ -1,7 +1,7 @@
 package com.sentinel.api.interfaces.dto.estacao;
 
-import com.sentinel.api.domain.entity.Endereco;
-import com.sentinel.api.domain.entity.Estacao;
+import com.sentinel.api.domain.model.Endereco;
+import com.sentinel.api.infrastructure.entity.JpaEstacaoEntity;
 import com.sentinel.api.domain.enums.Linha;
 
 public record DadosListagemEstacoes(
@@ -10,12 +10,12 @@ public record DadosListagemEstacoes(
         Linha linha,
         Endereco endereco
 ) {
-    public DadosListagemEstacoes(Estacao estacao){
+    public DadosListagemEstacoes(JpaEstacaoEntity jpaEstacaoEntity){
         this(
-                estacao.getId(),
-                estacao.getNome(),
-                estacao.getLinha(),
-                estacao.getEndereco()
+                jpaEstacaoEntity.getId(),
+                jpaEstacaoEntity.getNome(),
+                jpaEstacaoEntity.getLinha(),
+                jpaEstacaoEntity.getEndereco()
         );
     }
 }

@@ -1,4 +1,4 @@
-package com.sentinel.api.domain.entity;
+package com.sentinel.api.domain.model;
 
 
 import com.sentinel.api.interfaces.dto.endereco.DadosEndereco;

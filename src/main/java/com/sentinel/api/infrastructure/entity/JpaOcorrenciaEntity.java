@@ -1,4 +1,4 @@
-package com.sentinel.api.domain.entity;
+package com.sentinel.api.infrastructure.entity;
 
 import com.sentinel.api.application.usecases.ocorrencia.ports.CreateOcorrenciaInput;
 import com.sentinel.api.domain.enums.Severidade;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode(of = "id")
-public class Ocorrencia {
+public class JpaOcorrenciaEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,12 +35,12 @@ public class Ocorrencia {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "estacao_id")
-    private Estacao estacao;
+    private JpaEstacaoEntity jpaEstacaoEntity;
 
     private Boolean ativo;
 
-    public Ocorrencia(CreateOcorrenciaInput input, Estacao estacao) {
-        if (estacao == null) {
+    public JpaOcorrenciaEntity(CreateOcorrenciaInput input, JpaEstacaoEntity jpaEstacaoEntity) {
+        if (jpaEstacaoEntity == null) {
             throw new IllegalArgumentException("Estação é obrigatório");
         }
         if (input.ativo() == null) {
@@ -51,7 +51,7 @@ public class Ocorrencia {
 
         this.titulo = input.titulo();
         this.descricao = input.descricao();
-        this.estacao = estacao;
+        this.jpaEstacaoEntity = jpaEstacaoEntity;
         this.data = LocalDateTime.now();
         this.severidade = input.severidade();
         this.status = Status.ABERTO;

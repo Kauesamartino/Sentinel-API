@@ -1,4 +1,4 @@
-package com.sentinel.api.domain.entity;
+package com.sentinel.api.infrastructure.entity;
 
 import com.sentinel.api.domain.enums.TipoOcorrencia;
 import com.sentinel.api.interfaces.dto.relatorio.DadosCadastroRelatorio;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Relatorio {
+public class JpaRelatorioEntity {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,7 +26,7 @@ public class Relatorio {
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
 
-    public Relatorio(DadosCadastroRelatorio dados) {
+    public JpaRelatorioEntity(DadosCadastroRelatorio dados) {
         this.titulo = dados.titulo();
         this.descricao = dados.descricao();
         this.tipoOcorrencia = dados.tipoOcorrencia();

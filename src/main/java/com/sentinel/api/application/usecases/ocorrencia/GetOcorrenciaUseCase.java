@@ -2,19 +2,17 @@ package com.sentinel.api.application.usecases.ocorrencia;
 
 import com.sentinel.api.infrastructure.entity.JpaOcorrenciaEntity;
 import com.sentinel.api.infrastructure.repository.OcorrenciaRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class DeleteOcorrenciaUseCase {
+public class GetOcorrenciaUseCase {
 
     private final OcorrenciaRepository ocorrenciaRepository;
 
-    @Transactional
-    public void execute(Long id) {
-        JpaOcorrenciaEntity jpaOcorrenciaEntity = ocorrenciaRepository.findById(id).orElseThrow();
-        ocorrenciaRepository.delete(jpaOcorrenciaEntity);
+    public JpaOcorrenciaEntity execute(Long id) {
+        return ocorrenciaRepository.findById(id).orElseThrow();
     }
+
 }

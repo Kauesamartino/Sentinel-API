@@ -3,7 +3,7 @@ package com.sentinel.api.interfaces.controller;
 import com.sentinel.api.application.usecases.ocorrencia.*;
 import com.sentinel.api.application.usecases.ocorrencia.ports.CreateOcorrenciaInput;
 import com.sentinel.api.application.usecases.ocorrencia.ports.UpdateOcorrenciaInput;
-import com.sentinel.api.domain.entity.Ocorrencia;
+import com.sentinel.api.infrastructure.entity.JpaOcorrenciaEntity;
 import com.sentinel.api.infrastructure.repository.RelatorioRepository;
 import com.sentinel.api.infrastructure.repository.OcorrenciaRepository;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
@@ -33,13 +33,14 @@ public class OcorrenciaController {
     private final CreateOcorrenciaUseCase createOcorrenciaUseCase;
     private final UpdateOcorrenciaUseCase updateOcorrenciaUseCase;
     private final DeleteOcorrenciaUseCase deleteOcorrenciaUseCase;
+    private final GetOcorrenciaUseCase getOcorrenciaUseCase;
     private final OcorrenciaMapper mapper;
 
     @PostMapping
     public ResponseEntity<OcorrenciaOutDetailDto> cadastrar(@RequestBody @Valid OcorrenciaInDto dados, UriComponentsBuilder uriBuilder){
         CreateOcorrenciaInput ocorrenciaInput = mapper.inDtoToInput(dados);
-        Ocorrencia createdOcorrencia =  createOcorrenciaUseCase.execute(ocorrenciaInput);
-        OcorrenciaOutDetailDto ocorrenciaOutDetailDto = mapper.entityToOutDetailDto(createdOcorrencia);
+        JpaOcorrenciaEntity createdJpaOcorrenciaEntity =  createOcorrenciaUseCase.execute(ocorrenciaInput);
+        OcorrenciaOutDetailDto ocorrenciaOutDetailDto = mapper.entityToOutDetailDto(createdJpaOcorrenciaEntity);
         URI uri = uriBuilder.path("/ocorrencias/{id}").buildAndExpand(ocorrenciaOutDetailDto.id()).toUri();
         return ResponseEntity.created(uri).body(ocorrenciaOutDetailDto);
     }
@@ -59,8 +60,9 @@ public class OcorrenciaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<OcorrenciaOutDetailDto> detalhar(@PathVariable Long id){
-        var ocorrencia = ocorrenciaRepository.getReferenceById(id);
-        return ResponseEntity.ok(new OcorrenciaOutDetailDto(ocorrencia));
+        JpaOcorrenciaEntity jpaOcorrenciaEntity = getOcorrenciaUseCase.execute(id);
+        OcorrenciaOutDetailDto dto = mapper.entityToOutDetailDto(jpaOcorrenciaEntity);
+        return ResponseEntity.ok(dto);
     }
 
     @GetMapping
@@ -72,8 +74,8 @@ public class OcorrenciaController {
     @PutMapping("/{id}")
     public ResponseEntity<OcorrenciaOutDetailDto> atualizar(@PathVariable("id") Long id, @RequestBody @Valid OcorrenciaUpdateDto dados){
         UpdateOcorrenciaInput input = mapper.updateDtoToInput(dados);
-        Ocorrencia updatedOcorrencia = updateOcorrenciaUseCase.execute(id, input);
-        OcorrenciaOutDetailDto ocorrenciaOutDetailDto = mapper.entityToOutDetailDto(updatedOcorrencia);
+        JpaOcorrenciaEntity updatedJpaOcorrenciaEntity = updateOcorrenciaUseCase.execute(id, input);
+        OcorrenciaOutDetailDto ocorrenciaOutDetailDto = mapper.entityToOutDetailDto(updatedJpaOcorrenciaEntity);
         return ResponseEntity.ok(ocorrenciaOutDetailDto);
     }
 

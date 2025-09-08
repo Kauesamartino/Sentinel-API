@@ -1,6 +1,6 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.domain.entity.CentroControleOperacoes;
+import com.sentinel.api.infrastructure.entity.JpaCentroControleOperacoesEntity;
 import com.sentinel.api.infrastructure.repository.CentroControleOperacoesRepository;
 import com.sentinel.api.interfaces.dto.cco.DadosCadastroCentroControleOperacoes;
 import com.sentinel.api.interfaces.dto.cco.DadosDetalhamentoCentroControleOperacoes;
@@ -24,7 +24,7 @@ public class CentroControleOperacoesController {
     @PostMapping
     @Transactional
     public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroCentroControleOperacoes dados, UriComponentsBuilder uriBuilder){
-        var cco = new CentroControleOperacoes(dados);
+        var cco = new JpaCentroControleOperacoesEntity(dados);
         repository.save(cco);
         var uri = uriBuilder.path("/cco/{id}").buildAndExpand(cco.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoCentroControleOperacoes(cco));

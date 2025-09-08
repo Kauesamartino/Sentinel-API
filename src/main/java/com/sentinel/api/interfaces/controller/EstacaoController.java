@@ -1,6 +1,6 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.domain.entity.Estacao;
+import com.sentinel.api.infrastructure.entity.JpaEstacaoEntity;
 import com.sentinel.api.infrastructure.repository.CentroControleOperacoesRepository;
 import com.sentinel.api.infrastructure.repository.EstacaoRepository;
 import com.sentinel.api.interfaces.dto.estacao.DadosCadastroEstacao;
@@ -29,7 +29,7 @@ public class EstacaoController {
     @Transactional
     public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroEstacao dados, UriComponentsBuilder uriBuilder){
         var cco = ccoRepository.getReferenceById(dados.idCco());
-        var estacao = new Estacao(dados, cco);
+        var estacao = new JpaEstacaoEntity(dados, cco);
         estacaoRepository.save(estacao);
         var uri = uriBuilder.path("/estacoes/{id}").buildAndExpand(estacao.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoEstacao(estacao));

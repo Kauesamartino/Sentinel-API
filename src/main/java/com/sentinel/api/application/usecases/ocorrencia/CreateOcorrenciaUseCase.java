@@ -1,8 +1,8 @@
 package com.sentinel.api.application.usecases.ocorrencia;
 
 import com.sentinel.api.application.usecases.ocorrencia.ports.CreateOcorrenciaInput;
-import com.sentinel.api.domain.entity.Estacao;
-import com.sentinel.api.domain.entity.Ocorrencia;
+import com.sentinel.api.infrastructure.entity.JpaEstacaoEntity;
+import com.sentinel.api.infrastructure.entity.JpaOcorrenciaEntity;
 import com.sentinel.api.infrastructure.repository.EstacaoRepository;
 import com.sentinel.api.infrastructure.repository.OcorrenciaRepository;
 import jakarta.transaction.Transactional;
@@ -17,10 +17,10 @@ public class CreateOcorrenciaUseCase {
     private final EstacaoRepository estacaoRepository;
 
     @Transactional
-    public Ocorrencia execute(CreateOcorrenciaInput input){
-        Estacao estacao = estacaoRepository.getReferenceById(input.idEstacao());
-        Ocorrencia ocorrencia = new Ocorrencia(input, estacao);
-        return ocorrenciaRepository.save(ocorrencia);
+    public JpaOcorrenciaEntity execute(CreateOcorrenciaInput input){
+        JpaEstacaoEntity jpaEstacaoEntity = estacaoRepository.getReferenceById(input.idEstacao());
+        JpaOcorrenciaEntity jpaOcorrenciaEntity = new JpaOcorrenciaEntity(input, jpaEstacaoEntity);
+        return ocorrenciaRepository.save(jpaOcorrenciaEntity);
     }
 
 }

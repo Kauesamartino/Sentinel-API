@@ -1,7 +1,7 @@
 package com.sentinel.api.interfaces.dto.relatorio;
 
 import com.sentinel.api.domain.enums.TipoOcorrencia;
-import com.sentinel.api.domain.entity.Relatorio;
+import com.sentinel.api.infrastructure.entity.JpaRelatorioEntity;
 
 import java.time.LocalDateTime;
 
@@ -13,14 +13,14 @@ public record DadosDetalhamentoRelatorio(
         LocalDateTime dataInicio,
         LocalDateTime dataFim
 ) {
-    public DadosDetalhamentoRelatorio(Relatorio relatorio){
+    public DadosDetalhamentoRelatorio(JpaRelatorioEntity jpaRelatorioEntity){
         this(
-                relatorio.getId(),
-                relatorio.getTitulo(),
-                relatorio.getDescricao(),
-                relatorio.getTipoOcorrencia(),
-                relatorio.getDataInicio(),
-                relatorio.getDataFim()
+                jpaRelatorioEntity.getId(),
+                jpaRelatorioEntity.getTitulo(),
+                jpaRelatorioEntity.getDescricao(),
+                jpaRelatorioEntity.getTipoOcorrencia(),
+                jpaRelatorioEntity.getDataInicio(),
+                jpaRelatorioEntity.getDataFim()
         );
     }
 }
