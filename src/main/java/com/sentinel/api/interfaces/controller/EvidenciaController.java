@@ -1,4 +1,4 @@
-package com.sentinel.api.controller;
+package com.sentinel.api.interfaces.controller;
 
 import com.sentinel.api.domain.evidencia.DadosCadastroEvidencia;
 import com.sentinel.api.domain.evidencia.DadosDetalhamentoEvidencia;
