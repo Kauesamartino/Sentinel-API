@@ -1,4 +1,4 @@
-package com.sentinel.api.controller;
+package com.sentinel.api.interfaces.controller;
 
 import com.sentinel.api.domain.ocorrencia.DadosDetalhamentoOcorrencia;
 import com.sentinel.api.domain.relatorio.*;

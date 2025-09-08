@@ -1,4 +1,4 @@
-package com.sentinel.api.infra.springdoc;
+package com.sentinel.api.infrastructure.springdoc;
 
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
