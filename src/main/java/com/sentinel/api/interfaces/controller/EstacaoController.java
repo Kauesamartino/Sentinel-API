@@ -1,11 +1,14 @@
 package com.sentinel.api.interfaces.controller;
 
+import com.sentinel.api.application.usecases.estacao.CreateEstacaoUseCase;
+import com.sentinel.api.domain.model.Estacao;
 import com.sentinel.api.infrastructure.entity.JpaEstacaoEntity;
-import com.sentinel.api.infrastructure.repository.CentroControleOperacoesRepository;
-import com.sentinel.api.infrastructure.repository.EstacaoRepository;
-import com.sentinel.api.interfaces.dto.estacao.DadosCadastroEstacao;
-import com.sentinel.api.interfaces.dto.estacao.DadosDetalhamentoEstacao;
+import com.sentinel.api.infrastructure.repository.JpaCentroControleOperacoesRepository;
+import com.sentinel.api.infrastructure.repository.JpaEstacaoRepository;
+import com.sentinel.api.interfaces.dto.estacao.EstacaoInDto;
+import com.sentinel.api.interfaces.dto.estacao.EstacaoOutDto;
 import com.sentinel.api.interfaces.dto.estacao.DadosListagemEstacoes;
+import com.sentinel.api.interfaces.mapper.EstacaoMapper;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,28 +19,31 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
+
 @RestController
 @RequestMapping("estacoes")
 @RequiredArgsConstructor
 public class EstacaoController {
 
-    private final CentroControleOperacoesRepository ccoRepository;
-
-    private final EstacaoRepository estacaoRepository;
+    private final JpaCentroControleOperacoesRepository ccoRepository;
+    private final EstacaoMapper mapper;
+    private final JpaEstacaoRepository jpaEstacaoRepository;
+    private final CreateEstacaoUseCase  createEstacaoUseCase;
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroEstacao dados, UriComponentsBuilder uriBuilder){
-        var cco = ccoRepository.getReferenceById(dados.idCco());
-        var estacao = new JpaEstacaoEntity(dados, cco);
-        estacaoRepository.save(estacao);
-        var uri = uriBuilder.path("/estacoes/{id}").buildAndExpand(estacao.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoEstacao(estacao));
+    public ResponseEntity<?> cadastrar(@RequestBody @Valid EstacaoInDto dados, UriComponentsBuilder uriBuilder){
+        Estacao estacao = mapper.inDtoToDomain(dados);
+        Estacao createdEstacao = createEstacaoUseCase.execute(estacao);
+        EstacaoOutDto estacaoOutDto = mapper.domainToOutDto(createdEstacao);
+        URI uri = uriBuilder.path("/estacoes/{id}").buildAndExpand(estacao.getId()).toUri();
+        return ResponseEntity.created(uri).body(estacaoOutDto);
     }
 
     @GetMapping
     public ResponseEntity<Page<DadosListagemEstacoes>> listar(@PageableDefault(size = 10) Pageable pageable){
-        var page = estacaoRepository.findAll(pageable).map(DadosListagemEstacoes::new);
+        var page = jpaEstacaoRepository.findAll(pageable).map(DadosListagemEstacoes::new);
         return ResponseEntity.ok(page);
     }
 }

@@ -2,7 +2,7 @@ package com.sentinel.api.infrastructure.entity;
 
 import com.sentinel.api.domain.enums.Linha;
 import com.sentinel.api.domain.model.Endereco;
-import com.sentinel.api.interfaces.dto.estacao.DadosCadastroEstacao;
+import com.sentinel.api.interfaces.dto.estacao.EstacaoInDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,7 +29,7 @@ public class JpaEstacaoEntity {
     @Embedded
     private Endereco endereco;
 
-    public JpaEstacaoEntity(DadosCadastroEstacao dados, JpaCentroControleOperacoesEntity cco) {
+    public JpaEstacaoEntity(EstacaoInDto dados, JpaCentroControleOperacoesEntity cco) {
         this.nome = dados.nome();
         this.linha = dados.linha();
         this.cco = cco;
