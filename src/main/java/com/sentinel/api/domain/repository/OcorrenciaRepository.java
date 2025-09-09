@@ -8,4 +8,6 @@ public interface OcorrenciaRepository {
     Ocorrencia save(Ocorrencia ocorrencia);
     Ocorrencia findById(Long id);
     Page<Ocorrencia> findAllByAtivoTrue(Pageable pageable);
+
+    void delete(Long id);
 }

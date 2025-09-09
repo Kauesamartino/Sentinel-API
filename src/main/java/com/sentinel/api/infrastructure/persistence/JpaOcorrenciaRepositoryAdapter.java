@@ -41,4 +41,11 @@ public class JpaOcorrenciaRepositoryAdapter implements OcorrenciaRepository {
         Page<JpaOcorrenciaEntity> entityPage = jpaOcorrenciaRepository.findAllByAtivoTrue(pageable);
         return entityPage.map(mapper::jpaEntityToDomain);
     }
+
+    @Override
+    public void delete(Long id) {
+        JpaOcorrenciaEntity jpaOcorrenciaEntity = jpaOcorrenciaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Ocorrência não encontrada"));
+        jpaOcorrenciaRepository.delete(jpaOcorrenciaEntity);
+    }
 }
