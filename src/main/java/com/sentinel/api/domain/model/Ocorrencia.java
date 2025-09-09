@@ -4,8 +4,6 @@ import com.sentinel.api.domain.enums.Severidade;
 import com.sentinel.api.domain.enums.Status;
 import com.sentinel.api.domain.enums.TipoOcorrencia;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -50,6 +48,11 @@ public class Ocorrencia {
 
 
     public Ocorrencia(String titulo, String descricao, Status status, TipoOcorrencia tipoOcorrencia, Severidade severidade, Boolean ativo) {
-
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.status = status;
+        this.tipoOcorrencia = tipoOcorrencia;
+        this.severidade = severidade;
+        this.ativo = ativo;
     }
 }
