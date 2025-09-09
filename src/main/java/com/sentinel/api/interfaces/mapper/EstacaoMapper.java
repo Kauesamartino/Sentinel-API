@@ -3,6 +3,7 @@ package com.sentinel.api.interfaces.mapper;
 import com.sentinel.api.domain.model.CentroControleOperacoes;
 import com.sentinel.api.domain.model.Estacao;
 import com.sentinel.api.domain.repository.CentroControleOperacoesRepository;
+import com.sentinel.api.infrastructure.entity.JpaCentroControleOperacoesEntity;
 import com.sentinel.api.infrastructure.entity.JpaEstacaoEntity;
 import com.sentinel.api.interfaces.dto.cco.CcoOutDto;
 import com.sentinel.api.interfaces.dto.estacao.EstacaoInDto;
@@ -34,8 +35,12 @@ public class EstacaoMapper {
                 jpaEstacaoEntity.getId(),
                 jpaEstacaoEntity.getNome(),
                 jpaEstacaoEntity.getLinha(),
-                jpaEstacaoEntity.getCco().getId(),
+                jpaEstacaoEntity.getJpaCentroControleOperacoesEntity().getId(),
                 jpaEstacaoEntity.getEndereco()
         );
+    }
+
+    public JpaEstacaoEntity domainToJpaEntity(Estacao estacao, JpaCentroControleOperacoesEntity cco) {
+        return new JpaEstacaoEntity(estacao, cco);
     }
 }
