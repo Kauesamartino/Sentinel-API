@@ -36,8 +36,6 @@ public class RelatorioController {
         Relatorio relatorio = mapper.inDtoToDomain(dados);
         Relatorio createdRelatorio = createRelatorioUseCase.execute(relatorio);
         RelatorioOutDto dto = mapper.domainToOutDto(createdRelatorio);
-        var relatorio = new JpaRelatorioEntity(dados);
-        jpaRelatorioRepository.save(relatorio);
         URI uri = uriBuilder.path("/relatorios/{id}").buildAndExpand(relatorio.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
