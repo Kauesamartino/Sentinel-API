@@ -1,26 +1,72 @@
 package com.sentinel.api.interfaces.mapper;
 
-import com.sentinel.api.application.usecases.ocorrencia.ports.CreateOcorrenciaInput;
-import com.sentinel.api.application.usecases.ocorrencia.ports.UpdateOcorrenciaInput;
+import com.sentinel.api.domain.model.CentroControleOperacoes;
+import com.sentinel.api.domain.model.Estacao;
+import com.sentinel.api.domain.model.Ocorrencia;
+import com.sentinel.api.domain.repository.CentroControleOperacoesRepository;
+import com.sentinel.api.domain.repository.EstacaoRepository;
+import com.sentinel.api.infrastructure.entity.JpaEstacaoEntity;
 import com.sentinel.api.infrastructure.entity.JpaOcorrenciaEntity;
+import com.sentinel.api.interfaces.dto.cco.CcoOutDto;
+import com.sentinel.api.interfaces.dto.estacao.EstacaoOutDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaOutDetailDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class OcorrenciaMapper {
+    private final EstacaoRepository estacaoRepository;
+    private final CentroControleOperacoesRepository centroControleOperacoesRepository;
 
-    public CreateOcorrenciaInput inDtoToInput(@Valid OcorrenciaInDto dados) {
-        return new CreateOcorrenciaInput(dados.titulo(), dados.descricao(), dados.severidade(), dados.idEstacao(), dados.tipoOcorrencia(), dados.ativo());
+    public Ocorrencia inDtoToDomain(@Valid OcorrenciaInDto dados) {
+        return new Ocorrencia(dados);
     }
 
-    public OcorrenciaOutDetailDto entityToOutDetailDto(JpaOcorrenciaEntity createdJpaOcorrenciaEntity) {
-        return new OcorrenciaOutDetailDto(createdJpaOcorrenciaEntity);
+    public OcorrenciaOutDetailDto domainToOutDto(Ocorrencia ocorrencia) {
+        EstacaoOutDto estacaoOutDto = null;
+        if (ocorrencia.getIdEstacao() != null) {
+            Estacao estacao = estacaoRepository.findById(ocorrencia.getIdEstacao());
+            CcoOutDto ccoOutDto = null;
+            if (estacao.getIdCco() != null) {
+                CentroControleOperacoes centroControleOperacoes = centroControleOperacoesRepository.findById(estacao.getIdCco());
+                ccoOutDto = new CcoOutDto(centroControleOperacoes);
+            }
+            estacaoOutDto = new EstacaoOutDto(estacao, ccoOutDto);
+        }
+        return new OcorrenciaOutDetailDto(ocorrencia, estacaoOutDto);
     }
 
-    public UpdateOcorrenciaInput updateDtoToInput(@Valid OcorrenciaUpdateDto dados) {
-        return new UpdateOcorrenciaInput(dados.titulo(), dados.descricao(), dados.status(), dados.tipoOcorrencia());
+    public Ocorrencia updateDtoToDomain(@Valid OcorrenciaUpdateDto dados) {
+        return new Ocorrencia(dados.titulo(), dados.descricao(), dados.status(), dados.tipoOcorrencia(), dados.severidade(), dados.ativo());
+    }
+
+    public Ocorrencia jpaEntityToDomain(JpaOcorrenciaEntity entity) {
+        return new Ocorrencia(
+                entity.getId(),
+                entity.getTitulo(),
+                entity.getDescricao(),
+                entity.getData(),
+                entity.getSeveridade(),
+                entity.getStatus(),
+                entity.getTipoOcorrencia(),
+                entity.getJpaEstacaoEntity().getId(),
+                entity.getAtivo());
+    }
+
+    public JpaOcorrenciaEntity domainToJpa(Ocorrencia ocorrencia, JpaEstacaoEntity estacaoEntity) {
+        return new JpaOcorrenciaEntity(
+                ocorrencia.getTitulo(),
+                ocorrencia.getDescricao(),
+                ocorrencia.getData(),
+                ocorrencia.getSeveridade(),
+                ocorrencia.getStatus(),
+                ocorrencia.getTipoOcorrencia(),
+                estacaoEntity,
+                ocorrencia.getAtivo()
+        );
     }
 }

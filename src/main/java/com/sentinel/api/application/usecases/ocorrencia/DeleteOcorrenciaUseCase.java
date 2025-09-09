@@ -1,7 +1,7 @@
 package com.sentinel.api.application.usecases.ocorrencia;
 
 import com.sentinel.api.infrastructure.entity.JpaOcorrenciaEntity;
-import com.sentinel.api.infrastructure.repository.OcorrenciaRepository;
+import com.sentinel.api.infrastructure.repository.JpaOcorrenciaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class DeleteOcorrenciaUseCase {
 
-    private final OcorrenciaRepository ocorrenciaRepository;
+    private final JpaOcorrenciaRepository jpaOcorrenciaRepository;
 
     @Transactional
     public void execute(Long id) {
-        JpaOcorrenciaEntity jpaOcorrenciaEntity = ocorrenciaRepository.findById(id).orElseThrow();
-        ocorrenciaRepository.delete(jpaOcorrenciaEntity);
+        JpaOcorrenciaEntity jpaOcorrenciaEntity = jpaOcorrenciaRepository.findById(id).orElseThrow();
+        jpaOcorrenciaRepository.delete(jpaOcorrenciaEntity);
     }
 }

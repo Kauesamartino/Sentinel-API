@@ -1,10 +1,8 @@
 package com.sentinel.api.application.usecases.ocorrencia;
 
-import com.sentinel.api.application.usecases.ocorrencia.ports.CreateOcorrenciaInput;
-import com.sentinel.api.infrastructure.entity.JpaEstacaoEntity;
-import com.sentinel.api.infrastructure.entity.JpaOcorrenciaEntity;
-import com.sentinel.api.infrastructure.repository.EstacaoRepository;
-import com.sentinel.api.infrastructure.repository.OcorrenciaRepository;
+import com.sentinel.api.domain.model.Ocorrencia;
+import com.sentinel.api.domain.repository.EstacaoRepository;
+import com.sentinel.api.domain.repository.OcorrenciaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,13 +12,13 @@ import org.springframework.stereotype.Service;
 public class CreateOcorrenciaUseCase {
 
     private final OcorrenciaRepository ocorrenciaRepository;
-    private final EstacaoRepository estacaoRepository;
 
     @Transactional
-    public JpaOcorrenciaEntity execute(CreateOcorrenciaInput input){
-        JpaEstacaoEntity jpaEstacaoEntity = estacaoRepository.getReferenceById(input.idEstacao());
-        JpaOcorrenciaEntity jpaOcorrenciaEntity = new JpaOcorrenciaEntity(input, jpaEstacaoEntity);
-        return ocorrenciaRepository.save(jpaOcorrenciaEntity);
+    public Ocorrencia execute(Ocorrencia ocorrencia){
+        if (ocorrencia == null) {
+            throw new IllegalArgumentException("Ocorrência não pode ser nula");
+        }
+        return ocorrenciaRepository.save(ocorrencia);
     }
 
 }

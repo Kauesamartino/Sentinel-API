@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 
-public interface OcorrenciaRepository extends JpaRepository<JpaOcorrenciaEntity, Long> {
+public interface JpaOcorrenciaRepository extends JpaRepository<JpaOcorrenciaEntity, Long> {
     Page<JpaOcorrenciaEntity> findAllByAtivoTrue(Pageable pageable);
 
     @Query("""

@@ -1,6 +1,5 @@
 package com.sentinel.api.infrastructure.entity;
 
-import com.sentinel.api.application.usecases.ocorrencia.ports.CreateOcorrenciaInput;
 import com.sentinel.api.domain.enums.Severidade;
 import com.sentinel.api.domain.enums.Status;
 import com.sentinel.api.domain.enums.TipoOcorrencia;
@@ -39,27 +38,15 @@ public class JpaOcorrenciaEntity {
 
     private Boolean ativo;
 
-    public JpaOcorrenciaEntity(CreateOcorrenciaInput input, JpaEstacaoEntity jpaEstacaoEntity) {
-        if (jpaEstacaoEntity == null) {
-            throw new IllegalArgumentException("Estação é obrigatório");
-        }
-        if (input.ativo() == null) {
-            this.ativo = false;
-        } else {
-            this.ativo = input.ativo();
-        }
-
-        this.titulo = input.titulo();
-        this.descricao = input.descricao();
-        this.jpaEstacaoEntity = jpaEstacaoEntity;
-        this.data = LocalDateTime.now();
-        this.severidade = input.severidade();
-        this.status = Status.ABERTO;
-        this.tipoOcorrencia = input.tipoOcorrencia();
+    public JpaOcorrenciaEntity(String titulo, String descricao, LocalDateTime data, Severidade severidade, Status status, TipoOcorrencia tipoOcorrencia, JpaEstacaoEntity estacaoEntity, Boolean ativo) {
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.data = data;
+        this.severidade = severidade;
+        this.status = status;
+        this.tipoOcorrencia = tipoOcorrencia;
+        this.jpaEstacaoEntity = estacaoEntity;
+        this.ativo = ativo;
     }
 
-
-    public void excluir() {
-        this.ativo = false;
-    }
 }
