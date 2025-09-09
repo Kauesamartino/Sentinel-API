@@ -1,7 +1,6 @@
 package com.sentinel.api.application.usecases.ocorrencia;
 
 import com.sentinel.api.domain.model.Ocorrencia;
-import com.sentinel.api.domain.repository.EstacaoRepository;
 import com.sentinel.api.domain.repository.OcorrenciaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,5 @@
 package com.sentinel.api.infrastructure.persistence;
 
-import com.sentinel.api.domain.model.CentroControleOperacoes;
 import com.sentinel.api.domain.model.Estacao;
 import com.sentinel.api.domain.repository.EstacaoRepository;
 import com.sentinel.api.infrastructure.entity.JpaCentroControleOperacoesEntity;

@@ -2,8 +2,6 @@ package com.sentinel.api.interfaces.controller;
 
 import com.sentinel.api.application.usecases.estacao.CreateEstacaoUseCase;
 import com.sentinel.api.domain.model.Estacao;
-import com.sentinel.api.infrastructure.entity.JpaEstacaoEntity;
-import com.sentinel.api.infrastructure.repository.JpaCentroControleOperacoesRepository;
 import com.sentinel.api.infrastructure.repository.JpaEstacaoRepository;
 import com.sentinel.api.interfaces.dto.estacao.EstacaoInDto;
 import com.sentinel.api.interfaces.dto.estacao.EstacaoOutDto;
@@ -26,7 +24,6 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class EstacaoController {
 
-    private final JpaCentroControleOperacoesRepository ccoRepository;
     private final EstacaoMapper mapper;
     private final JpaEstacaoRepository jpaEstacaoRepository;
     private final CreateEstacaoUseCase  createEstacaoUseCase;

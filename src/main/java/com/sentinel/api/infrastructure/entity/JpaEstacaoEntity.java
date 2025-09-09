@@ -1,10 +1,8 @@
 package com.sentinel.api.infrastructure.entity;
 
 import com.sentinel.api.domain.enums.Linha;
-import com.sentinel.api.domain.model.CentroControleOperacoes;
 import com.sentinel.api.domain.model.Endereco;
 import com.sentinel.api.domain.model.Estacao;
-import com.sentinel.api.interfaces.dto.estacao.EstacaoInDto;
 import jakarta.persistence.*;
 import lombok.*;
 
