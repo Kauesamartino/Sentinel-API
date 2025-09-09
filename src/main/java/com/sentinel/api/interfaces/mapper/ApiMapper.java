@@ -1,0 +1,12 @@
+package com.sentinel.api.interfaces.mapper;
+
+import com.sentinel.api.domain.model.Ocorrencia;
+import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaLazyOutDto;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ApiMapper {
+    public OcorrenciaLazyOutDto ocorrenciaToLazyDto(Ocorrencia ocorrencia) {
+        return new OcorrenciaLazyOutDto(ocorrencia);
+    }
+}

@@ -9,6 +9,8 @@ import com.sentinel.api.infrastructure.repository.JpaOcorrenciaRepository;
 import com.sentinel.api.interfaces.mapper.OcorrenciaMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -32,5 +34,11 @@ public class JpaOcorrenciaRepositoryAdapter implements OcorrenciaRepository {
         JpaOcorrenciaEntity entity = jpaOcorrenciaRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Ocorrência não encontrada"));
         return mapper.jpaEntityToDomain(entity);
+    }
+
+    @Transactional
+    public Page<Ocorrencia> findAllByAtivoTrue(Pageable pageable) {
+        Page<JpaOcorrenciaEntity> entityPage = jpaOcorrenciaRepository.findAllByAtivoTrue(pageable);
+        return entityPage.map(mapper::jpaEntityToDomain);
     }
 }

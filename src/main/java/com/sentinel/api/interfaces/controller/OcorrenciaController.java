@@ -7,11 +7,13 @@ import com.sentinel.api.infrastructure.repository.JpaOcorrenciaRepository;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaOutDetailDto;
-import com.sentinel.api.interfaces.dto.ocorrencia.DadosListagemOcorrencias;
+import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaLazyOutDto;
+import com.sentinel.api.interfaces.mapper.ApiMapper;
 import com.sentinel.api.interfaces.mapper.OcorrenciaMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -31,8 +33,11 @@ public class OcorrenciaController {
     private final CreateOcorrenciaUseCase createOcorrenciaUseCase;
     private final UpdateOcorrenciaUseCase updateOcorrenciaUseCase;
     private final DeleteOcorrenciaUseCase deleteOcorrenciaUseCase;
+    private final GetOcorrenciasUseCase getOcorrenciasUseCase;
     private final GetOcorrenciaUseCase getOcorrenciaUseCase;
+    private final ApiMapper apiMapper;
     private final OcorrenciaMapper mapper;
+
 
     @PostMapping
     public ResponseEntity<OcorrenciaOutDetailDto> cadastrar(@RequestBody @Valid OcorrenciaInDto dados, UriComponentsBuilder uriBuilder){
@@ -44,16 +49,16 @@ public class OcorrenciaController {
     }
 
     @GetMapping("relatorio/{id}")
-    public ResponseEntity<Page<DadosListagemOcorrencias>> listarOcorrenciasDeUmRelatorio(@PathVariable Long id, @PageableDefault Pageable pageable){
+    public ResponseEntity<Page<OcorrenciaLazyOutDto>> listarOcorrenciasDeUmRelatorio(@PathVariable Long id, @PageableDefault Pageable pageable){
         var relatorio = jpaRelatorioRepository.getReferenceById(id);
         var page = jpaOcorrenciaRepository.findByDataBetweenAndTipoOcorrenciaOptional(
                 relatorio.getDataInicio(),
                 relatorio.getDataFim(),
                 relatorio.getTipoOcorrencia(),
                 pageable
-        ).map(DadosListagemOcorrencias::new);
+        );//.map(OcorrenciaLazyOutDto::new);
 
-        return ResponseEntity.ok(page);
+        return null;
     }
 
     @GetMapping("/{id}")
@@ -64,9 +69,14 @@ public class OcorrenciaController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemOcorrencias>> listar(@PageableDefault(size = 20, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable){
-        var page = jpaOcorrenciaRepository.findAllByAtivoTrue(pageable).map(DadosListagemOcorrencias::new);
-        return ResponseEntity.ok(page);
+    public ResponseEntity<Page<OcorrenciaLazyOutDto>> listar(@RequestParam(name = "pageSize", required = false, defaultValue = "20") Integer pageSize,
+                                                                 @RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
+                                                                 @RequestParam(name = "direction", required = false, defaultValue = "DESC") Sort.Direction direction){
+
+        Pageable pageable = PageRequest.of(pageSize, pageNumber, direction);
+        Page<Ocorrencia> domainPage = this.getOcorrenciasUseCase.execute(pageable);
+        Page<OcorrenciaLazyOutDto> dtoPage = domainPage.map(apiMapper::ocorrenciaToLazyDto);
+        return ResponseEntity.ok(dtoPage);
     }
 
     @PutMapping("/{id}")
