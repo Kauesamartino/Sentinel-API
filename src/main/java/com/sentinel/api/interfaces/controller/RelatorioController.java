@@ -1,6 +1,7 @@
 package com.sentinel.api.interfaces.controller;
 
 import com.sentinel.api.application.usecases.relatorio.CreateRelatorioUseCase;
+import com.sentinel.api.application.usecases.relatorio.GetRelatoriosUseCase;
 import com.sentinel.api.domain.model.Relatorio;
 import com.sentinel.api.infrastructure.repository.JpaRelatorioRepository;
 import com.sentinel.api.interfaces.dto.relatorio.RelatorioInDto;
@@ -30,6 +31,7 @@ public class RelatorioController {
     private final RelatorioMapper mapper;
     private final CreateRelatorioUseCase createRelatorioUseCase;
     private final ApiMapper apiMapper;
+    private final GetRelatoriosUseCase getRelatoriosUseCase;
 
     @PostMapping
     @Transactional
