@@ -1,9 +1,7 @@
 package com.sentinel.api.application.usecases.ocorrencia;
 
 import com.sentinel.api.domain.model.Ocorrencia;
-import com.sentinel.api.infrastructure.entity.JpaOcorrenciaEntity;
-import com.sentinel.api.infrastructure.repository.JpaOcorrenciaRepository;
-import com.sentinel.api.interfaces.mapper.OcorrenciaMapper;
+import com.sentinel.api.domain.repository.OcorrenciaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +9,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GetOcorrenciaUseCase {
 
-    private final JpaOcorrenciaRepository jpaOcorrenciaRepository;
-    private final OcorrenciaMapper mapper;
+    private final OcorrenciaRepository repository;
 
     public Ocorrencia execute(Long id) {
-        JpaOcorrenciaEntity jpaOcorrenciaEntity = jpaOcorrenciaRepository.findById(id).orElseThrow();
-        return mapper.jpaEntityToDomain(jpaOcorrenciaEntity);
+        return repository.findById(id);
     }
 
 }
