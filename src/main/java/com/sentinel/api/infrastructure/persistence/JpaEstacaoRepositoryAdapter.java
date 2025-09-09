@@ -39,4 +39,9 @@ public class JpaEstacaoRepositoryAdapter implements EstacaoRepository {
         Page<JpaEstacaoEntity> jpaEstacaoEntity = jpaEstacaoRepository.findAll(pageable);
         return jpaEstacaoEntity.map(mapper::jpaEntityToDomain);
     }
+
+    @Transactional
+    public void delete(Long id) {
+        jpaEstacaoRepository.deleteById(id);
+    }
 }

@@ -1,8 +1,10 @@
 package com.sentinel.api.interfaces.controller;
 
 import com.sentinel.api.application.usecases.estacao.CreateEstacaoUseCase;
+import com.sentinel.api.application.usecases.estacao.DeleteEstacaoUseCase;
 import com.sentinel.api.application.usecases.estacao.GetEstacaoUsecase;
 import com.sentinel.api.application.usecases.estacao.GetEstacoesUseCase;
+import com.sentinel.api.application.usecases.ocorrencia.DeleteOcorrenciaUseCase;
 import com.sentinel.api.domain.model.Estacao;
 import com.sentinel.api.infrastructure.repository.JpaEstacaoRepository;
 import com.sentinel.api.interfaces.dto.estacao.EstacaoInDto;
@@ -32,6 +34,7 @@ public class EstacaoController {
     private final GetEstacoesUseCase  getEstacoesUseCase;
     private final ApiMapper apiMapper;
     private final GetEstacaoUsecase getEstacaoUsecase;
+    private final DeleteEstacaoUseCase deleteEstacaoUseCase;
 
     @PostMapping
     @Transactional
@@ -58,5 +61,11 @@ public class EstacaoController {
         Estacao estacao = getEstacaoUsecase.execute(id);
         EstacaoOutDto estacaoOutDto = mapper.domainToOutDto(estacao);
         return ResponseEntity.ok(estacaoOutDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
+        deleteEstacaoUseCase.execute(id);
+        return ResponseEntity.noContent().build();
     }
 }

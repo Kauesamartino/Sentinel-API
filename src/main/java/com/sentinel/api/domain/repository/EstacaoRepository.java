@@ -9,4 +9,6 @@ public interface EstacaoRepository {
     Estacao findById(Long idEstacao);
 
     Page<Estacao> findAll(Pageable pageable);
+
+    void delete(Long id);
 }
