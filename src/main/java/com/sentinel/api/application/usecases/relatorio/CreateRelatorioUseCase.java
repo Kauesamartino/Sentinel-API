@@ -2,11 +2,9 @@ package com.sentinel.api.application.usecases.relatorio;
 
 import com.sentinel.api.domain.model.Relatorio;
 import com.sentinel.api.domain.repository.RelatorioRepository;
-import com.sentinel.api.infrastructure.repository.JpaRelatorioRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 @Component
 @RequiredArgsConstructor

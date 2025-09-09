@@ -2,7 +2,6 @@ package com.sentinel.api.infrastructure.entity;
 
 import com.sentinel.api.domain.enums.TipoOcorrencia;
 import com.sentinel.api.domain.model.Relatorio;
-import com.sentinel.api.interfaces.dto.relatorio.RelatorioInDto;
 import jakarta.persistence.*;
 import lombok.*;
 
