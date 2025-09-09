@@ -1,7 +1,7 @@
 package com.sentinel.api.interfaces.controller;
 
 import com.sentinel.api.infrastructure.entity.JpaRelatorioEntity;
-import com.sentinel.api.infrastructure.repository.RelatorioRepository;
+import com.sentinel.api.infrastructure.repository.JpaRelatorioRepository;
 import com.sentinel.api.interfaces.dto.relatorio.DadosCadastroRelatorio;
 import com.sentinel.api.interfaces.dto.relatorio.DadosDetalhamentoRelatorio;
 import com.sentinel.api.interfaces.dto.relatorio.DadosListagemRelatorios;
@@ -20,20 +20,20 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 public class RelatorioController {
 
-    private final RelatorioRepository relatorioRepository;
+    private final JpaRelatorioRepository jpaRelatorioRepository;
 
     @PostMapping
     @Transactional
     public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroRelatorio dados, UriComponentsBuilder uriBuilder){
         var relatorio = new JpaRelatorioEntity(dados);
-        relatorioRepository.save(relatorio);
+        jpaRelatorioRepository.save(relatorio);
         var uri = uriBuilder.path("/relatorios/{id}").buildAndExpand(relatorio.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoRelatorio(relatorio));
     }
 
     @GetMapping
     public ResponseEntity<Page<DadosListagemRelatorios>> listar(@PageableDefault(size = 10) Pageable pageable) {
-        var page = relatorioRepository.findAll(pageable).map(DadosListagemRelatorios::new);
+        var page = jpaRelatorioRepository.findAll(pageable).map(DadosListagemRelatorios::new);
         return ResponseEntity.ok(page);
     }
 }
