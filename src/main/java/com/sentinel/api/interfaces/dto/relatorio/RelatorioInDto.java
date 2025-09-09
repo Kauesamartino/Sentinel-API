@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
-public record DadosCadastroRelatorio(
+public record RelatorioInDto(
         @NotBlank(message = "{titulo.obrigatorio}")
         String titulo,
 

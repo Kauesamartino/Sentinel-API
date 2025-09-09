@@ -1,7 +1,7 @@
 package com.sentinel.api.infrastructure.entity;
 
 import com.sentinel.api.domain.enums.TipoOcorrencia;
-import com.sentinel.api.interfaces.dto.relatorio.DadosCadastroRelatorio;
+import com.sentinel.api.interfaces.dto.relatorio.RelatorioInDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,7 +26,7 @@ public class JpaRelatorioEntity {
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
 
-    public JpaRelatorioEntity(DadosCadastroRelatorio dados) {
+    public JpaRelatorioEntity(RelatorioInDto dados) {
         this.titulo = dados.titulo();
         this.descricao = dados.descricao();
         this.tipoOcorrencia = dados.tipoOcorrencia();

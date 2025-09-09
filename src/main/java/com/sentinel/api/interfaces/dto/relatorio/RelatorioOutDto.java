@@ -5,7 +5,7 @@ import com.sentinel.api.infrastructure.entity.JpaRelatorioEntity;
 
 import java.time.LocalDateTime;
 
-public record DadosDetalhamentoRelatorio(
+public record RelatorioOutDto(
         Long id,
         String titulo,
         String descricao,
@@ -13,7 +13,7 @@ public record DadosDetalhamentoRelatorio(
         LocalDateTime dataInicio,
         LocalDateTime dataFim
 ) {
-    public DadosDetalhamentoRelatorio(JpaRelatorioEntity jpaRelatorioEntity){
+    public RelatorioOutDto(JpaRelatorioEntity jpaRelatorioEntity){
         this(
                 jpaRelatorioEntity.getId(),
                 jpaRelatorioEntity.getTitulo(),
