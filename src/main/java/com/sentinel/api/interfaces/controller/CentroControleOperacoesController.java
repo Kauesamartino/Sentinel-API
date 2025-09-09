@@ -1,9 +1,9 @@
 package com.sentinel.api.interfaces.controller;
 
 import com.sentinel.api.infrastructure.entity.JpaCentroControleOperacoesEntity;
-import com.sentinel.api.infrastructure.repository.CentroControleOperacoesRepository;
+import com.sentinel.api.infrastructure.repository.JpaCentroControleOperacoesRepository;
 import com.sentinel.api.interfaces.dto.cco.DadosCadastroCentroControleOperacoes;
-import com.sentinel.api.interfaces.dto.cco.DadosDetalhamentoCentroControleOperacoes;
+import com.sentinel.api.interfaces.dto.cco.CcoOutDto;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 public class CentroControleOperacoesController {
 
-    private final CentroControleOperacoesRepository repository;
+    private final JpaCentroControleOperacoesRepository repository;
 
     @PostMapping
     @Transactional
@@ -27,6 +27,6 @@ public class CentroControleOperacoesController {
         var cco = new JpaCentroControleOperacoesEntity(dados);
         repository.save(cco);
         var uri = uriBuilder.path("/cco/{id}").buildAndExpand(cco.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoCentroControleOperacoes(cco));
+        return ResponseEntity.created(uri).body(new CcoOutDto(cco));
     }
 }
