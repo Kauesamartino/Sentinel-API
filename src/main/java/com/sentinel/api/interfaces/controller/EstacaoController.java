@@ -1,6 +1,7 @@
 package com.sentinel.api.interfaces.controller;
 
 import com.sentinel.api.application.usecases.estacao.CreateEstacaoUseCase;
+import com.sentinel.api.application.usecases.estacao.GetEstacaoUsecase;
 import com.sentinel.api.application.usecases.estacao.GetEstacoesUseCase;
 import com.sentinel.api.domain.model.Estacao;
 import com.sentinel.api.infrastructure.repository.JpaEstacaoRepository;
@@ -27,10 +28,10 @@ import java.net.URI;
 public class EstacaoController {
 
     private final EstacaoMapper mapper;
-    private final JpaEstacaoRepository jpaEstacaoRepository;
     private final CreateEstacaoUseCase  createEstacaoUseCase;
     private final GetEstacoesUseCase  getEstacoesUseCase;
     private final ApiMapper apiMapper;
+    private final GetEstacaoUsecase getEstacaoUsecase;
 
     @PostMapping
     @Transactional
@@ -50,5 +51,12 @@ public class EstacaoController {
         Page<Estacao> domainPage = getEstacoesUseCase.execute(pageable);
         Page<EstacaoLazyOutDto> dto = domainPage.map(apiMapper::estacaoToLazyDto);
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<EstacaoOutDto> detalhar(@PathVariable Long id){
+        Estacao estacao = getEstacaoUsecase.execute(id);
+        EstacaoOutDto estacaoOutDto = mapper.domainToOutDto(estacao);
+        return ResponseEntity.ok(estacaoOutDto);
     }
 }
