@@ -1,7 +1,9 @@
 package com.sentinel.api.infrastructure.entity;
 
 import com.sentinel.api.domain.enums.Linha;
+import com.sentinel.api.domain.model.CentroControleOperacoes;
 import com.sentinel.api.domain.model.Endereco;
+import com.sentinel.api.domain.model.Estacao;
 import com.sentinel.api.interfaces.dto.estacao.EstacaoInDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,15 +26,23 @@ public class JpaEstacaoEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cco_id")
-    private JpaCentroControleOperacoesEntity cco;
+    private JpaCentroControleOperacoesEntity jpaCentroControleOperacoesEntity;
 
     @Embedded
     private Endereco endereco;
 
-    public JpaEstacaoEntity(EstacaoInDto dados, JpaCentroControleOperacoesEntity cco) {
-        this.nome = dados.nome();
-        this.linha = dados.linha();
-        this.cco = cco;
-        this.endereco = new Endereco(dados.endereco());
+    public JpaEstacaoEntity(Estacao estacao, JpaCentroControleOperacoesEntity cco) {
+        this.nome = estacao.getNome();
+        this.linha = estacao.getLinha();
+        this.jpaCentroControleOperacoesEntity = cco;
+        this.endereco = new Endereco(
+                estacao.getEndereco().getLogradouro(),
+                estacao.getEndereco().getBairro(),
+                estacao.getEndereco().getCep(),
+                estacao.getEndereco().getNumero(),
+                estacao.getEndereco().getComplemento(),
+                estacao.getEndereco().getCidade(),
+                estacao.getEndereco().getUf()
+        );
     }
 }
