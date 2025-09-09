@@ -9,6 +9,8 @@ import com.sentinel.api.infrastructure.repository.JpaEstacaoRepository;
 import com.sentinel.api.interfaces.mapper.EstacaoMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -27,10 +29,14 @@ public class JpaEstacaoRepositoryAdapter implements EstacaoRepository {
         return mapper.jpaEntityToDomain(savedEntity);
     }
 
-    @Override
     public Estacao findById(Long idEstacao) {
         JpaEstacaoEntity jpaEstacaoEntity = jpaEstacaoRepository.findById(idEstacao)
                 .orElseThrow(() -> new IllegalArgumentException("Estação não encontrada"));
         return mapper.jpaEntityToDomain(jpaEstacaoEntity);
+    }
+
+    public Page<Estacao> findAll(Pageable pageable) {
+        Page<JpaEstacaoEntity> jpaEstacaoEntity = jpaEstacaoRepository.findAll(pageable);
+        return jpaEstacaoEntity.map(mapper::jpaEntityToDomain);
     }
 }
