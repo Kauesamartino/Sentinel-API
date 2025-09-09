@@ -27,7 +27,6 @@ public class JpaOcorrenciaRepositoryAdapter implements OcorrenciaRepository {
         return mapper.jpaEntityToDomain(savedEntity);
     }
 
-    @Override
     @Transactional
     public Ocorrencia findById(Long id) {
         JpaOcorrenciaEntity entity = jpaOcorrenciaRepository.findById(id)
