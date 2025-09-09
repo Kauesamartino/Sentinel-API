@@ -5,7 +5,7 @@ import com.sentinel.api.domain.model.Ocorrencia;
 import com.sentinel.api.domain.model.Relatorio;
 import com.sentinel.api.interfaces.dto.estacao.EstacaoLazyOutDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaLazyOutDto;
-import com.sentinel.api.interfaces.dto.relatorio.DadosListagemRelatorios;
+import com.sentinel.api.interfaces.dto.relatorio.RelatorioLazyOutDto;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,7 +18,7 @@ public class ApiMapper {
         return new EstacaoLazyOutDto(estacao);
     }
 
-    public DadosListagemRelatorios domainToLazyDto(Relatorio relatorio) {
-        return new DadosListagemRelatorios(relatorio);
+    public RelatorioLazyOutDto domainToLazyDto(Relatorio relatorio) {
+        return new RelatorioLazyOutDto(relatorio);
     }
 }

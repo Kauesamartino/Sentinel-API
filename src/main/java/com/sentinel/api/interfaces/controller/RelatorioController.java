@@ -3,10 +3,9 @@ package com.sentinel.api.interfaces.controller;
 import com.sentinel.api.application.usecases.relatorio.CreateRelatorioUseCase;
 import com.sentinel.api.application.usecases.relatorio.GetRelatoriosUseCase;
 import com.sentinel.api.domain.model.Relatorio;
-import com.sentinel.api.infrastructure.repository.JpaRelatorioRepository;
 import com.sentinel.api.interfaces.dto.relatorio.RelatorioInDto;
 import com.sentinel.api.interfaces.dto.relatorio.RelatorioOutDto;
-import com.sentinel.api.interfaces.dto.relatorio.DadosListagemRelatorios;
+import com.sentinel.api.interfaces.dto.relatorio.RelatorioLazyOutDto;
 import com.sentinel.api.interfaces.mapper.ApiMapper;
 import com.sentinel.api.interfaces.mapper.RelatorioMapper;
 import jakarta.transaction.Transactional;
@@ -16,7 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -45,13 +43,13 @@ public class RelatorioController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemRelatorios>> listar(@RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
-                                                                @RequestParam(name = "sizePage", required = false, defaultValue = "20") Integer pageSize,
-                                                                @RequestParam(name = "direction", required = false, defaultValue = "DESC")Sort.Direction direction) {
+    public ResponseEntity<Page<RelatorioLazyOutDto>> listar(@RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
+                                                            @RequestParam(name = "sizePage", required = false, defaultValue = "20") Integer pageSize,
+                                                            @RequestParam(name = "direction", required = false, defaultValue = "DESC")Sort.Direction direction) {
 
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(direction, "id"));
         Page<Relatorio> domainPage = getRelatoriosUseCase.execute(pageable);
-        Page<DadosListagemRelatorios> dto = domainPage.map(apiMapper::domainToLazyDto);
+        Page<RelatorioLazyOutDto> dto = domainPage.map(apiMapper::domainToLazyDto);
         return ResponseEntity.ok(dto);
     }
 }

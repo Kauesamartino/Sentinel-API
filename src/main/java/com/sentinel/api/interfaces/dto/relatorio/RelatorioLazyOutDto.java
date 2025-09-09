@@ -2,11 +2,11 @@ package com.sentinel.api.interfaces.dto.relatorio;
 
 import com.sentinel.api.domain.enums.TipoOcorrencia;
 import com.sentinel.api.domain.model.Relatorio;
-import com.sentinel.api.infrastructure.entity.JpaRelatorioEntity;
+
 
 import java.time.LocalDateTime;
 
-public record DadosListagemRelatorios(
+public record RelatorioLazyOutDto(
         Long id,
         String titulo,
         String descricao,
@@ -14,7 +14,7 @@ public record DadosListagemRelatorios(
         LocalDateTime dataInicio,
         LocalDateTime dataFim
 ) {
-    public DadosListagemRelatorios(Relatorio relatorio) {
+    public RelatorioLazyOutDto(Relatorio relatorio) {
         this(
                 relatorio.getId(),
                 relatorio.getTitulo(),
