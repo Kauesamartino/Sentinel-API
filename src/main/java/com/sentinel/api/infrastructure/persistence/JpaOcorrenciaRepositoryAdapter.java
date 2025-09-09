@@ -4,8 +4,10 @@ import com.sentinel.api.domain.model.Ocorrencia;
 import com.sentinel.api.domain.repository.OcorrenciaRepository;
 import com.sentinel.api.infrastructure.entity.JpaEstacaoEntity;
 import com.sentinel.api.infrastructure.entity.JpaOcorrenciaEntity;
+import com.sentinel.api.infrastructure.entity.JpaRelatorioEntity;
 import com.sentinel.api.infrastructure.repository.JpaEstacaoRepository;
 import com.sentinel.api.infrastructure.repository.JpaOcorrenciaRepository;
+import com.sentinel.api.infrastructure.repository.JpaRelatorioRepository;
 import com.sentinel.api.interfaces.mapper.OcorrenciaMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ public class JpaOcorrenciaRepositoryAdapter implements OcorrenciaRepository {
     private final JpaOcorrenciaRepository jpaOcorrenciaRepository;
     private final OcorrenciaMapper mapper;
     private final JpaEstacaoRepository jpaEstacaoRepository;
+    private final JpaRelatorioRepository jpaRelatorioRepository;
 
     @Transactional
     public Ocorrencia save(Ocorrencia ocorrencia) {
@@ -42,10 +45,24 @@ public class JpaOcorrenciaRepositoryAdapter implements OcorrenciaRepository {
         return entityPage.map(mapper::jpaEntityToDomain);
     }
 
-    @Override
+    @Transactional
     public void delete(Long id) {
         JpaOcorrenciaEntity jpaOcorrenciaEntity = jpaOcorrenciaRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Ocorrência não encontrada"));
         jpaOcorrenciaRepository.delete(jpaOcorrenciaEntity);
+    }
+
+    @Override
+    public Page<Ocorrencia> findByDataBetweenAndTipoOcorrenciaOptional(Long id, Pageable pageable) {
+
+        JpaRelatorioEntity relatorio = jpaRelatorioRepository.getReferenceById(id);
+        Page<JpaOcorrenciaEntity> entityPage = jpaOcorrenciaRepository.findByDataBetweenAndTipoOcorrenciaOptional(
+                relatorio.getDataInicio(),
+                relatorio.getDataFim(),
+                relatorio.getTipoOcorrencia(),
+                pageable
+        );
+
+        return entityPage.map(mapper::jpaEntityToDomain);
     }
 }

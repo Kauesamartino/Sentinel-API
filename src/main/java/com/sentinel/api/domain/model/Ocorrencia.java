@@ -32,7 +32,6 @@ public class Ocorrencia {
         if (dados.descricao() == null || dados.descricao().isEmpty()) {
             throw new IllegalArgumentException("A descrição do ocorrência não pode ser nula ou vazia.");
         }
-
         if (dados.severidade() == null) {
             throw new IllegalArgumentException("A severidade da ocorrência não pode ser nula ou vazia.");
         }
@@ -43,7 +42,7 @@ public class Ocorrencia {
         this.status = Status.ABERTO;
         this.tipoOcorrencia = dados.tipoOcorrencia();
         this.idEstacao = dados.idEstacao();
-        this.ativo = Objects.requireNonNullElse(ativo, false);
+        this.ativo = Objects.requireNonNullElse(dados.ativo(), false);
     }
 
 
