@@ -2,13 +2,14 @@ package com.sentinel.api.application.usecases.estacao;
 
 import com.sentinel.api.domain.model.Estacao;
 import com.sentinel.api.domain.repository.EstacaoRepository;
+import com.sentinel.api.domain.usecase.estacao.CreateEstacaoUseCase;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CreateEstacaoUseCaseImpl {
+public class CreateEstacaoUseCaseImpl implements CreateEstacaoUseCase {
 
     private final EstacaoRepository estacaoRepository;
 

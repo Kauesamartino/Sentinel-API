@@ -1,13 +1,14 @@
 package com.sentinel.api.application.usecases.estacao;
 
 import com.sentinel.api.domain.repository.EstacaoRepository;
+import com.sentinel.api.domain.usecase.ocorrencia.DeleteOcorrenciaUseCase;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class DeleteEstacaoUseCaseImpl {
+public class DeleteEstacaoUseCaseImpl implements DeleteOcorrenciaUseCase {
 
     private final EstacaoRepository repository;
 
