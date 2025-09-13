@@ -2,21 +2,18 @@ package com.sentinel.api.application.usecases.estacao;
 
 import com.sentinel.api.domain.model.Estacao;
 import com.sentinel.api.domain.repository.EstacaoRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CreateEstacaoUseCase {
+public class GetEstacoesUseCaseImpl {
 
     private final EstacaoRepository estacaoRepository;
 
-    @Transactional
-    public Estacao execute(Estacao estacao) {
-        if (estacao == null) {
-            throw new IllegalArgumentException("Estação não pode ser nula");
-        }
-        return estacaoRepository.save(estacao);
+    public Page<Estacao> execute(Pageable pageable) {
+        return estacaoRepository.findAll(pageable);
     }
 }

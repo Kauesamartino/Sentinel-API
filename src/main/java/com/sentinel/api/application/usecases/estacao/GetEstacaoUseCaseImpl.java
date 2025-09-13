@@ -1,19 +1,17 @@
 package com.sentinel.api.application.usecases.estacao;
 
+import com.sentinel.api.domain.model.Estacao;
 import com.sentinel.api.domain.repository.EstacaoRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 @RequiredArgsConstructor
-public class DeleteEstacaoUseCase {
+public class GetEstacaoUseCaseImpl {
 
     private final EstacaoRepository repository;
 
-    @Transactional
-    public void execute(Long id){
-        repository.delete(id);
+    public Estacao execute(Long id) {
+        return repository.findById(id);
     }
-
 }

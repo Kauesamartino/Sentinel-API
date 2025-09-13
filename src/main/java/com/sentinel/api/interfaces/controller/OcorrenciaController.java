@@ -25,12 +25,12 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class OcorrenciaController {
 
-    private final CreateOcorrenciaUseCase createOcorrenciaUseCase;
-    private final UpdateOcorrenciaUseCase updateOcorrenciaUseCase;
-    private final DeleteOcorrenciaUseCase deleteOcorrenciaUseCase;
-    private final GetOcorrenciasUseCase getOcorrenciasUseCase;
-    private final GetOcorrenciaUseCase getOcorrenciaUseCase;
-    private final GetOcorrenciasRelatorioUseCase getOcorrenciasRelatorioUseCase;
+    private final CreateOcorrenciaUseCaseImpl createOcorrenciaUseCaseImpl;
+    private final UpdateOcorrenciaUseCaseImpl updateOcorrenciaUseCaseImpl;
+    private final DeleteOcorrenciaUseCaseImpl deleteOcorrenciaUseCaseImpl;
+    private final GetOcorrenciasUseCaseImpl getOcorrenciasUseCaseImpl;
+    private final GetOcorrenciaUseCaseImpl getOcorrenciaUseCaseImpl;
+    private final GetOcorrenciasRelatorioUseCaseImpl getOcorrenciasRelatorioUseCaseImpl;
     private final ApiMapper apiMapper;
     private final OcorrenciaMapper mapper;
 
@@ -38,7 +38,7 @@ public class OcorrenciaController {
     @PostMapping
     public ResponseEntity<OcorrenciaOutDetailDto> cadastrar(@RequestBody @Valid OcorrenciaInDto dados, UriComponentsBuilder uriBuilder){
         Ocorrencia ocorrencia = mapper.inDtoToDomain(dados);
-        Ocorrencia createdOcorrencia =  createOcorrenciaUseCase.execute(ocorrencia);
+        Ocorrencia createdOcorrencia =  createOcorrenciaUseCaseImpl.execute(ocorrencia);
         OcorrenciaOutDetailDto ocorrenciaOutDetailDto = mapper.domainToOutDto(createdOcorrencia);
         URI uri = uriBuilder.path("/ocorrencias/{id}").buildAndExpand(ocorrenciaOutDetailDto.id()).toUri();
         return ResponseEntity.created(uri).body(ocorrenciaOutDetailDto);
@@ -51,14 +51,14 @@ public class OcorrenciaController {
                                                                                      @RequestParam(name = "direction", required = false, defaultValue = "DESC") Sort.Direction direction){
 
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(direction, "id"));
-        Page<Ocorrencia> domainPage = getOcorrenciasRelatorioUseCase.execute(id, pageable);
+        Page<Ocorrencia> domainPage = getOcorrenciasRelatorioUseCaseImpl.execute(id, pageable);
         Page<OcorrenciaLazyOutDto> dtoPage = domainPage.map(apiMapper::ocorrenciaToLazyDto);
         return ResponseEntity.ok(dtoPage);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<OcorrenciaOutDetailDto> detalhar(@PathVariable Long id){
-        Ocorrencia ocorrencia = getOcorrenciaUseCase.execute(id);
+        Ocorrencia ocorrencia = getOcorrenciaUseCaseImpl.execute(id);
         OcorrenciaOutDetailDto dto = mapper.domainToOutDto(ocorrencia);
         return ResponseEntity.ok(dto);
     }
@@ -69,7 +69,7 @@ public class OcorrenciaController {
                                                              @RequestParam(name = "direction", required = false, defaultValue = "DESC") Sort.Direction direction){
 
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(direction, "id"));
-        Page<Ocorrencia> domainPage = this.getOcorrenciasUseCase.execute(pageable);
+        Page<Ocorrencia> domainPage = this.getOcorrenciasUseCaseImpl.execute(pageable);
         Page<OcorrenciaLazyOutDto> dtoPage = domainPage.map(apiMapper::ocorrenciaToLazyDto);
         return ResponseEntity.ok(dtoPage);
     }
@@ -77,14 +77,14 @@ public class OcorrenciaController {
     @PutMapping("/{id}")
     public ResponseEntity<OcorrenciaOutDetailDto> atualizar(@PathVariable("id") Long id, @RequestBody @Valid OcorrenciaUpdateDto dados){
 
-        Ocorrencia ocorrencia = updateOcorrenciaUseCase.execute(id, mapper.updateDtoToDomain(dados));
+        Ocorrencia ocorrencia = updateOcorrenciaUseCaseImpl.execute(id, mapper.updateDtoToDomain(dados));
         OcorrenciaOutDetailDto ocorrenciaOutDetailDto = mapper.domainToOutDto(ocorrencia);
         return ResponseEntity.ok(ocorrenciaOutDetailDto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable("id") Long id){
-        deleteOcorrenciaUseCase.execute(id);
+        deleteOcorrenciaUseCaseImpl.execute(id);
         return ResponseEntity.noContent().build();
     }
 }

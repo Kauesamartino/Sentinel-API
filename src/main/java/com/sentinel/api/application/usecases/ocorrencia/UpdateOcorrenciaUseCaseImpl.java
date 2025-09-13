@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UpdateOcorrenciaUseCase {
+public class UpdateOcorrenciaUseCaseImpl {
     private final OcorrenciaRepository ocorrenciaRepository;
 
     @Transactional

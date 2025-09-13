@@ -2,18 +2,22 @@ package com.sentinel.api.application.usecases.ocorrencia;
 
 import com.sentinel.api.domain.model.Ocorrencia;
 import com.sentinel.api.domain.repository.OcorrenciaRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class GetOcorrenciasUseCase {
+public class CreateOcorrenciaUseCaseImpl{
 
     private final OcorrenciaRepository ocorrenciaRepository;
 
-    public Page<Ocorrencia> execute(Pageable pageable) {
-        return ocorrenciaRepository.findAllByAtivoTrue(pageable);
+    @Transactional
+    public Ocorrencia execute(Ocorrencia ocorrencia){
+        if (ocorrencia == null) {
+            throw new IllegalArgumentException("Ocorrência não pode ser nula");
+        }
+        return ocorrenciaRepository.save(ocorrencia);
     }
+
 }
