@@ -32,7 +32,6 @@ public class RelatorioController {
     private final GetRelatoriosUseCase getRelatoriosUseCase;
 
     @PostMapping
-    @Transactional
     public ResponseEntity<RelatorioOutDto> cadastrar(@RequestBody @Valid RelatorioInDto dados, UriComponentsBuilder uriBuilder){
 
         Relatorio relatorio = mapper.inDtoToDomain(dados);
