@@ -35,7 +35,6 @@ public class EstacaoController {
     private final DeleteEstacaoUseCase deleteEstacaoUseCase;
 
     @PostMapping
-    @Transactional
     public ResponseEntity<EstacaoOutDto> cadastrar(@RequestBody @Valid EstacaoInDto dados, UriComponentsBuilder uriBuilder){
         Estacao estacao = mapper.inDtoToDomain(dados);
         Estacao createdEstacao = createEstacaoUseCase.execute(estacao);
