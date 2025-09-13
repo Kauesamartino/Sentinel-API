@@ -1,9 +1,9 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.application.usecases.estacao.CreateEstacaoUseCaseImpl;
-import com.sentinel.api.application.usecases.estacao.DeleteEstacaoUseCaseImpl;
-import com.sentinel.api.application.usecases.estacao.GetEstacaoUseCaseImpl;
-import com.sentinel.api.application.usecases.estacao.GetEstacoesUseCaseImpl;
+import com.sentinel.api.application.usecase.estacao.CreateEstacaoUseCaseImpl;
+import com.sentinel.api.application.usecase.estacao.DeleteEstacaoUseCaseImpl;
+import com.sentinel.api.application.usecase.estacao.GetEstacaoUseCaseImpl;
+import com.sentinel.api.application.usecase.estacao.GetEstacoesUseCaseImpl;
 import com.sentinel.api.domain.model.Estacao;
 import com.sentinel.api.interfaces.dto.estacao.EstacaoInDto;
 import com.sentinel.api.interfaces.dto.estacao.EstacaoOutDto;

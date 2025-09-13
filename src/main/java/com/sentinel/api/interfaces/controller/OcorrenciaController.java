@@ -1,6 +1,6 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.application.usecases.ocorrencia.*;
+import com.sentinel.api.application.usecase.ocorrencia.*;
 import com.sentinel.api.domain.model.Ocorrencia;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;

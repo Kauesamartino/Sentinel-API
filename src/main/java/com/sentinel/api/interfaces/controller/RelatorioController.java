@@ -1,7 +1,7 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.application.usecases.relatorio.CreateRelatorioUseCase;
-import com.sentinel.api.application.usecases.relatorio.GetRelatoriosUseCase;
+import com.sentinel.api.application.usecase.relatorio.CreateRelatorioUseCaseImpl;
+import com.sentinel.api.application.usecase.relatorio.GetRelatoriosUseCaseImpl;
 import com.sentinel.api.domain.model.Relatorio;
 import com.sentinel.api.interfaces.dto.relatorio.RelatorioInDto;
 import com.sentinel.api.interfaces.dto.relatorio.RelatorioOutDto;
@@ -26,15 +26,15 @@ import java.net.URI;
 public class RelatorioController {
 
     private final RelatorioMapper mapper;
-    private final CreateRelatorioUseCase createRelatorioUseCase;
+    private final CreateRelatorioUseCaseImpl createRelatorioUseCaseImpl;
     private final ApiMapper apiMapper;
-    private final GetRelatoriosUseCase getRelatoriosUseCase;
+    private final GetRelatoriosUseCaseImpl getRelatoriosUseCaseImpl;
 
     @PostMapping
     public ResponseEntity<RelatorioOutDto> cadastrar(@RequestBody @Valid RelatorioInDto dados, UriComponentsBuilder uriBuilder){
 
         Relatorio relatorio = mapper.inDtoToDomain(dados);
-        Relatorio createdRelatorio = createRelatorioUseCase.execute(relatorio);
+        Relatorio createdRelatorio = createRelatorioUseCaseImpl.execute(relatorio);
         RelatorioOutDto dto = mapper.domainToOutDto(createdRelatorio);
         URI uri = uriBuilder.path("/relatorios/{id}").buildAndExpand(relatorio.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
@@ -46,7 +46,7 @@ public class RelatorioController {
                                                             @RequestParam(name = "direction", required = false, defaultValue = "DESC")Sort.Direction direction) {
 
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(direction, "id"));
-        Page<Relatorio> domainPage = getRelatoriosUseCase.execute(pageable);
+        Page<Relatorio> domainPage = getRelatoriosUseCaseImpl.execute(pageable);
         Page<RelatorioLazyOutDto> dto = domainPage.map(apiMapper::domainToLazyDto);
         return ResponseEntity.ok(dto);
     }

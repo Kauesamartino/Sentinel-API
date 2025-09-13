@@ -1,4 +1,4 @@
-package com.sentinel.api.application.usecases.estacao;
+package com.sentinel.api.application.usecase.estacao;
 
 import com.sentinel.api.domain.repository.EstacaoRepository;
 import com.sentinel.api.domain.usecase.ocorrencia.DeleteOcorrenciaUseCase;
