@@ -22,7 +22,6 @@ public class CentroControleOperacoesController {
     private final JpaCentroControleOperacoesRepository repository;
 
     @PostMapping
-    @Transactional
     public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroCentroControleOperacoes dados, UriComponentsBuilder uriBuilder){
         var cco = new JpaCentroControleOperacoesEntity(dados);
         repository.save(cco);
