@@ -2,13 +2,14 @@ package com.sentinel.api.application.usecases.ocorrencia;
 
 import com.sentinel.api.domain.model.Ocorrencia;
 import com.sentinel.api.domain.repository.OcorrenciaRepository;
+import com.sentinel.api.domain.usecase.ocorrencia.UpdateOcorrenciaUseCase;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UpdateOcorrenciaUseCaseImpl {
+public class UpdateOcorrenciaUseCaseImpl implements UpdateOcorrenciaUseCase {
     private final OcorrenciaRepository ocorrenciaRepository;
 
     @Transactional
