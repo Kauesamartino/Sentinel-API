@@ -4,7 +4,6 @@ import com.sentinel.api.infrastructure.entity.JpaCentroControleOperacoesEntity;
 import com.sentinel.api.infrastructure.repository.JpaCentroControleOperacoesRepository;
 import com.sentinel.api.interfaces.dto.cco.DadosCadastroCentroControleOperacoes;
 import com.sentinel.api.interfaces.dto.cco.CcoOutDto;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

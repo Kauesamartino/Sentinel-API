@@ -8,7 +8,6 @@ import com.sentinel.api.interfaces.dto.relatorio.RelatorioOutDto;
 import com.sentinel.api.interfaces.dto.relatorio.RelatorioLazyOutDto;
 import com.sentinel.api.interfaces.mapper.ApiMapper;
 import com.sentinel.api.interfaces.mapper.RelatorioMapper;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
