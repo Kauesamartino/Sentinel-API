@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class JpaRelatorioRepositoryAdapter implements RelatorioRepository {
+public class RelatorioRepositoryAdapter implements RelatorioRepository {
 
     private final JpaRelatorioRepository jpaRelatorioRepository;
     private final RelatorioMapper mapper;

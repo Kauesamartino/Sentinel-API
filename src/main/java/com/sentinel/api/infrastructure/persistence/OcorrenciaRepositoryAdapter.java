@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class JpaOcorrenciaRepositoryAdapter implements OcorrenciaRepository {
+public class OcorrenciaRepositoryAdapter implements OcorrenciaRepository {
 
     private final JpaOcorrenciaRepository jpaOcorrenciaRepository;
     private final OcorrenciaMapper mapper;
@@ -32,14 +32,12 @@ public class JpaOcorrenciaRepositoryAdapter implements OcorrenciaRepository {
         return mapper.jpaEntityToDomain(savedEntity);
     }
 
-    @Transactional
     public Ocorrencia findById(Long id) {
         JpaOcorrenciaEntity entity = jpaOcorrenciaRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Ocorrência não encontrada"));
         return mapper.jpaEntityToDomain(entity);
     }
 
-    @Transactional
     public Page<Ocorrencia> findAllByAtivoTrue(Pageable pageable) {
         Page<JpaOcorrenciaEntity> entityPage = jpaOcorrenciaRepository.findAllByAtivoTrue(pageable);
         return entityPage.map(mapper::jpaEntityToDomain);
@@ -52,7 +50,6 @@ public class JpaOcorrenciaRepositoryAdapter implements OcorrenciaRepository {
         jpaOcorrenciaRepository.delete(jpaOcorrenciaEntity);
     }
 
-    @Override
     public Page<Ocorrencia> findByDataBetweenAndTipoOcorrenciaOptional(Long id, Pageable pageable) {
 
         JpaRelatorioEntity relatorio = jpaRelatorioRepository.getReferenceById(id);

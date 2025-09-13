@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class JpaEstacaoRepositoryAdapter implements EstacaoRepository {
+public class EstacaoRepositoryAdapter implements EstacaoRepository {
 
     private final JpaEstacaoRepository jpaEstacaoRepository;
     private final JpaCentroControleOperacoesRepository  jpaCentroControleOperacoesRepository;

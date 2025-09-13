@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class JpaCentroControleOperacoesAdapter implements CentroControleOperacoesRepository {
+public class CentroControleOperacoesRepositoryAdapter implements CentroControleOperacoesRepository {
 
     private final JpaCentroControleOperacoesRepository jpaCentroControleOperacoesRepository;
     private final CentroControleOperacoesMapper mapper;
