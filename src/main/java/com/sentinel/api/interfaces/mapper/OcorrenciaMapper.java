@@ -33,7 +33,10 @@ public class OcorrenciaMapper {
             CcoOutDto ccoOutDto = null;
             if (estacao.getIdCco() != null) {
                 CentroControleOperacoes centroControleOperacoes = centroControleOperacoesRepository.findById(estacao.getIdCco());
-                ccoOutDto = new CcoOutDto(centroControleOperacoes);
+                ccoOutDto = new CcoOutDto(
+                        centroControleOperacoes.getId(),
+                        centroControleOperacoes.getName()
+                );
             }
             estacaoOutDto = new EstacaoOutDto(estacao, ccoOutDto);
         }
