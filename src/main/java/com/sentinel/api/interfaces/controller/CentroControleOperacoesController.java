@@ -1,9 +1,10 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.infrastructure.entity.JpaCentroControleOperacoesEntity;
-import com.sentinel.api.infrastructure.repository.JpaCentroControleOperacoesRepository;
-import com.sentinel.api.interfaces.dto.cco.DadosCadastroCentroControleOperacoes;
+import com.sentinel.api.application.usecase.cco.CreateCcoUseCaseImpl;
+import com.sentinel.api.domain.model.CentroControleOperacoes;
+import com.sentinel.api.interfaces.dto.cco.CcoInDto;
 import com.sentinel.api.interfaces.dto.cco.CcoOutDto;
+import com.sentinel.api.interfaces.mapper.CentroControleOperacoesMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +19,15 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 public class CentroControleOperacoesController {
 
-    private final JpaCentroControleOperacoesRepository repository;
+    private final CreateCcoUseCaseImpl  createCcoUseCaseImpl;
+    private final CentroControleOperacoesMapper mapper;
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroCentroControleOperacoes dados, UriComponentsBuilder uriBuilder){
-        var cco = new JpaCentroControleOperacoesEntity(dados);
-        repository.save(cco);
-        var uri = uriBuilder.path("/cco/{id}").buildAndExpand(cco.getId()).toUri();
-        return ResponseEntity.created(uri).body(new CcoOutDto(cco));
+    public ResponseEntity<CcoOutDto> cadastrar(@RequestBody @Valid CcoInDto dados, UriComponentsBuilder uriBuilder){
+        CentroControleOperacoes centroControleOperacoes = mapper.inDtoToDomain(dados);
+        CentroControleOperacoes createdCco = createCcoUseCaseImpl.execute(centroControleOperacoes);
+        CcoOutDto dto = mapper.domainToOutDto(createdCco);
+        var uri = uriBuilder.path("/cco/{id}").buildAndExpand(dto.id()).toUri();
+        return ResponseEntity.created(uri).body(dto);
     }
 }

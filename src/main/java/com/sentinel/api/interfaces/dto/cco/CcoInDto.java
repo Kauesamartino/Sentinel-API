@@ -2,7 +2,7 @@ package com.sentinel.api.interfaces.dto.cco;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record DadosCadastroCentroControleOperacoes(
+public record CcoInDto(
         @NotBlank(message = "{nome.obrigatorio}")
         String nome
 ) {

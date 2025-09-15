@@ -1,6 +1,5 @@
 package com.sentinel.api.infrastructure.entity;
 
-import com.sentinel.api.interfaces.dto.cco.DadosCadastroCentroControleOperacoes;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,6 +7,7 @@ import lombok.*;
 @Entity(name = "CCO")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -16,8 +16,4 @@ public class JpaCentroControleOperacoesEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-
-    public JpaCentroControleOperacoesEntity(DadosCadastroCentroControleOperacoes dados) {
-        this.nome = dados.nome();
-    }
 }
