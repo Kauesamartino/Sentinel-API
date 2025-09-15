@@ -15,12 +15,12 @@ public class CentroControleOperacoesRepositoryAdapter implements CentroControleO
     private final JpaCentroControleOperacoesRepository jpaCentroControleOperacoesRepository;
     private final CentroControleOperacoesMapper mapper;
 
-    @Override
     public CentroControleOperacoes save(CentroControleOperacoes centroControleOperacoes) {
-        return null;
+        JpaCentroControleOperacoesEntity entityToSave = mapper.domainToJpaEntity(centroControleOperacoes);
+        JpaCentroControleOperacoesEntity savedEntity = jpaCentroControleOperacoesRepository.save(entityToSave);
+        return mapper.jpaEntityToDomain(savedEntity);
     }
 
-    @Override
     public CentroControleOperacoes findById(Long idCco) {
         JpaCentroControleOperacoesEntity entity = jpaCentroControleOperacoesRepository.findById(idCco)
                 .orElseThrow(() -> new IllegalArgumentException("Cco não encontrado"));
