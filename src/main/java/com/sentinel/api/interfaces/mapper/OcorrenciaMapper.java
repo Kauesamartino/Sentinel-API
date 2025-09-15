@@ -23,7 +23,14 @@ public class OcorrenciaMapper {
     private final CentroControleOperacoesRepository centroControleOperacoesRepository;
 
     public Ocorrencia inDtoToDomain(@Valid OcorrenciaInDto dados) {
-        return new Ocorrencia(dados);
+        return new Ocorrencia(
+                dados.titulo(),
+                dados.descricao(),
+                dados.severidade(),
+                dados.tipoOcorrencia(),
+                dados.idEstacao(),
+                dados.ativo()
+        );
     }
 
     public OcorrenciaOutDetailDto domainToOutDto(Ocorrencia ocorrencia) {
