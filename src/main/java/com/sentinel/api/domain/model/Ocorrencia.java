@@ -3,7 +3,6 @@ package com.sentinel.api.domain.model;
 import com.sentinel.api.domain.enums.Severidade;
 import com.sentinel.api.domain.enums.Status;
 import com.sentinel.api.domain.enums.TipoOcorrencia;
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
 import lombok.*;
 
 import java.time.LocalDateTime;
