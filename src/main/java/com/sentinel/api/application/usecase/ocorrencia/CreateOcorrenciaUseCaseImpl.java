@@ -1,24 +1,19 @@
 package com.sentinel.api.application.usecase.ocorrencia;
 
+import com.sentinel.api.application.service.OcorrenciaService;
 import com.sentinel.api.domain.model.Ocorrencia;
-import com.sentinel.api.domain.repository.OcorrenciaRepository;
 import com.sentinel.api.domain.usecase.ocorrencia.CreateOcorrenciaUseCase;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-@Service
-@RequiredArgsConstructor
 public class CreateOcorrenciaUseCaseImpl implements CreateOcorrenciaUseCase {
 
-    private final OcorrenciaRepository ocorrenciaRepository;
+    private final OcorrenciaService ocorrenciaService;
 
-    @Transactional
+    public CreateOcorrenciaUseCaseImpl(OcorrenciaService ocorrenciaService) {
+        this.ocorrenciaService = ocorrenciaService;
+    }
+
     public Ocorrencia execute(Ocorrencia ocorrencia){
-        if (ocorrencia == null) {
-            throw new IllegalArgumentException("Ocorrência não pode ser nula");
-        }
-        return ocorrenciaRepository.save(ocorrencia);
+        return ocorrenciaService.save(ocorrencia);
     }
 
 }
