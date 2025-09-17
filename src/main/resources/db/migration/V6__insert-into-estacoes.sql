@@ -1,0 +1,65 @@
+-- Migration 6: Insert dados na tabela estacoes
+
+-- LINHA 8 DIAMANTE
+INSERT INTO estacoes (nome, linha, cco_id, logradouro, numero, complemento, bairro, cidade, uf, cep) VALUES
+                                                                                                         ('Júlio Prestes','LINHA_8_DIAMANTE',1,'Praça Júlio Prestes','148','Estação Júlio Prestes','Bom Retiro','São Paulo','SP','-'),
+                                                                                                         ('Palmeiras-Barra Funda','LINHA_8_DIAMANTE',1,'Rua Mário de Andrade','684','Estação Palmeiras-Barra Funda','Barra Funda','São Paulo','SP','-'),
+                                                                                                         ('Lapa','LINHA_8_DIAMANTE',1,'Rua Guaicurus','1438','Estação Lapa','Lapa','São Paulo','SP','-'),
+                                                                                                         ('Domingos de Moraes','LINHA_8_DIAMANTE',1,'Rua João Tibiriçá','s/n','Estação Domingos de Moraes','Vila Anastácio','São Paulo','SP','-'),
+                                                                                                         ('Imperatriz Leopoldina','LINHA_8_DIAMANTE',1,'Rua Major Paladino','08','Estação Imperatriz Leopoldina','Vila Leopoldina','São Paulo','SP','-'),
+                                                                                                         ('Presidente Altino','LINHA_8_DIAMANTE',1,'Rua Abílio Mendes','08','Estação Presidente Altino','Presidente Altino','Osasco','SP','-'),
+                                                                                                         ('Osasco','LINHA_8_DIAMANTE',1,'Praça Antonio Menck','s/n','Estação Osasco','Centro','Osasco','SP','-'),
+                                                                                                         ('Comandante Sampaio','LINHA_8_DIAMANTE',1,'Avenida Autonomistas','5100','Estação Comandante Sampaio','Comandante Sampaio','Osasco','SP','-'),
+                                                                                                         ('Quitaúna','LINHA_8_DIAMANTE',1,'Praça A. R. Tavares','s/n','Estação Quitaúna','Quitaúna','Osasco','SP','-'),
+                                                                                                         ('General Miguel Costa','LINHA_8_DIAMANTE',1,'Avenida Autonomistas','s/n','Estação General Miguel Costa','Vila Quitaúna','Osasco','SP','-'),
+                                                                                                         ('Carapicuíba','LINHA_8_DIAMANTE',1,'Rua Max Zandron','s/n','Estação Carapicuíba','Centro','Carapicuíba','SP','-'),
+                                                                                                         ('Santa Terezinha','LINHA_8_DIAMANTE',1,'Rua Dep. Emílio Carlos','900','Estação Santa Terezinha','Santa Terezinha','Carapicuíba','SP','-'),
+                                                                                                         ('Antônio João','LINHA_8_DIAMANTE',1,'Parada Antonio João','20','Estação Antônio João','Antonio João','Barueri','SP','-'),
+                                                                                                         ('Barueri','LINHA_8_DIAMANTE',1,'Praça São João Batista','30','Estação Barueri','Centro','Barueri','SP','-'),
+                                                                                                         ('Jardim Belval','LINHA_8_DIAMANTE',1,'Av. Grupo Bandeirantes','s/n','Estação Jardim Belval','Jardim Belval','Barueri','SP','-'),
+                                                                                                         ('Jardim Silveira','LINHA_8_DIAMANTE',1,'Rua Fernão Dias Paes Leme','s/n','Estação Jardim Silveira','Jardim Silveira','Barueri','SP','-'),
+                                                                                                         ('Jandira','LINHA_8_DIAMANTE',1,'Rua João Balhesteiro','50','Estação Jandira','Centro','Jandira','SP','-'),
+                                                                                                         ('Sagrado Coração','LINHA_8_DIAMANTE',1,'Rua Francisco José Longo','402','Estação Sagrado Coração','Sagrado Coração','Jandira','SP','-'),
+                                                                                                         ('Engenheiro Cardoso','LINHA_8_DIAMANTE',1,'Rua Nelson F. Costa','s/n','Estação Engenheiro Cardoso','Engenheiro Cardoso','Itapevi','SP','-'),
+                                                                                                         ('Itapevi','LINHA_8_DIAMANTE',1,'Rua Pires de Oliveira','51','Estação Itapevi','Centro','Itapevi','SP','-'),
+                                                                                                         ('Santa Rita','LINHA_8_DIAMANTE',1,'Jardim Portela','s/n','Estação Santa Rita','Itapevi','Itapevi','SP','-'),
+                                                                                                         ('Cimenrita','LINHA_8_DIAMANTE',1,'Jardim Portela','s/n','Estação Cimenrita','Itapevi','Itapevi','SP','-'),
+                                                                                                         ('Ambuitá','LINHA_8_DIAMANTE',1,'Amador Bueno','s/n','Estação Ambuitá','Itapevi','Itapevi','SP','-'),
+                                                                                                         ('Amador Bueno','LINHA_8_DIAMANTE',1,'Jardim Santo Antônio','s/n','Estação Amador Bueno','Itapevi','Itapevi','SP','-');
+
+-- LINHA 9 ESMERALDA
+INSERT INTO estacoes (nome, linha, cco_id, logradouro, numero, complemento, bairro, cidade, uf, cep) VALUES
+                                                                                                         ('Osasco','LINHA_9_ESMERALDA',1,'Praça Antonio Menck','s/n','Estação Osasco','Centro','Osasco','SP','06020-000'),
+                                                                                                         ('Presidente Altino','LINHA_9_ESMERALDA',1,'Rua Abílio Mendes','08','Estação Presidente Altino','Presidente Altino','Osasco','SP','06038-000'),
+                                                                                                         ('Ceasa','LINHA_9_ESMERALDA',1,'-','s/n','Estação Ceasa','-','-','SP','-'),
+                                                                                                         ('Vila Lobos-Jaguaré','LINHA_9_ESMERALDA',1,'Av. das Nações Unidas','2100','Estação Vila Lobos-Jaguaré','Jaguaré','São Paulo','SP','05474-220'),
+                                                                                                         ('Cidade Universitária','LINHA_9_ESMERALDA',1,'Av. das Nações Unidas','s/n','Estação Cidade Universitária','Pinheiros','São Paulo','SP','05474-220'),
+                                                                                                         ('Pinheiros','LINHA_9_ESMERALDA',1,'Av. das Nações Unidas','s/n','Estação Pinheiros','Pinheiros','São Paulo','SP','05474-220'),
+                                                                                                         ('Hebraica-Rebouças','LINHA_9_ESMERALDA',1,'Rua Ofélia','255','Estação Hebraica-Rebouças','Pinheiros','São Paulo','SP','05409-020'),
+                                                                                                         ('Cidade Jardim','LINHA_9_ESMERALDA',1,'Av. das Nações Unidas','s/n','Estação Cidade Jardim','Pinheiros','São Paulo','SP','04578-000'),
+                                                                                                         ('Vila Olímpia','LINHA_9_ESMERALDA',1,'Av. das Nações Unidas','s/n','Estação Vila Olímpia','Itaim Bibi','São Paulo','SP','04538-132'),
+                                                                                                         ('Berrini','LINHA_9_ESMERALDA',1,'Av. das Nações Unidas','12771','Estação Berrini','Itaim Bibi','São Paulo','SP','04538-132'),
+                                                                                                         ('Morumbi','LINHA_9_ESMERALDA',1,'Av. das Nações Unidas / Av. João Dória','s/n','Estação Morumbi','Santo Amaro','São Paulo','SP','04707-000'),
+                                                                                                         ('Granja Julieta','LINHA_9_ESMERALDA',1,'Rua Alexandre Dumas','4403','Estação Granja Julieta','Chácara Santo Antônio','São Paulo','SP','04717-005'),
+                                                                                                         ('Santo Amaro','LINHA_9_ESMERALDA',1,'Av. das Nações Unidas','s/n','Estação Santo Amaro','Jardim Promissão','São Paulo','SP','04707-000'),
+                                                                                                         ('Socorro','LINHA_9_ESMERALDA',1,'Av. das Nações Unidas','s/n','Estação Socorro','Jurubatuba','São Paulo','SP','04473-060'),
+                                                                                                         ('Jurubatuba','LINHA_9_ESMERALDA',1,'Rua Octales M. Ferreira','391','Estação Jurubatuba','Jurubatuba','São Paulo','SP','04473-060'),
+                                                                                                         ('Autódromo','LINHA_9_ESMERALDA',1,'Rua Plínio Schmidt','307','Estação Autódromo','Jardim Marcel','São Paulo','SP','04626-080'),
+                                                                                                         ('Primavera-Interlagos','LINHA_9_ESMERALDA',1,'Rua Jequirituba','83','Estação Primavera-Interlagos','Cidade Dutra','São Paulo','SP','04717-000'),
+                                                                                                         ('Grajaú','LINHA_9_ESMERALDA',1,'Rua Giovanni Bononcini','77','Estação Grajaú','Grajaú','São Paulo','SP','04925-000'),
+                                                                                                         ('Bruno Covas/Mendes-Vila Natal','LINHA_9_ESMERALDA',1,'-','s/n','Estação Bruno Covas/Mendes-Vila Natal','-','-','SP','-'),
+                                                                                                         ('Varginha','LINHA_9_ESMERALDA',1,'-','s/n','Estação Varginha','-','-','SP','-');
+
+-- LINHA 4 AMARELA
+INSERT INTO estacoes (nome, linha, cco_id, logradouro, numero, complemento, bairro, cidade, uf, cep) VALUES
+                                                                                                         ('Luz','LINHA_4_AMARELA',2,'Av. Prestes Maia','925','Estação Luz','Luz','São Paulo','SP','01010-000'),
+                                                                                                         ('República','LINHA_4_AMARELA',2,'Rua do Arouche','24','Estação República','República','São Paulo','SP','01037-000'),
+                                                                                                         ('Higienópolis-Mackenzie','LINHA_4_AMARELA',2,'Rua da Consolação / Rua Piauí','s/n','Estação Higienópolis-Mackenzie','Higienópolis','São Paulo','SP','01305-000'),
+                                                                                                         ('Paulista','LINHA_4_AMARELA',2,'Rua da Consolação / Av. Paulista','s/n','Estação Paulista','Consolação','São Paulo','SP','01311-200'),
+                                                                                                         ('Oscar Freire','LINHA_4_AMARELA',2,'Av. Rebouças','1089','Estação Oscar Freire','Cerqueira César','São Paulo','SP','01412-000'),
+                                                                                                         ('Fradique Coutinho','LINHA_4_AMARELA',2,'Rua dos Pinheiros','s/n','Estação Fradique Coutinho','Pinheiros','São Paulo','SP','05422-030'),
+                                                                                                         ('Faria Lima','LINHA_4_AMARELA',2,'Av. Brigadeiro Faria Lima','s/n','Estação Faria Lima','Pinheiros','São Paulo','SP','04538-132'),
+                                                                                                         ('Pinheiros','LINHA_4_AMARELA',2,'-','s/n','Estação Pinheiros','Pinheiros','São Paulo','SP','05422-030'),
+                                                                                                         ('Butantã','LINHA_4_AMARELA',2,'-','s/n','Estação Butantã','Butantã','São Paulo','SP','05503-000'),
+                                                                                                         ('São Paulo-Morumbi','LINHA_4_AMARELA',2,'-','s/n','Estação São Paulo-Morumbi','Morumbi','São Paulo','SP','05508-000'),
+                                                                                                         ('Vila Sônia','LINHA_4_AMARELA',2,'-','s/n','Estação Vila Sônia','Vila Sônia','São Paulo','SP','-');
