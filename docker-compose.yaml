@@ -1,40 +1,30 @@
-# Versão do Docker Compose
 version: '3.8'
 
-# 'services' define os containers que compõem sua aplicação
 services:
-
-  # Serviço do Banco de Dados MySQL (o que você já tinha)
-  mysql:
-    image: mysql:8.0
+  # Serviço do PostgreSQL
+  postgres:
+    image: postgres:17
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_DATABASE: sentinel
-    # Adiciona um 'volume' para que os dados do seu banco não se percam
-    # quando você parar o container. É uma boa prática.
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: sentinel
+      POSTGRES_USER: postgres
     volumes:
-      - mysql_data:/var/lib/mysql
+      - postgres_data:/var/lib/postgresql/data
 
   # Serviço da sua API Java
   api-java:
-    # 'build: .' instrui o Docker Compose a procurar um 'Dockerfile'
-    # no diretório atual (.) e construir a imagem a partir dele.
     build: .
     ports:
-      - "8080:8080" # Mapeia a porta 8080 do container para a 8080 da sua máquina
+      - "8080:8080"
     environment:
-      # Aqui está a mágica: configuramos a API para se conectar ao banco.
-      # Usamos 'mysql' no host da URL porque é o nome do serviço do banco de dados.
-      # O Docker Compose cria uma rede interna onde os serviços se enxergam pelos nomes.
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/sentinel
-      SPRING_DATASOURCE_USERNAME: root
+      # Atualize a URL de conexão para apontar ao PostgreSQL
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/sentinel
+      SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123456
-      # Outras variáveis que sua API possa precisar...
     depends_on:
-      - mysql # Garante que o container do mysql inicie antes da sua API
+      - postgres
 
-# Define os volumes que serão gerenciados pelo Docker
 volumes:
-  mysql_data:
+  postgres_data:
