@@ -2,11 +2,8 @@ package com.sentinel.api.application.usecase.relatorio;
 
 import com.sentinel.api.application.service.RelatorioService;
 import com.sentinel.api.domain.model.Relatorio;
-import com.sentinel.api.domain.repository.RelatorioRepository;
 import com.sentinel.api.domain.usecase.relatorio.CreateRelatorioUseCase;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+
 
 public class CreateRelatorioUseCaseImpl implements CreateRelatorioUseCase {
 
