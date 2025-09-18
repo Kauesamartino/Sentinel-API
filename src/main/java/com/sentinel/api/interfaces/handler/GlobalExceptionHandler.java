@@ -1,6 +1,7 @@
 package com.sentinel.api.interfaces.handler;
 
 import com.sentinel.api.application.exceptions.InvalidDateException;
+import com.sentinel.api.application.exceptions.ValidationException;
 import com.sentinel.api.interfaces.dto.exception.ErrorResponse;
 import com.sentinel.api.interfaces.dto.exception.FieldErrorDetail;
 import com.sentinel.api.interfaces.dto.exception.ValidationErrorResponse;
@@ -61,6 +62,18 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<ErrorResponse> handleValidationException(ValidationException ex, HttpServletRequest request) {
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                LocalDateTime.now().toString(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneric(Exception ex, HttpServletRequest request) {
