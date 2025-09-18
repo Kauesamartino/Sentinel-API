@@ -16,8 +16,6 @@ public class RelatorioService {
     public Relatorio save(Relatorio relatorio) {
         DataValidator.validarInicioMenorQueFim(relatorio.getDataInicio(), relatorio.getDataFim());
         DataValidator.validarAntecedenciaMinima(relatorio.getDataInicio(), relatorio.getDataFim(), 1);
-
-
         return relatorioRepository.save(relatorio);
     }
 }
