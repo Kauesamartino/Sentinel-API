@@ -10,7 +10,7 @@ public class DataValidator {
     // Valida se inicio < fim
     public static void validarInicioMenorQueFim(LocalDateTime inicio, LocalDateTime fim) {
         if (!inicio.isBefore(fim)) {
-            throw new InvalidDateException("Data de início não pode ser depois da data de fim.");
+            throw new InvalidDateException("Data de início não pode ser após ou igual a data de fim.");
         }
     }
 
