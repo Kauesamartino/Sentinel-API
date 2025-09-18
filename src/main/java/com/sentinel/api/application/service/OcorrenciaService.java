@@ -6,6 +6,7 @@ import com.sentinel.api.application.exceptions.ocorrencia.OcorrenciaTipoInvalido
 import com.sentinel.api.application.exceptions.ocorrencia.OcorrenciaTituloInvalidoException;
 import com.sentinel.api.domain.model.Ocorrencia;
 import com.sentinel.api.domain.repository.OcorrenciaRepository;
+import jakarta.persistence.EntityNotFoundException;
 
 public class OcorrenciaService {
 
@@ -30,5 +31,13 @@ public class OcorrenciaService {
         }
 
         return ocorrenciaRepository.save(ocorrencia);
+    }
+
+    public void delete(Long id) {
+        Ocorrencia ocorrencia = ocorrenciaRepository.findById(id);
+        if (ocorrencia == null) {
+            throw new EntityNotFoundException("Relatório não encontrado para id: " + id);
+        }
+        ocorrenciaRepository.delete(id);
     }
 }
