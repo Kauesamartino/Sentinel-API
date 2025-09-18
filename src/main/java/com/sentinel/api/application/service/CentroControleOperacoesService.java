@@ -1,5 +1,6 @@
 package com.sentinel.api.application.service;
 
+import com.sentinel.api.application.exceptions.ValidationException;
 import com.sentinel.api.domain.model.CentroControleOperacoes;
 import com.sentinel.api.domain.repository.CentroControleOperacoesRepository;
 
@@ -13,7 +14,7 @@ public class CentroControleOperacoesService {
 
     public void validate(CentroControleOperacoes centroControleOperacoes){
         if (centroControleOperacoes.getName() == null || centroControleOperacoes.getName().isEmpty()){
-            throw new IllegalArgumentException("Nome inválido");
+            throw new ValidationException("Nome inválido");
         }
     }
 

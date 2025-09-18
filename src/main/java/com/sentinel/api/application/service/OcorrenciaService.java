@@ -1,9 +1,6 @@
 package com.sentinel.api.application.service;
 
-import com.sentinel.api.application.exceptions.ocorrencia.OcorrenciaDescricaoInvalidaException;
-import com.sentinel.api.application.exceptions.ocorrencia.OcorrenciaSeveridadeInvalidaException;
-import com.sentinel.api.application.exceptions.ocorrencia.OcorrenciaTipoInvalidoException;
-import com.sentinel.api.application.exceptions.ocorrencia.OcorrenciaTituloInvalidoException;
+import com.sentinel.api.application.exceptions.ValidationException;
 import com.sentinel.api.domain.model.Ocorrencia;
 import com.sentinel.api.domain.repository.OcorrenciaRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,16 +15,16 @@ public class OcorrenciaService {
 
     public Ocorrencia save(Ocorrencia ocorrencia) {
         if (ocorrencia.getTitulo() == null || ocorrencia.getTitulo().isEmpty()) {
-            throw new OcorrenciaTituloInvalidoException();
+            throw new ValidationException("Titulo de ocorrência é obrigatória");
         }
         if (ocorrencia.getDescricao() == null || ocorrencia.getDescricao().isEmpty()) {
-            throw new OcorrenciaDescricaoInvalidaException();
+            throw new ValidationException("Descrição de ocorrência é obrigatória");
         }
         if (ocorrencia.getSeveridade() == null){
-            throw new OcorrenciaSeveridadeInvalidaException();
+            throw new ValidationException("Severidade de ocorrência é obrigatória");
         }
         if (ocorrencia.getTipoOcorrencia() == null) {
-            throw new OcorrenciaTipoInvalidoException();
+            throw new ValidationException("Tipo de ocorrência é obrigatório");
         }
 
         return ocorrenciaRepository.save(ocorrencia);
