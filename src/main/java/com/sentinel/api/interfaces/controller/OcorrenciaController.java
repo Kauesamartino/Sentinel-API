@@ -31,6 +31,7 @@ public class OcorrenciaController {
     private final GetOcorrenciasUseCaseImpl getOcorrenciasUseCaseImpl;
     private final GetOcorrenciaUseCaseImpl getOcorrenciaUseCaseImpl;
     private final GetOcorrenciasRelatorioUseCaseImpl getOcorrenciasRelatorioUseCaseImpl;
+    private final GetOcorrenciasAtivoFalseUseCaseImpl getOcorrenciasAtivoFalseUseCaseImpl;
     private final ApiMapper apiMapper;
     private final OcorrenciaMapper mapper;
 
@@ -70,6 +71,17 @@ public class OcorrenciaController {
 
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(direction, "id"));
         Page<Ocorrencia> domainPage = this.getOcorrenciasUseCaseImpl.execute(pageable);
+        Page<OcorrenciaLazyOutDto> dtoPage = domainPage.map(apiMapper::ocorrenciaToLazyDto);
+        return ResponseEntity.ok(dtoPage);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<OcorrenciaLazyOutDto>> listarOcorrenciasCuradoria(@RequestParam(name = "pageSize", required = false, defaultValue = "20") Integer pageSize,
+                                                                                 @RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
+                                                                                 @RequestParam(name = "direction", required = false, defaultValue = "DESC") Sort.Direction direction){
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(direction, "id"));
+        Page<Ocorrencia> domainPage = this.getOcorrenciasAtivoFalseUseCaseImpl.execute(pageable);
         Page<OcorrenciaLazyOutDto> dtoPage = domainPage.map(apiMapper::ocorrenciaToLazyDto);
         return ResponseEntity.ok(dtoPage);
     }
