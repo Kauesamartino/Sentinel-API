@@ -6,6 +6,7 @@ import com.sentinel.api.application.service.RelatorioService;
 import com.sentinel.api.application.usecase.cco.CreateCcoUseCaseImpl;
 import com.sentinel.api.application.usecase.ocorrencia.CreateOcorrenciaUseCaseImpl;
 import com.sentinel.api.application.usecase.ocorrencia.DeleteOcorrenciaUseCaseImpl;
+import com.sentinel.api.application.usecase.ocorrencia.GetOcorrenciasAtivoFalseUseCaseImpl;
 import com.sentinel.api.application.usecase.relatorio.CreateRelatorioUseCaseImpl;
 import com.sentinel.api.domain.repository.CentroControleOperacoesRepository;
 import com.sentinel.api.domain.repository.OcorrenciaRepository;
@@ -47,6 +48,10 @@ public class BeanConfig {
 
     @Bean public DeleteOcorrenciaUseCaseImpl deleteOcorrenciaUseCaseImpl(OcorrenciaService ocorrenciaService) {
         return new DeleteOcorrenciaUseCaseImpl(ocorrenciaService);
+    }
+
+    @Bean public GetOcorrenciasAtivoFalseUseCaseImpl getOcorrenciasAtivoFalseUseCaseImpl(OcorrenciaService ocorrenciaService) {
+        return new GetOcorrenciasAtivoFalseUseCaseImpl(ocorrenciaService);
     }
 
     // Relatorio usecases
