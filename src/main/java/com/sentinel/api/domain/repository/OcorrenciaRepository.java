@@ -12,4 +12,6 @@ public interface OcorrenciaRepository {
     void delete(Long id);
 
     Page<Ocorrencia> findByDataBetweenAndTipoOcorrenciaOptional(Long id, Pageable pageable);
+
+    Page<Ocorrencia> findAllByAtivoFalse(Pageable pageable);
 }
