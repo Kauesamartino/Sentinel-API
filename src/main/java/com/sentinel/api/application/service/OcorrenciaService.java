@@ -43,4 +43,8 @@ public class OcorrenciaService {
     public Page<Ocorrencia> findAllByAtivoFalse(Pageable pageable) {
         return ocorrenciaRepository.findAllByAtivoFalse(pageable);
     }
+
+    public void ativar(Long id) {
+        ocorrenciaRepository.ativar(id);
+    }
 }
