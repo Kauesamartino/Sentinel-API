@@ -4,6 +4,8 @@ import com.sentinel.api.application.exceptions.ValidationException;
 import com.sentinel.api.domain.model.Ocorrencia;
 import com.sentinel.api.domain.repository.OcorrenciaRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public class OcorrenciaService {
 
@@ -36,5 +38,9 @@ public class OcorrenciaService {
             throw new EntityNotFoundException("Relatório não encontrado para id: " + id);
         }
         ocorrenciaRepository.delete(id);
+    }
+
+    public Page<Ocorrencia> findAllByAtivoFalse(Pageable pageable) {
+        return ocorrenciaRepository.findAllByAtivoFalse(pageable);
     }
 }
