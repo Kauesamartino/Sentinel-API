@@ -99,4 +99,11 @@ public class OcorrenciaController {
         deleteOcorrenciaUseCaseImpl.execute(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<OcorrenciaOutDetailDto> ativar(@PathVariable("id") Long id){
+        Ocorrencia ocorrencia = getOcorrenciaUseCaseImpl.execute(id);
+        ativaOcorrenciaUseCaseImpl.execute(id);
+        return ResponseEntity.noContent().build();
+    }
 }
