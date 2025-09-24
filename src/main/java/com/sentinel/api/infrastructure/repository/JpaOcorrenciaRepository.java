@@ -25,4 +25,6 @@ public interface JpaOcorrenciaRepository extends JpaRepository<JpaOcorrenciaEnti
             @Param("tipoOcorrencia") TipoOcorrencia tipoOcorrencia,
             Pageable pageable
     );
+
+    Page<JpaOcorrenciaEntity> findAllByAtivoFalse(Pageable pageable);
 }

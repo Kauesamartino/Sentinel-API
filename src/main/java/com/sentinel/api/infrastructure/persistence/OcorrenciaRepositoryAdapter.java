@@ -62,4 +62,10 @@ public class OcorrenciaRepositoryAdapter implements OcorrenciaRepository {
 
         return entityPage.map(mapper::jpaEntityToDomain);
     }
+
+
+    public Page<Ocorrencia> findAllByAtivoFalse(Pageable pageable) {
+        Page<JpaOcorrenciaEntity> entityPage = jpaOcorrenciaRepository.findAllByAtivoFalse(pageable);
+        return entityPage.map(mapper::jpaEntityToDomain);
+    }
 }
