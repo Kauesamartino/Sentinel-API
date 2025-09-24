@@ -32,6 +32,7 @@ public class OcorrenciaController {
     private final GetOcorrenciaUseCaseImpl getOcorrenciaUseCaseImpl;
     private final GetOcorrenciasRelatorioUseCaseImpl getOcorrenciasRelatorioUseCaseImpl;
     private final GetOcorrenciasAtivoFalseUseCaseImpl getOcorrenciasAtivoFalseUseCaseImpl;
+    private final PatchOcorrenciaAtivoUseCaseImpl patchOcorrenciaAtivoUseCaseImpl;
     private final ApiMapper apiMapper;
     private final OcorrenciaMapper mapper;
 
