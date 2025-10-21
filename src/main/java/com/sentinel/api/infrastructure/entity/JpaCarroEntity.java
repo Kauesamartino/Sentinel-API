@@ -1,9 +1,11 @@
 package com.sentinel.api.infrastructure.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Table(name = "carros")
 @Entity(name = "carro")
+@Getter
 public class JpaCarroEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
