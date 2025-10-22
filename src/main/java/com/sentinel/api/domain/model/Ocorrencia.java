@@ -22,9 +22,10 @@ public class Ocorrencia {
     private Status status;
     private TipoOcorrencia tipoOcorrencia;
     private Long idEstacao;
+    private Long idCamera;
     private Boolean ativo;
 
-    public Ocorrencia(String titulo, String descricao, Severidade severidade, TipoOcorrencia tipoOcorrencia, Long idEstacao, Boolean ativo) {
+    public Ocorrencia(String titulo, String descricao, Severidade severidade, TipoOcorrencia tipoOcorrencia, Long idEstacao, Long idCamera, Boolean ativo) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.data = LocalDateTime.now();
@@ -32,6 +33,7 @@ public class Ocorrencia {
         this.status = Status.ABERTO;
         this.tipoOcorrencia = tipoOcorrencia;
         this.idEstacao = idEstacao;
+        this.idCamera = idCamera;
         this.ativo = Objects.requireNonNullElse(ativo, false);
     }
 

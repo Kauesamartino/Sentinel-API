@@ -36,9 +36,13 @@ public class JpaOcorrenciaEntity {
     @JoinColumn(name = "estacao_id")
     private JpaEstacaoEntity jpaEstacaoEntity;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "camera_id")
+    private JpaCameraEntity jpaCameraEntity;
+
     private Boolean ativo;
 
-    public JpaOcorrenciaEntity(String titulo, String descricao, LocalDateTime data, Severidade severidade, Status status, TipoOcorrencia tipoOcorrencia, JpaEstacaoEntity estacaoEntity, Boolean ativo) {
+    public JpaOcorrenciaEntity(String titulo, String descricao, LocalDateTime data, Severidade severidade, Status status, TipoOcorrencia tipoOcorrencia, JpaEstacaoEntity estacaoEntity, JpaCameraEntity cameraEntity,Boolean ativo) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.data = data;
@@ -46,6 +50,7 @@ public class JpaOcorrenciaEntity {
         this.status = status;
         this.tipoOcorrencia = tipoOcorrencia;
         this.jpaEstacaoEntity = estacaoEntity;
+        this.jpaCameraEntity = cameraEntity;
         this.ativo = ativo;
     }
 

@@ -5,6 +5,7 @@ import com.sentinel.api.domain.model.Estacao;
 import com.sentinel.api.domain.model.Ocorrencia;
 import com.sentinel.api.domain.repository.CentroControleOperacoesRepository;
 import com.sentinel.api.domain.repository.EstacaoRepository;
+import com.sentinel.api.infrastructure.entity.JpaCameraEntity;
 import com.sentinel.api.infrastructure.entity.JpaEstacaoEntity;
 import com.sentinel.api.infrastructure.entity.JpaOcorrenciaEntity;
 import com.sentinel.api.interfaces.dto.cco.CcoOutDto;
@@ -29,6 +30,7 @@ public class OcorrenciaMapper {
                 dados.severidade(),
                 dados.tipoOcorrencia(),
                 dados.idEstacao(),
+                dados.idCamera(),
                 dados.ativo()
         );
     }
@@ -64,10 +66,11 @@ public class OcorrenciaMapper {
                 entity.getStatus(),
                 entity.getTipoOcorrencia(),
                 entity.getJpaEstacaoEntity().getId(),
+                entity.getJpaCameraEntity().getId(),
                 entity.getAtivo());
     }
 
-    public JpaOcorrenciaEntity domainToJpa(Ocorrencia ocorrencia, JpaEstacaoEntity estacaoEntity) {
+    public JpaOcorrenciaEntity domainToJpa(Ocorrencia ocorrencia, JpaEstacaoEntity estacaoEntity, JpaCameraEntity cameraEntity) {
         return new JpaOcorrenciaEntity(
                 ocorrencia.getTitulo(),
                 ocorrencia.getDescricao(),
@@ -76,6 +79,7 @@ public class OcorrenciaMapper {
                 ocorrencia.getStatus(),
                 ocorrencia.getTipoOcorrencia(),
                 estacaoEntity,
+                cameraEntity,
                 ocorrencia.getAtivo()
         );
     }

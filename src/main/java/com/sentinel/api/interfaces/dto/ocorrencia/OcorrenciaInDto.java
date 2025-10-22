@@ -17,6 +17,7 @@ public record OcorrenciaInDto(
         @NotNull(message = "{severidade.obrigatorio}")
         Severidade severidade,
         Long idEstacao,
+        Long idCamera,
         Boolean ativo,
 
         @NotNull(message = "{tipoOcorrencia.obrigatorio}")
