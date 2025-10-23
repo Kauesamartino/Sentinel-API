@@ -1,4 +1,4 @@
-package com.sentinel.api.domain.usecase.relatorio;
+package com.sentinel.api.application.usecase.relatorio;
 
 import com.sentinel.api.domain.model.Relatorio;
 import org.springframework.data.domain.Page;

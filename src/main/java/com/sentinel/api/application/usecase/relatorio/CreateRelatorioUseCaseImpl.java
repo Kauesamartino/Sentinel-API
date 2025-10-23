@@ -1,22 +1,21 @@
 package com.sentinel.api.application.usecase.relatorio;
 
-import com.sentinel.api.application.service.RelatorioService;
 import com.sentinel.api.domain.model.Relatorio;
-import com.sentinel.api.domain.usecase.relatorio.CreateRelatorioUseCase;
+import com.sentinel.api.domain.repository.RelatorioRepository;
 
 
-public class CreateRelatorioUseCaseImpl implements CreateRelatorioUseCase {
+public final class CreateRelatorioUseCaseImpl implements CreateRelatorioUseCase {
 
-    private final RelatorioService relatorioService;
+    private final RelatorioRepository relatorioRepository;
 
-    public CreateRelatorioUseCaseImpl(RelatorioService relatorioService) {
-        this.relatorioService = relatorioService;
+    public CreateRelatorioUseCaseImpl(RelatorioRepository relatorioRepository) {
+        this.relatorioRepository = relatorioRepository;
     }
 
     public Relatorio execute(Relatorio relatorio) {
         if (relatorio == null) {
             throw new IllegalArgumentException("Relatorio não pode ser nulo");
         }
-        return relatorioService.save(relatorio);
+        return relatorioRepository.save(relatorio);
     }
 }
