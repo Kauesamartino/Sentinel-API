@@ -1,5 +1,6 @@
 package com.sentinel.api.interfaces.mapper;
 
+import com.sentinel.api.domain.model.Camera;
 import com.sentinel.api.domain.model.CentroControleOperacoes;
 import com.sentinel.api.domain.model.Estacao;
 import com.sentinel.api.domain.model.Ocorrencia;
@@ -8,6 +9,7 @@ import com.sentinel.api.domain.repository.EstacaoRepository;
 import com.sentinel.api.infrastructure.entity.JpaCameraEntity;
 import com.sentinel.api.infrastructure.entity.JpaEstacaoEntity;
 import com.sentinel.api.infrastructure.entity.JpaOcorrenciaEntity;
+import com.sentinel.api.interfaces.dto.camera.CameraOutDto;
 import com.sentinel.api.interfaces.dto.cco.CcoOutDto;
 import com.sentinel.api.interfaces.dto.estacao.EstacaoOutDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
@@ -35,7 +37,7 @@ public class OcorrenciaMapper {
         );
     }
 
-    public OcorrenciaOutDetailDto domainToOutDto(Ocorrencia ocorrencia) {
+    public OcorrenciaOutDetailDto domainToOutDto(Ocorrencia ocorrencia, Camera camera) {
         EstacaoOutDto estacaoOutDto = null;
         if (ocorrencia.getIdEstacao() != null) {
             Estacao estacao = estacaoRepository.findById(ocorrencia.getIdEstacao());
@@ -49,10 +51,12 @@ public class OcorrenciaMapper {
             }
             estacaoOutDto = new EstacaoOutDto(estacao, ccoOutDto);
         }
-        return new OcorrenciaOutDetailDto(ocorrencia, estacaoOutDto);
+
+        CameraOutDto cameraOutDto = new CameraOutDto(camera.getCodigo());
+        return new OcorrenciaOutDetailDto(ocorrencia, estacaoOutDto, cameraOutDto);
     }
 
-    public Ocorrencia updateDtoToDomain(@Valid OcorrenciaUpdateDto dados) {
+    public Ocorrencia updateDtoToDomain(OcorrenciaUpdateDto dados) {
         return new Ocorrencia(dados.titulo(), dados.descricao(), dados.status(), dados.tipoOcorrencia(), dados.severidade(), dados.ativo());
     }
 

@@ -1,6 +1,8 @@
 package com.sentinel.api.interfaces.controller;
 
+import com.sentinel.api.application.usecase.camera.GetCameraUseCaseImpl;
 import com.sentinel.api.application.usecase.ocorrencia.*;
+import com.sentinel.api.domain.model.Camera;
 import com.sentinel.api.domain.model.Ocorrencia;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
@@ -33,6 +35,7 @@ public class OcorrenciaController {
     private final GetOcorrenciasRelatorioUseCaseImpl getOcorrenciasRelatorioUseCaseImpl;
     private final GetOcorrenciasAtivoFalseUseCaseImpl getOcorrenciasAtivoFalseUseCaseImpl;
     private final PatchOcorrenciaAtivoUseCaseImpl patchOcorrenciaAtivoUseCaseImpl;
+    private final GetCameraUseCaseImpl getCameraUseCaseImpl;
     private final ApiMapper apiMapper;
     private final OcorrenciaMapper mapper;
 
@@ -41,7 +44,8 @@ public class OcorrenciaController {
     public ResponseEntity<OcorrenciaOutDetailDto> cadastrar(@RequestBody @Valid OcorrenciaInDto dados, UriComponentsBuilder uriBuilder){
         Ocorrencia ocorrencia = mapper.inDtoToDomain(dados);
         Ocorrencia createdOcorrencia =  createOcorrenciaUseCaseImpl.execute(ocorrencia);
-        OcorrenciaOutDetailDto ocorrenciaOutDetailDto = mapper.domainToOutDto(createdOcorrencia);
+        Camera camera = getCameraUseCaseImpl.execute(dados.idCamera());
+        OcorrenciaOutDetailDto ocorrenciaOutDetailDto = mapper.domainToOutDto(createdOcorrencia, camera);
         URI uri = uriBuilder.path("/ocorrencias/{id}").buildAndExpand(ocorrenciaOutDetailDto.id()).toUri();
         return ResponseEntity.created(uri).body(ocorrenciaOutDetailDto);
     }
@@ -61,7 +65,8 @@ public class OcorrenciaController {
     @GetMapping("/{id}")
     public ResponseEntity<OcorrenciaOutDetailDto> detalhar(@PathVariable Long id){
         Ocorrencia ocorrencia = getOcorrenciaUseCaseImpl.execute(id);
-        OcorrenciaOutDetailDto dto = mapper.domainToOutDto(ocorrencia);
+        Camera camera = getCameraUseCaseImpl.execute(id);
+        OcorrenciaOutDetailDto dto = mapper.domainToOutDto(ocorrencia, camera);
         return ResponseEntity.ok(dto);
     }
 
@@ -91,7 +96,8 @@ public class OcorrenciaController {
     public ResponseEntity<OcorrenciaOutDetailDto> atualizar(@PathVariable("id") Long id, @RequestBody @Valid OcorrenciaUpdateDto dados){
 
         Ocorrencia ocorrencia = updateOcorrenciaUseCaseImpl.execute(id, mapper.updateDtoToDomain(dados));
-        OcorrenciaOutDetailDto ocorrenciaOutDetailDto = mapper.domainToOutDto(ocorrencia);
+        Camera camera = getCameraUseCaseImpl.execute(id);
+        OcorrenciaOutDetailDto ocorrenciaOutDetailDto = mapper.domainToOutDto(ocorrencia, camera);
         return ResponseEntity.ok(ocorrenciaOutDetailDto);
     }
 

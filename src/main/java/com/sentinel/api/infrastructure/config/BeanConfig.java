@@ -1,14 +1,17 @@
 package com.sentinel.api.infrastructure.config;
 
+import com.sentinel.api.application.service.CameraService;
 import com.sentinel.api.application.service.CentroControleOperacoesService;
 import com.sentinel.api.application.service.OcorrenciaService;
 import com.sentinel.api.application.service.RelatorioService;
+import com.sentinel.api.application.usecase.camera.GetCameraUseCaseImpl;
 import com.sentinel.api.application.usecase.cco.CreateCcoUseCaseImpl;
 import com.sentinel.api.application.usecase.ocorrencia.CreateOcorrenciaUseCaseImpl;
 import com.sentinel.api.application.usecase.ocorrencia.DeleteOcorrenciaUseCaseImpl;
 import com.sentinel.api.application.usecase.ocorrencia.GetOcorrenciasAtivoFalseUseCaseImpl;
 import com.sentinel.api.application.usecase.ocorrencia.PatchOcorrenciaAtivoUseCaseImpl;
 import com.sentinel.api.application.usecase.relatorio.CreateRelatorioUseCaseImpl;
+import com.sentinel.api.domain.repository.CameraRepository;
 import com.sentinel.api.domain.repository.CentroControleOperacoesRepository;
 import com.sentinel.api.domain.repository.OcorrenciaRepository;
 import com.sentinel.api.domain.repository.RelatorioRepository;
@@ -17,7 +20,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BeanConfig {
-
 
     // Services
     @Bean
@@ -33,6 +35,11 @@ public class BeanConfig {
     @Bean
     public RelatorioService relatorioService(RelatorioRepository relatorioRepository) {
         return new RelatorioService(relatorioRepository);
+    }
+
+    @Bean
+    public CameraService cameraService(CameraRepository cameraRepository) {
+        return new CameraService(cameraRepository);
     }
 
     // Cco usecases
@@ -63,6 +70,12 @@ public class BeanConfig {
     @Bean
     public CreateRelatorioUseCaseImpl  createRelatorioUseCaseImpl(RelatorioService relatorioService) {
         return new CreateRelatorioUseCaseImpl(relatorioService);
+    }
+
+    // Camera usecases
+    @Bean
+    public GetCameraUseCaseImpl getCameraUseCaseImpl(CameraService cameraService) {
+        return new GetCameraUseCaseImpl(cameraService);
     }
 
 }

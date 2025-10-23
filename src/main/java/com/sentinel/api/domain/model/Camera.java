@@ -49,4 +49,7 @@ public class Camera {
     }
 
 
+    public String getCodigo() {
+        return codigo;
+    }
 }

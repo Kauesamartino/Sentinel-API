@@ -4,6 +4,7 @@ import com.sentinel.api.domain.model.Ocorrencia;
 import com.sentinel.api.domain.enums.Severidade;
 import com.sentinel.api.domain.enums.Status;
 import com.sentinel.api.domain.enums.TipoOcorrencia;
+import com.sentinel.api.interfaces.dto.camera.CameraOutDto;
 import com.sentinel.api.interfaces.dto.estacao.EstacaoOutDto;
 
 import java.time.LocalDateTime;
@@ -17,9 +18,10 @@ public record OcorrenciaOutDetailDto(
         Status status,
         TipoOcorrencia tipoOcorrencia,
         EstacaoOutDto estacaoOutDto,
+        CameraOutDto cameraOutDto,
         Boolean ativo
 ) {
-    public OcorrenciaOutDetailDto(Ocorrencia ocorrencia, EstacaoOutDto estacaoOutDto) {
+    public OcorrenciaOutDetailDto(Ocorrencia ocorrencia, EstacaoOutDto estacaoOutDto, CameraOutDto cameraOutDto) {
         this(
                 ocorrencia.getId(),
                 ocorrencia.getTitulo(),
@@ -29,6 +31,7 @@ public record OcorrenciaOutDetailDto(
                 ocorrencia.getStatus(),
                 ocorrencia.getTipoOcorrencia(),
                 estacaoOutDto,
+                cameraOutDto,
                 ocorrencia.getAtivo());
     }
 }
