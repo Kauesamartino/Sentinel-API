@@ -1,4 +1,4 @@
-package com.sentinel.api.domain.usecase.estacao;
+package com.sentinel.api.application.usecase.estacao;
 
 public interface DeleteEstacaoUseCase {
     void execute(Long id);

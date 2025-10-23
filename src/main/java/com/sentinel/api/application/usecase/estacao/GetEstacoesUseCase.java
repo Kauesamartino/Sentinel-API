@@ -1,4 +1,4 @@
-package com.sentinel.api.domain.usecase.estacao;
+package com.sentinel.api.application.usecase.estacao;
 
 import com.sentinel.api.domain.model.Estacao;
 import org.springframework.data.domain.Page;
