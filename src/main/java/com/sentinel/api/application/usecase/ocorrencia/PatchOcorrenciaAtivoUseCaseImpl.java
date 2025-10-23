@@ -1,17 +1,17 @@
 package com.sentinel.api.application.usecase.ocorrencia;
 
-import com.sentinel.api.application.service.OcorrenciaService;
-import com.sentinel.api.domain.usecase.ocorrencia.PatchOcorrenciaAtivoUseCase;
+import com.sentinel.api.domain.repository.OcorrenciaRepository;
 
-public class PatchOcorrenciaAtivoUseCaseImpl implements PatchOcorrenciaAtivoUseCase {
+public final class PatchOcorrenciaAtivoUseCaseImpl implements PatchOcorrenciaAtivoUseCase {
 
-    private final OcorrenciaService ocorrenciaService;
+    private final OcorrenciaRepository ocorrenciaRepository;
 
-    public PatchOcorrenciaAtivoUseCaseImpl(OcorrenciaService ocorrenciaService) {
-        this.ocorrenciaService = ocorrenciaService;
+    public PatchOcorrenciaAtivoUseCaseImpl(OcorrenciaRepository ocorrenciaRepository) {
+        this.ocorrenciaRepository = ocorrenciaRepository;
     }
 
+
     public void execute(Long id) {
-        ocorrenciaService.ativar(id);
+        ocorrenciaRepository.ativar(id);
     }
 }

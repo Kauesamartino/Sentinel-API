@@ -1,4 +1,4 @@
-package com.sentinel.api.domain.usecase.ocorrencia;
+package com.sentinel.api.application.usecase.ocorrencia;
 
 import com.sentinel.api.domain.model.Ocorrencia;
 

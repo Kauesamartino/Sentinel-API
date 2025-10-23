@@ -1,4 +1,4 @@
-package com.sentinel.api.domain.usecase.ocorrencia;
+package com.sentinel.api.application.usecase.ocorrencia;
 
 public interface DeleteOcorrenciaUseCase {
     void execute(Long id);

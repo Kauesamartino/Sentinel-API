@@ -1,19 +1,18 @@
 package com.sentinel.api.application.usecase.ocorrencia;
 
-import com.sentinel.api.application.service.OcorrenciaService;
 import com.sentinel.api.domain.model.Ocorrencia;
-import com.sentinel.api.domain.usecase.ocorrencia.CreateOcorrenciaUseCase;
+import com.sentinel.api.domain.repository.OcorrenciaRepository;
 
-public class CreateOcorrenciaUseCaseImpl implements CreateOcorrenciaUseCase {
+public final class CreateOcorrenciaUseCaseImpl implements CreateOcorrenciaUseCase {
 
-    private final OcorrenciaService ocorrenciaService;
+    private final OcorrenciaRepository ocorrenciaRepository;
 
-    public CreateOcorrenciaUseCaseImpl(OcorrenciaService ocorrenciaService) {
-        this.ocorrenciaService = ocorrenciaService;
+    public CreateOcorrenciaUseCaseImpl(OcorrenciaRepository ocorrenciaRepository) {
+        this.ocorrenciaRepository = ocorrenciaRepository;
     }
 
     public Ocorrencia execute(Ocorrencia ocorrencia){
-        return ocorrenciaService.save(ocorrencia);
+        return ocorrenciaRepository.save(ocorrencia);
     }
 
 }
