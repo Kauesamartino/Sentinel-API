@@ -15,8 +15,4 @@ public final class GetCameraUseCaseImpl implements GetCameraUseCase {
     public Camera execute(Long id) {
         return cameraRepository.findById(id);
     }
-
-    public static interface GetCameraUseCase {
-        Camera execute(Long id);
-    }
 }
