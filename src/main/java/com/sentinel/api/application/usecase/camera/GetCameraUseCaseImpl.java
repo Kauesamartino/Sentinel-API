@@ -1,20 +1,22 @@
 package com.sentinel.api.application.usecase.camera;
 
-import com.sentinel.api.application.service.CameraService;
 import com.sentinel.api.domain.model.Camera;
 import com.sentinel.api.domain.repository.CameraRepository;
-import com.sentinel.api.domain.usecase.camera.GetCameraUseCase;
 
-public class GetCameraUseCaseImpl implements GetCameraUseCase {
+public final class GetCameraUseCaseImpl implements GetCameraUseCase {
 
-    private final CameraService cameraService;
+    private final CameraRepository cameraRepository;
 
-    public GetCameraUseCaseImpl(CameraService cameraService) {
-        this.cameraService = cameraService;
+    public GetCameraUseCaseImpl(CameraRepository cameraRepository) {
+        this.cameraRepository = cameraRepository;
     }
 
     @Override
     public Camera execute(Long id) {
-        return cameraService.findById(id);
+        return cameraRepository.findById(id);
+    }
+
+    public static interface GetCameraUseCase {
+        Camera execute(Long id);
     }
 }
