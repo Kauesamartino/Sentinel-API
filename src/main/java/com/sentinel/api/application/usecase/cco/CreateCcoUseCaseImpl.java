@@ -1,19 +1,17 @@
 package com.sentinel.api.application.usecase.cco;
 
-import com.sentinel.api.application.service.CentroControleOperacoesService;
 import com.sentinel.api.domain.model.CentroControleOperacoes;
-import com.sentinel.api.domain.usecase.cco.CreateCcoUseCase;
+import com.sentinel.api.domain.repository.CentroControleOperacoesRepository;
 
-public class CreateCcoUseCaseImpl implements CreateCcoUseCase {
+public final class CreateCcoUseCaseImpl implements CreateCcoUseCase {
 
-    private final CentroControleOperacoesService centroControleOperacoesService;
+    private final CentroControleOperacoesRepository centroControleOperacoesRepository;
 
-    public CreateCcoUseCaseImpl(CentroControleOperacoesService centroControleOperacoesService) {
-        this.centroControleOperacoesService = centroControleOperacoesService;
+    public CreateCcoUseCaseImpl(CentroControleOperacoesRepository centroControleOperacoesRepository) {
+        this.centroControleOperacoesRepository = centroControleOperacoesRepository;
     }
 
     public CentroControleOperacoes execute(CentroControleOperacoes centroControleOperacoes) {
-        centroControleOperacoesService.validate(centroControleOperacoes);
-        return centroControleOperacoesService.save(centroControleOperacoes);
+        return centroControleOperacoesRepository.save(centroControleOperacoes);
     }
 }

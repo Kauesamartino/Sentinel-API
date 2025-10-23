@@ -1,4 +1,4 @@
-package com.sentinel.api.domain.usecase.cco;
+package com.sentinel.api.application.usecase.cco;
 
 import com.sentinel.api.domain.model.CentroControleOperacoes;
 
