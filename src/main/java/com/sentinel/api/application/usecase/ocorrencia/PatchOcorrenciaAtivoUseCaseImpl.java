@@ -10,7 +10,6 @@ public final class PatchOcorrenciaAtivoUseCaseImpl implements PatchOcorrenciaAti
         this.ocorrenciaRepository = ocorrenciaRepository;
     }
 
-
     public void execute(Long id) {
         ocorrenciaRepository.ativar(id);
     }
