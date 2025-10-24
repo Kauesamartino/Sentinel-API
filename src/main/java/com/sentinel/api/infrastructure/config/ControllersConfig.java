@@ -8,6 +8,8 @@ import com.sentinel.api.application.usecase.estacao.DeleteEstacaoUseCase;
 import com.sentinel.api.application.usecase.estacao.GetEstacaoUseCase;
 import com.sentinel.api.application.usecase.estacao.GetEstacoesUseCase;
 import com.sentinel.api.application.usecase.ocorrencia.*;
+import com.sentinel.api.application.usecase.relatorio.CreateRelatorioUseCase;
+import com.sentinel.api.application.usecase.relatorio.GetRelatoriosUseCase;
 import com.sentinel.api.interfaces.controller.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,6 +49,13 @@ public class ControllersConfig {
         return new EstacaoControllerImpl(
                 createEstacaoUseCase, getEstacoesUseCase, getEstacaoUseCase, deleteEstacaoUseCase, getCcoUseCase
         );
+    }
+
+    @Bean
+    public RelatorioController relatorioController(
+            CreateRelatorioUseCase createRelatorioUseCase, GetRelatoriosUseCase getRelatoriosUseCase
+    ){
+        return new RelatorioControllerImpl(createRelatorioUseCase, getRelatoriosUseCase);
     }
 
 }
