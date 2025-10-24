@@ -1,129 +1,82 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.application.usecase.camera.GetCameraUseCase;
-import com.sentinel.api.application.usecase.camera.GetCameraUseCaseImpl;
-import com.sentinel.api.application.usecase.cco.GetCcoUseCase;
-import com.sentinel.api.application.usecase.estacao.GetEstacaoUseCase;
-import com.sentinel.api.application.usecase.ocorrencia.*;
-import com.sentinel.api.domain.model.Camera;
-import com.sentinel.api.domain.model.CentroControleOperacoes;
-import com.sentinel.api.domain.model.Estacao;
-import com.sentinel.api.domain.model.Ocorrencia;
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaOutDetailDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaLazyOutDto;
-import com.sentinel.api.interfaces.mapper.ApiMapper;
-import com.sentinel.api.interfaces.mapper.OcorrenciaMapper;
-import jakarta.validation.Valid;
+import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaOutDetailDto;
+import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
+public interface OcorrenciaController {
 
-@RestController
-@RequestMapping("ocorrencias")
-public class OcorrenciaController {
+    /**
+     * Cria uma nova ocorrência no sistema.
+     *
+     * @param ocorrenciaInDto dados da ocorrência a ser criada
+     * @return dados da ocorrência criada
+     */
+    OcorrenciaOutDetailDto cadastrar(OcorrenciaInDto ocorrenciaInDto);
 
-    private final CreateOcorrenciaUseCase createOcorrenciaUseCase;
-    private final UpdateOcorrenciaUseCase updateOcorrenciaUseCase;
-    private final DeleteOcorrenciaUseCase deleteOcorrenciaUseCase;
-    private final GetOcorrenciasUseCase getOcorrenciasUseCase;
-    private final GetOcorrenciaUseCase getOcorrenciaUseCase;
-    private final GetOcorrenciasRelatorioUseCase getOcorrenciasRelatorioUseCase;
-    private final GetOcorrenciasAtivoFalseUseCase getOcorrenciasAtivoFalseUseCase;
-    private final PatchOcorrenciaAtivoUseCase patchOcorrenciaAtivoUseCase;
-    private final GetCameraUseCase getCameraUseCase;
-    private final GetEstacaoUseCase getEstacaoUseCase;
-    private final GetCcoUseCase getCcoUseCase;
-
-    public OcorrenciaController(CreateOcorrenciaUseCase createOcorrenciaUseCase, UpdateOcorrenciaUseCase updateOcorrenciaUseCase, DeleteOcorrenciaUseCase deleteOcorrenciaUseCase, GetOcorrenciasUseCase getOcorrenciasUseCase, GetOcorrenciaUseCase getOcorrenciaUseCase, GetOcorrenciasRelatorioUseCase getOcorrenciasRelatorioUseCase, GetOcorrenciasAtivoFalseUseCase getOcorrenciasAtivoFalseUseCase, PatchOcorrenciaAtivoUseCase patchOcorrenciaAtivoUseCase, GetCameraUseCase getCameraUseCase, GetEstacaoUseCase getEstacaoUseCase, GetCcoUseCase getCcoUseCase) {
-        this.createOcorrenciaUseCase = createOcorrenciaUseCase;
-        this.updateOcorrenciaUseCase = updateOcorrenciaUseCase;
-        this.deleteOcorrenciaUseCase = deleteOcorrenciaUseCase;
-        this.getOcorrenciasUseCase = getOcorrenciasUseCase;
-        this.getOcorrenciaUseCase = getOcorrenciaUseCase;
-        this.getOcorrenciasRelatorioUseCase = getOcorrenciasRelatorioUseCase;
-        this.getOcorrenciasAtivoFalseUseCase = getOcorrenciasAtivoFalseUseCase;
-        this.patchOcorrenciaAtivoUseCase = patchOcorrenciaAtivoUseCase;
-        this.getCameraUseCase = getCameraUseCase;
-        this.getEstacaoUseCase = getEstacaoUseCase;
-        this.getCcoUseCase = getCcoUseCase;
-    }
+    /**
+     * Lista todas as ocorrências de um relatorio ativas com paginação e ordenação.
+     *
+     * @param id do relatorio
+     * @param pageSize tamanho da página
+     * @param pageNumber número da página
+     * @param direction direção da ordenação (ASC ou DESC)
+     * @return página de ocorrências associadas ao relatorio
+     */
+    Page<OcorrenciaLazyOutDto> listarOcorrenciasDeUmRelatorio(Long id, Integer pageSize, Integer pageNumber, Sort.Direction direction);
 
 
-    @PostMapping
-    public ResponseEntity<OcorrenciaOutDetailDto> cadastrar(@RequestBody @Valid OcorrenciaInDto dados, UriComponentsBuilder uriBuilder){
-        Ocorrencia ocorrencia = OcorrenciaMapper.inDtoToDomain(dados);
-        Ocorrencia createdOcorrencia =  createOcorrenciaUseCase.execute(ocorrencia);
-        OcorrenciaOutDetailDto dto = OcorrenciaMapper.domainToOutDto(createdOcorrencia, getEstacaoUseCase.execute(ocorrencia.getIdEstacao()), getCameraUseCase.execute(ocorrencia.getIdCamera()), getCcoUseCase.execute(getEstacaoUseCase.execute(ocorrencia.getIdEstacao()).getId()));
-        URI uri = uriBuilder.path("/ocorrencias/{id}").buildAndExpand(dto.id()).toUri();
-        return ResponseEntity.created(uri).body(dto);
-    }
+    /**
+     * Detalha uma ocorrência específica pelo seu ID.
+     *
+     * @param id da ocorrência a ser detalhada
+     * @return detalhes da ocorrência
+     */
+    OcorrenciaOutDetailDto detalhar(Long id);
 
-    @GetMapping("relatorio/{id}")
-    public ResponseEntity<Page<OcorrenciaLazyOutDto>> listarOcorrenciasDeUmRelatorio(@PathVariable Long id,
-                                                                                     @RequestParam(name = "pageSize", required = false, defaultValue = "20") Integer pageSize,
-                                                                                     @RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
-                                                                                     @RequestParam(name = "direction", required = false, defaultValue = "DESC") Sort.Direction direction){
+    /**
+     * Lista todas as ocorrências ativas com paginação e ordenação.
+     *
+     * @param pageSize tamanho da página
+     * @param pageNumber número da página
+     * @param direction direção da ordenação (ASC ou DESC)
+     * @return página de ocorrências ativas
+     */
+    Page<OcorrenciaLazyOutDto> listar(Integer pageSize, Integer pageNumber, Sort.Direction direction);
 
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(direction, "id"));
-        Page<Ocorrencia> domainPage = getOcorrenciasRelatorioUseCase.execute(id, pageable);
-        Page<OcorrenciaLazyOutDto> dtoPage = domainPage.map(ApiMapper::ocorrenciaToLazyDto);
-        return ResponseEntity.ok(dtoPage);
-    }
+    /**
+     * Lista todas as ocorrências em curadoria (inativas) com paginação e ordenação.
+     *
+     * @param pageSize tamanho da página
+     * @param pageNumber número da página
+     * @param direction direção da ordenação (ASC ou DESC)
+     * @return página de ocorrências em curadoria
+     */
+    Page<OcorrenciaLazyOutDto> listarOcorrenciasCuradoria(Integer pageSize, Integer pageNumber, Sort.Direction direction);
 
-    @GetMapping("/{id}")
-    public ResponseEntity<OcorrenciaOutDetailDto> detalhar(@PathVariable Long id){
-        Ocorrencia ocorrencia = getOcorrenciaUseCase.execute(id);
-        OcorrenciaOutDetailDto dto = OcorrenciaMapper.domainToOutDto(ocorrencia, getEstacaoUseCase.execute(ocorrencia.getIdEstacao()), getCameraUseCase.execute(ocorrencia.getIdCamera()), getCcoUseCase.execute(getEstacaoUseCase.execute(ocorrencia.getIdEstacao()).getId()));
-        return ResponseEntity.ok(dto);
-    }
+    /**
+     * Atualiza uma ocorrência existente pelo seu ID.
+     *
+     * @param id da ocorrência a ser atualizada
+     * @param ocorrenciaUpdateDto dados atualizados da ocorrência
+     * @return detalhes da ocorrência atualizada
+     */
+    OcorrenciaOutDetailDto atualizar(Long id, OcorrenciaUpdateDto ocorrenciaUpdateDto);
 
-    @GetMapping
-    public ResponseEntity<Page<OcorrenciaLazyOutDto>> listar(@RequestParam(name = "pageSize", required = false, defaultValue = "20") Integer pageSize,
-                                                             @RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
-                                                             @RequestParam(name = "direction", required = false, defaultValue = "DESC") Sort.Direction direction){
+    /**
+     * Ativa uma ocorrência que estava em curadoria.
+     *
+     * @param id da ocorrência a ser ativada
+     */
+    void excluir(Long id);
 
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(direction, "id"));
-        Page<Ocorrencia> domainPage = this.getOcorrenciasUseCase.execute(pageable);
-        Page<OcorrenciaLazyOutDto> dtoPage = domainPage.map(ApiMapper::ocorrenciaToLazyDto);
-        return ResponseEntity.ok(dtoPage);
-    }
-
-    @GetMapping("/curadoria")
-    public ResponseEntity<Page<OcorrenciaLazyOutDto>> listarOcorrenciasCuradoria(@RequestParam(name = "pageSize", required = false, defaultValue = "20") Integer pageSize,
-                                                                                 @RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
-                                                                                 @RequestParam(name = "direction", required = false, defaultValue = "DESC") Sort.Direction direction){
-
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(direction, "id"));
-        Page<Ocorrencia> domainPage = this.getOcorrenciasAtivoFalseUseCase.execute(pageable);
-        Page<OcorrenciaLazyOutDto> dtoPage = domainPage.map(ApiMapper::ocorrenciaToLazyDto);
-        return ResponseEntity.ok(dtoPage);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<OcorrenciaOutDetailDto> atualizar(@PathVariable("id") Long id, @RequestBody @Valid OcorrenciaUpdateDto dados){
-
-        Ocorrencia ocorrencia = updateOcorrenciaUseCase.execute(id, OcorrenciaMapper.updateDtoToDomain(dados));
-        OcorrenciaOutDetailDto dto = OcorrenciaMapper.domainToOutDto(ocorrencia, getEstacaoUseCase.execute(ocorrencia.getIdEstacao()), getCameraUseCase.execute(ocorrencia.getIdCamera()), getCcoUseCase.execute(getEstacaoUseCase.execute(ocorrencia.getIdEstacao()).getId()));
-        return ResponseEntity.ok(dto);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluir(@PathVariable("id") Long id){
-        deleteOcorrenciaUseCase.execute(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PatchMapping("/{id}")
-    public ResponseEntity<OcorrenciaOutDetailDto> ativar(@PathVariable("id") Long id){
-        patchOcorrenciaAtivoUseCase.execute(id);
-        return ResponseEntity.noContent().build();
-    }
+    /**
+     * Ativa uma ocorrência que estava em curadoria.
+     *
+     * @param id da ocorrência a ser ativada
+     */
+    void ativar(Long id);
 }
