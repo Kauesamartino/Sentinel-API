@@ -5,6 +5,7 @@ import com.sentinel.api.interfaces.controller.OcorrenciaControllerImpl;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaLazyOutDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaOutDetailDto;
+import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -67,6 +68,12 @@ public class OcorrenciaRestController {
 
         Page<OcorrenciaLazyOutDto> page = ocorrenciaController.listarOcorrenciasCuradoria(pageSize, pageNumber, direction);
         return ResponseEntity.ok(page);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<OcorrenciaOutDetailDto> atualizar(@PathVariable Long id, @RequestBody OcorrenciaUpdateDto dados) {
+        OcorrenciaOutDetailDto dto = ocorrenciaController.atualizar(id, dados);
+        return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("/{id}")
