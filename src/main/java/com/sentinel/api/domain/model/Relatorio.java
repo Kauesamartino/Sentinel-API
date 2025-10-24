@@ -1,8 +1,6 @@
 package com.sentinel.api.domain.model;
 
 import com.sentinel.api.domain.enums.TipoOcorrencia;
-import com.sentinel.api.interfaces.dto.relatorio.RelatorioInDto;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,24 +20,24 @@ public class Relatorio {
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
 
-    public Relatorio(@Valid RelatorioInDto dados) {
-        if (dados.titulo() == null || dados.titulo().isEmpty()) {
+    public Relatorio(String titulo, String descricao, TipoOcorrencia tipoOcorrencia, LocalDateTime dataInicio, LocalDateTime dataFim) {
+        if (titulo == null || titulo.isEmpty()) {
             throw new IllegalArgumentException("Titulo é obrigatório");
         }
-        if (dados.descricao() == null || dados.descricao().isEmpty()) {
+        if (descricao == null || descricao.isEmpty()) {
             throw new IllegalArgumentException("Descrição é obrigatória");
         }
-        if (dados.dataInicio() == null) {
+        if (dataInicio == null) {
             throw new IllegalArgumentException("Data de inicio é obrigatória");
         }
-        if (dados.dataFim() == null) {
+        if (dataFim == null) {
             throw new IllegalArgumentException("Data do fim é obrigatória");
         }
 
-        this.titulo = dados.titulo();
-        this.descricao = dados.descricao();
-        this.tipoOcorrencia = dados.tipoOcorrencia();
-        this.dataInicio = dados.dataInicio();
-        this.dataFim = dados.dataFim();
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.tipoOcorrencia = tipoOcorrencia;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
     }
 }

@@ -57,7 +57,14 @@ public final class OcorrenciaMapper {
     }
 
     public static Ocorrencia updateDtoToDomain(OcorrenciaUpdateDto dados) {
-        return new Ocorrencia(dados.titulo(), dados.descricao(), dados.status(), dados.tipoOcorrencia(), dados.severidade(), dados.ativo());
+        return new Ocorrencia(
+                dados.titulo(),
+                dados.descricao(),
+                dados.status(),
+                dados.tipoOcorrencia(),
+                dados.severidade(),
+                dados.ativo()
+        );
     }
 
     public static Ocorrencia jpaEntityToDomain(JpaOcorrenciaEntity entity) {
