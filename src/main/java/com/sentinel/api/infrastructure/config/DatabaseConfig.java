@@ -1,13 +1,12 @@
 package com.sentinel.api.infrastructure.config;
 
+import com.sentinel.api.domain.repository.CentroControleOperacoesRepository;
 import com.sentinel.api.domain.repository.OcorrenciaRepository;
 import com.sentinel.api.domain.repository.RelatorioRepository;
+import com.sentinel.api.infrastructure.persistence.CentroControleOperacoesRepositoryAdapter;
 import com.sentinel.api.infrastructure.persistence.OcorrenciaRepositoryAdapter;
 import com.sentinel.api.infrastructure.persistence.RelatorioRepositoryAdapter;
-import com.sentinel.api.infrastructure.repository.JpaCameraRepository;
-import com.sentinel.api.infrastructure.repository.JpaEstacaoRepository;
-import com.sentinel.api.infrastructure.repository.JpaOcorrenciaRepository;
-import com.sentinel.api.infrastructure.repository.JpaRelatorioRepository;
+import com.sentinel.api.infrastructure.repository.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,5 +21,10 @@ public class DatabaseConfig {
     @Bean
     public RelatorioRepository relatorioRepository(JpaRelatorioRepository jpaRelatorioRepository) {
         return new RelatorioRepositoryAdapter(jpaRelatorioRepository);
+    }
+
+    @Bean
+    public CentroControleOperacoesRepository centroControleOperacoesRepository (JpaCentroControleOperacoesRepository jpaCentroControleOperacoesRepository) {
+        return new CentroControleOperacoesRepositoryAdapter(jpaCentroControleOperacoesRepository);
     }
 }
