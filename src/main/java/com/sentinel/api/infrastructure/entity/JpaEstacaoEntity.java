@@ -2,7 +2,6 @@ package com.sentinel.api.infrastructure.entity;
 
 import com.sentinel.api.domain.enums.Linha;
 import com.sentinel.api.domain.model.Endereco;
-import com.sentinel.api.domain.model.Estacao;
 import jakarta.persistence.*;
 import lombok.*;
 

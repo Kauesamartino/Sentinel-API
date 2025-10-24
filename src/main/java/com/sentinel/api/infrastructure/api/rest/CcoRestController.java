@@ -13,7 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 /**
- * Adaptador REST para o controller de Ocorrencia.
+ * Adaptador REST para o controller de CentroControleOperacoes.
  * Esta classe contém as anotações específicas do springframework e
  * delega as chamadas para o controller puro.
  */

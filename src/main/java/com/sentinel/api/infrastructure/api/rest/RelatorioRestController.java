@@ -13,6 +13,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
+/**
+ * Adaptador REST para o controller de Relatorios.
+ * Esta classe contém as anotações específicas do springframework e
+ * delega as chamadas para o controller puro.
+ */
 @RestController
 @RequestMapping("/relatorios")
 public class RelatorioRestController {
