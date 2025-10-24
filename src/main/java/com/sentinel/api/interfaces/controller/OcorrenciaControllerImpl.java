@@ -17,7 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
-public class OcorrenciaControllerImpl implements OcorrenciaController {
+public final class OcorrenciaControllerImpl implements OcorrenciaController {
 
     private final CreateOcorrenciaUseCase createOcorrenciaUseCase;
     private final UpdateOcorrenciaUseCase updateOcorrenciaUseCase;
