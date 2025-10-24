@@ -39,6 +39,11 @@ public final class EstacaoMapper {
     }
 
     public static JpaEstacaoEntity domainToJpaEntity(Estacao estacao, JpaCentroControleOperacoesEntity cco) {
-        return new JpaEstacaoEntity(estacao, cco);
+        return new JpaEstacaoEntity(
+                estacao.getNome(),
+                estacao.getLinha(),
+                cco,
+                estacao.getEndereco()
+        );
     }
 }
