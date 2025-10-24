@@ -14,7 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
-public class RelatorioControllerImpl implements  RelatorioController {
+public final class RelatorioControllerImpl implements  RelatorioController {
 
     private final CreateRelatorioUseCase createRelatorioUseCase;
     private final GetRelatoriosUseCase getRelatoriosUseCase;

@@ -1,7 +1,6 @@
 package com.sentinel.api.infrastructure.api.rest;
 
 import com.sentinel.api.interfaces.controller.OcorrenciaController;
-import com.sentinel.api.interfaces.controller.OcorrenciaControllerImpl;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaLazyOutDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaOutDetailDto;

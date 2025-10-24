@@ -4,7 +4,6 @@ import com.sentinel.api.interfaces.dto.relatorio.RelatorioInDto;
 import com.sentinel.api.interfaces.dto.relatorio.RelatorioLazyOutDto;
 import com.sentinel.api.interfaces.dto.relatorio.RelatorioOutDto;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 public interface RelatorioController {
