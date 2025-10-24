@@ -3,12 +3,12 @@ package com.sentinel.api.infrastructure.config;
 import com.sentinel.api.application.usecase.camera.GetCameraUseCase;
 import com.sentinel.api.application.usecase.cco.CreateCcoUseCase;
 import com.sentinel.api.application.usecase.cco.GetCcoUseCase;
+import com.sentinel.api.application.usecase.estacao.CreateEstacaoUseCase;
+import com.sentinel.api.application.usecase.estacao.DeleteEstacaoUseCase;
 import com.sentinel.api.application.usecase.estacao.GetEstacaoUseCase;
+import com.sentinel.api.application.usecase.estacao.GetEstacoesUseCase;
 import com.sentinel.api.application.usecase.ocorrencia.*;
-import com.sentinel.api.interfaces.controller.CentroControleOperacoesController;
-import com.sentinel.api.interfaces.controller.CentroControleOperacoesControllerImpl;
-import com.sentinel.api.interfaces.controller.OcorrenciaController;
-import com.sentinel.api.interfaces.controller.OcorrenciaControllerImpl;
+import com.sentinel.api.interfaces.controller.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -37,4 +37,16 @@ public class ControllersConfig {
     ){
         return new CentroControleOperacoesControllerImpl(createCcoUseCase);
     }
+
+    @Bean
+    public EstacaoController estacaoController(
+            CreateEstacaoUseCase createEstacaoUseCase, GetEstacoesUseCase getEstacoesUseCase,
+            GetEstacaoUseCase getEstacaoUseCase, DeleteEstacaoUseCase deleteEstacaoUseCase,
+            GetCcoUseCase getCcoUseCase
+    ){
+        return new EstacaoControllerImpl(
+                createEstacaoUseCase, getEstacoesUseCase, getEstacaoUseCase, deleteEstacaoUseCase, getCcoUseCase
+        );
+    }
+
 }
