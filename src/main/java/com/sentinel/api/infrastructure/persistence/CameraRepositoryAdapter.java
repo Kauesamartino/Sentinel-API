@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class CameraRepositoryAdapter implements CameraRepository {
+public final class CameraRepositoryAdapter implements CameraRepository {
 
     private final JpaCameraRepository jpaCameraRepository;
 
