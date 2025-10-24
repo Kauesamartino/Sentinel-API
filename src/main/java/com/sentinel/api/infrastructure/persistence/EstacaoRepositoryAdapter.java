@@ -7,40 +7,37 @@ import com.sentinel.api.infrastructure.entity.JpaEstacaoEntity;
 import com.sentinel.api.infrastructure.repository.JpaCentroControleOperacoesRepository;
 import com.sentinel.api.infrastructure.repository.JpaEstacaoRepository;
 import com.sentinel.api.interfaces.mapper.EstacaoMapper;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
 
-@Repository
-@RequiredArgsConstructor
 public final class EstacaoRepositoryAdapter implements EstacaoRepository {
 
     private final JpaEstacaoRepository jpaEstacaoRepository;
     private final JpaCentroControleOperacoesRepository  jpaCentroControleOperacoesRepository;
-    private final EstacaoMapper mapper;
 
-    @Transactional
+    public EstacaoRepositoryAdapter(JpaEstacaoRepository jpaEstacaoRepository, JpaCentroControleOperacoesRepository jpaCentroControleOperacoesRepository) {
+        this.jpaEstacaoRepository = jpaEstacaoRepository;
+        this.jpaCentroControleOperacoesRepository = jpaCentroControleOperacoesRepository;
+    }
+
     public Estacao save(Estacao estacao) {
         JpaCentroControleOperacoesEntity cco = jpaCentroControleOperacoesRepository.getReferenceById(estacao.getIdCco());
-        JpaEstacaoEntity entity = mapper.domainToJpaEntity(estacao, cco);
+        JpaEstacaoEntity entity = EstacaoMapper.domainToJpaEntity(estacao, cco);
         JpaEstacaoEntity savedEntity = jpaEstacaoRepository.save(entity);
-        return mapper.jpaEntityToDomain(savedEntity);
+        return EstacaoMapper.jpaEntityToDomain(savedEntity);
     }
 
     public Estacao findById(Long idEstacao) {
         JpaEstacaoEntity jpaEstacaoEntity = jpaEstacaoRepository.findById(idEstacao)
                 .orElseThrow(() -> new IllegalArgumentException("Estação não encontrada"));
-        return mapper.jpaEntityToDomain(jpaEstacaoEntity);
+        return EstacaoMapper.jpaEntityToDomain(jpaEstacaoEntity);
     }
 
     public Page<Estacao> findAll(Pageable pageable) {
         Page<JpaEstacaoEntity> jpaEstacaoEntity = jpaEstacaoRepository.findAll(pageable);
-        return jpaEstacaoEntity.map(mapper::jpaEntityToDomain);
+        return jpaEstacaoEntity.map(EstacaoMapper::jpaEntityToDomain);
     }
 
-    @Transactional
     public void delete(Long id) {
         jpaEstacaoRepository.deleteById(id);
     }

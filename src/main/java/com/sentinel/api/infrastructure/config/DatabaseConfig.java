@@ -1,9 +1,11 @@
 package com.sentinel.api.infrastructure.config;
 
 import com.sentinel.api.domain.repository.CentroControleOperacoesRepository;
+import com.sentinel.api.domain.repository.EstacaoRepository;
 import com.sentinel.api.domain.repository.OcorrenciaRepository;
 import com.sentinel.api.domain.repository.RelatorioRepository;
 import com.sentinel.api.infrastructure.persistence.CentroControleOperacoesRepositoryAdapter;
+import com.sentinel.api.infrastructure.persistence.EstacaoRepositoryAdapter;
 import com.sentinel.api.infrastructure.persistence.OcorrenciaRepositoryAdapter;
 import com.sentinel.api.infrastructure.persistence.RelatorioRepositoryAdapter;
 import com.sentinel.api.infrastructure.repository.*;
@@ -26,5 +28,10 @@ public class DatabaseConfig {
     @Bean
     public CentroControleOperacoesRepository centroControleOperacoesRepository (JpaCentroControleOperacoesRepository jpaCentroControleOperacoesRepository) {
         return new CentroControleOperacoesRepositoryAdapter(jpaCentroControleOperacoesRepository);
+    }
+
+    @Bean
+    public EstacaoRepository estacaoRepository(JpaEstacaoRepository jpaEstacaoRepository, JpaCentroControleOperacoesRepository jpaCentroControleOperacoesRepository) {
+        return new EstacaoRepositoryAdapter(jpaEstacaoRepository, jpaCentroControleOperacoesRepository);
     }
 }
