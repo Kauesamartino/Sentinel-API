@@ -15,15 +15,15 @@ public final class CentroControleOperacoesMapper {
     }
 
     public static JpaCentroControleOperacoesEntity domainToJpaEntity(CentroControleOperacoes centroControleOperacoes) {
-            return JpaCentroControleOperacoesEntity.builder()
-                    .nome(centroControleOperacoes.getName())
-                    .build();
+            return new JpaCentroControleOperacoesEntity(
+                    centroControleOperacoes.getName()
+            );
     }
 
     public static CentroControleOperacoes inDtoToDomain(CcoInDto dados) {
-        return CentroControleOperacoes.builder()
-                .name(dados.nome())
-                .build();
+        return new CentroControleOperacoes(
+                dados.nome()
+        );
     }
 
     public static CcoOutDto domainToOutDto(CentroControleOperacoes centroControleOperacoes) {
