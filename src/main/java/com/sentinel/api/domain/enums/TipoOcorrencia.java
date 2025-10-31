@@ -1,8 +1,11 @@
 package com.sentinel.api.domain.enums;
 
 public enum TipoOcorrencia {
-    ACIDENTE,
-    FALHA_TECNICA,
-    INCIDENTE,
+    ASSEDIO,
+    AGRESSAO,
+    VENDEDOR_AMBULANTE,
+    FURTO,
+    PERTURBACAO,
+    OBJETOS_SUSPEITOS,
     OUTROS
 }
