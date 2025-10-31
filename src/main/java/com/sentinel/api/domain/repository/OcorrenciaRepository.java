@@ -4,6 +4,8 @@ import com.sentinel.api.domain.model.Ocorrencia;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface OcorrenciaRepository {
     Ocorrencia save(Ocorrencia ocorrencia);
     Ocorrencia findById(Long id);
@@ -16,4 +18,8 @@ public interface OcorrenciaRepository {
     Page<Ocorrencia> findAllByAtivoFalse(Pageable pageable);
 
     void ativar(Long id);
+
+    List<Ocorrencia> findAllOneHourAgo();
+
+    List<Ocorrencia> findAll();
 }

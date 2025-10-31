@@ -10,10 +10,13 @@ import com.sentinel.api.infrastructure.entity.JpaOcorrenciaEntity;
 import com.sentinel.api.interfaces.dto.camera.CameraOutDto;
 import com.sentinel.api.interfaces.dto.cco.CcoOutDto;
 import com.sentinel.api.interfaces.dto.estacao.EstacaoOutDto;
+import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaDashboardsOutDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaOutDetailDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
 import jakarta.validation.Valid;
+
+import java.util.List;
 
 public final class OcorrenciaMapper {
 
@@ -92,6 +95,15 @@ public final class OcorrenciaMapper {
                 estacaoEntity,
                 cameraEntity,
                 ocorrencia.getAtivo()
+        );
+    }
+
+    public static OcorrenciaDashboardsOutDto toDashboardOutDto(Ocorrencia ocorrencia) {
+        return new OcorrenciaDashboardsOutDto(
+                ocorrencia.getTitulo(),
+                ocorrencia.getTipoOcorrencia(),
+                ocorrencia.getStatus(),
+                ocorrencia.getData()
         );
     }
 }

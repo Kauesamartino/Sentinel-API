@@ -5,10 +5,7 @@ import com.sentinel.api.application.usecase.cco.GetCcoUseCase;
 import com.sentinel.api.application.usecase.estacao.GetEstacaoUseCase;
 import com.sentinel.api.application.usecase.ocorrencia.*;
 import com.sentinel.api.domain.model.Ocorrencia;
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaOutDetailDto;
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaLazyOutDto;
+import com.sentinel.api.interfaces.dto.ocorrencia.*;
 import com.sentinel.api.interfaces.mapper.ApiMapper;
 import com.sentinel.api.interfaces.mapper.OcorrenciaMapper;
 import org.springframework.data.domain.Page;
@@ -16,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 public final class OcorrenciaControllerImpl implements OcorrenciaController {
 
@@ -30,8 +29,10 @@ public final class OcorrenciaControllerImpl implements OcorrenciaController {
     private final GetCameraUseCase getCameraUseCase;
     private final GetEstacaoUseCase getEstacaoUseCase;
     private final GetCcoUseCase getCcoUseCase;
+    private final GetOcorrenciasDashboardHoraUseCase getOcorrenciasDashboardHoraUseCase;
+    private final GetAllOcorrenciasDashboardUseCase getAllOcorrenciasDashboardUseCase;
 
-    public OcorrenciaControllerImpl(CreateOcorrenciaUseCase createOcorrenciaUseCase, UpdateOcorrenciaUseCase updateOcorrenciaUseCase, DeleteOcorrenciaUseCase deleteOcorrenciaUseCase, GetOcorrenciasUseCase getOcorrenciasUseCase, GetOcorrenciaUseCase getOcorrenciaUseCase, GetOcorrenciasRelatorioUseCase getOcorrenciasRelatorioUseCase, GetOcorrenciasAtivoFalseUseCase getOcorrenciasAtivoFalseUseCase, PatchOcorrenciaAtivoUseCase patchOcorrenciaAtivoUseCase, GetCameraUseCase getCameraUseCase, GetEstacaoUseCase getEstacaoUseCase, GetCcoUseCase getCcoUseCase) {
+    public OcorrenciaControllerImpl(CreateOcorrenciaUseCase createOcorrenciaUseCase, UpdateOcorrenciaUseCase updateOcorrenciaUseCase, DeleteOcorrenciaUseCase deleteOcorrenciaUseCase, GetOcorrenciasUseCase getOcorrenciasUseCase, GetOcorrenciaUseCase getOcorrenciaUseCase, GetOcorrenciasRelatorioUseCase getOcorrenciasRelatorioUseCase, GetOcorrenciasAtivoFalseUseCase getOcorrenciasAtivoFalseUseCase, PatchOcorrenciaAtivoUseCase patchOcorrenciaAtivoUseCase, GetCameraUseCase getCameraUseCase, GetEstacaoUseCase getEstacaoUseCase, GetCcoUseCase getCcoUseCase, GetOcorrenciasDashboardHoraUseCase getOcorrenciasDashboardHoraUseCase, GetAllOcorrenciasDashboardUseCase getAllOcorrenciasDashboardUseCase) {
         this.createOcorrenciaUseCase = createOcorrenciaUseCase;
         this.updateOcorrenciaUseCase = updateOcorrenciaUseCase;
         this.deleteOcorrenciaUseCase = deleteOcorrenciaUseCase;
@@ -43,6 +44,8 @@ public final class OcorrenciaControllerImpl implements OcorrenciaController {
         this.getCameraUseCase = getCameraUseCase;
         this.getEstacaoUseCase = getEstacaoUseCase;
         this.getCcoUseCase = getCcoUseCase;
+        this.getOcorrenciasDashboardHoraUseCase = getOcorrenciasDashboardHoraUseCase;
+        this.getAllOcorrenciasDashboardUseCase = getAllOcorrenciasDashboardUseCase;
     }
 
 
@@ -97,5 +100,23 @@ public final class OcorrenciaControllerImpl implements OcorrenciaController {
     @PatchMapping("/{id}")
     public void ativar(@PathVariable("id") Long id){
         patchOcorrenciaAtivoUseCase.execute(id);
+    }
+
+    @Override
+    public List<OcorrenciaDashboardsOutDto> listarOcorrenciasDashboardHora() {
+        List<Ocorrencia> ocorrencias = getOcorrenciasDashboardHoraUseCase.execute();
+
+        return ocorrencias.stream()
+                .map(OcorrenciaMapper::toDashboardOutDto)
+                .toList();
+    }
+
+    @Override
+    public List<OcorrenciaDashboardsOutDto> listarTodasOcorrencias() {
+        List<Ocorrencia> ocorrencias = getAllOcorrenciasDashboardUseCase.execute();
+
+        return ocorrencias.stream()
+                .map(OcorrenciaMapper::toDashboardOutDto)
+                .toList();
     }
 }

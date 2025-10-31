@@ -1,10 +1,7 @@
 package com.sentinel.api.infrastructure.api.rest;
 
 import com.sentinel.api.interfaces.controller.OcorrenciaController;
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaLazyOutDto;
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaOutDetailDto;
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
+import com.sentinel.api.interfaces.dto.ocorrencia.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * Adaptador REST para o controller de Ocorrencia.
@@ -85,5 +83,19 @@ public class OcorrenciaRestController {
     public ResponseEntity<Void> ativar(@PathVariable Long id) {
         ocorrenciaController.ativar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/dashboard/hora")
+    public ResponseEntity<List<OcorrenciaDashboardsOutDto>> listarOcorrenciasDashboardHora() {
+
+        List<OcorrenciaDashboardsOutDto> list = ocorrenciaController.listarOcorrenciasDashboardHora();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OcorrenciaDashboardsOutDto>> listarTodasOcorrencias() {
+
+        List<OcorrenciaDashboardsOutDto> list = ocorrenciaController.listarTodasOcorrencias();
+        return ResponseEntity.ok(list);
     }
 }

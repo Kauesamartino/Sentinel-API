@@ -1,11 +1,10 @@
 package com.sentinel.api.interfaces.controller;
 
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaInDto;
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaLazyOutDto;
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaOutDetailDto;
-import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
+import com.sentinel.api.interfaces.dto.ocorrencia.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+
+import java.util.List;
 
 public interface OcorrenciaController {
 
@@ -79,4 +78,18 @@ public interface OcorrenciaController {
      * @param id da ocorrência a ser ativada
      */
     void ativar(Long id);
+
+    /**
+     * Lista o número de ocorrências registradas na última hora.
+     *
+     * @return lista de ocorrências na última hora
+     */
+    List<OcorrenciaDashboardsOutDto> listarOcorrenciasDashboardHora();
+
+    /**
+     * Lista todas as ocorrências registradas no sistema.
+     *
+     * @return lista de todas as ocorrências
+     */
+    List<OcorrenciaDashboardsOutDto> listarTodasOcorrencias();
 }

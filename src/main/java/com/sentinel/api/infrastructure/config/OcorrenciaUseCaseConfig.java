@@ -53,4 +53,14 @@ public class OcorrenciaUseCaseConfig {
     public UpdateOcorrenciaUseCase updateOcorrenciaUseCase() {
         return new UpdateOcorrenciaUseCaseImpl(ocorrenciaRepository);
     }
+
+    @Bean
+    public GetOcorrenciasDashboardHoraUseCase getOcorrenciasDashboardHoraUseCase() {
+        return new GetOcorrenciasDashboardHoraUseCaseImpl(ocorrenciaRepository);
+    }
+
+    @Bean
+    public GetAllOcorrenciasDashboardUseCase getAllOcorrenciasDashboardUseCaseImpl() {
+        return new GetAllOcorrenciasDashboardUseCaseImpl(ocorrenciaRepository);
+    }
 }

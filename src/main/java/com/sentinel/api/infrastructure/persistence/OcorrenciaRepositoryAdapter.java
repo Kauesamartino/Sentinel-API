@@ -14,6 +14,9 @@ import com.sentinel.api.interfaces.mapper.OcorrenciaMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 public class OcorrenciaRepositoryAdapter implements OcorrenciaRepository {
 
     private final JpaOcorrenciaRepository jpaOcorrenciaRepository;
@@ -77,5 +80,25 @@ public class OcorrenciaRepositoryAdapter implements OcorrenciaRepository {
                 .orElseThrow(() -> new IllegalArgumentException("Ocorrência não encontrada"));
         jpaOcorrenciaEntity.setAtivo(true);
         jpaOcorrenciaRepository.save(jpaOcorrenciaEntity);
+    }
+
+    @Override
+    public List<Ocorrencia> findAllOneHourAgo() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime dataInicio = now.minusHours(1);
+        List<JpaOcorrenciaEntity> entities = jpaOcorrenciaRepository.findAll();
+        return entities.stream()
+                .filter(entity -> entity.getData().isAfter(dataInicio))
+                .map(OcorrenciaMapper::jpaEntityToDomain)
+                .toList();
+    }
+
+    @Override
+    public List<Ocorrencia> findAll() {
+
+        List<JpaOcorrenciaEntity> entities = jpaOcorrenciaRepository.findAll();
+        return entities.stream()
+                .map(OcorrenciaMapper::jpaEntityToDomain)
+                .toList();
     }
 }
