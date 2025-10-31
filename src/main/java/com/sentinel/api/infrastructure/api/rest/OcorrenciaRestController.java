@@ -92,7 +92,7 @@ public class OcorrenciaRestController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping
+    @GetMapping("/dashboard")
     public ResponseEntity<List<OcorrenciaDashboardsOutDto>> listarTodasOcorrencias() {
 
         List<OcorrenciaDashboardsOutDto> list = ocorrenciaController.listarTodasOcorrencias();
