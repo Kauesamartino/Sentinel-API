@@ -16,7 +16,6 @@ import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaOutDetailDto;
 import com.sentinel.api.interfaces.dto.ocorrencia.OcorrenciaUpdateDto;
 import jakarta.validation.Valid;
 
-import java.util.List;
 
 public final class OcorrenciaMapper {
 
