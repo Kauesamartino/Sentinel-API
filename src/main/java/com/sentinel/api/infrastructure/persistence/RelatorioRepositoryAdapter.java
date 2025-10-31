@@ -8,7 +8,7 @@ import com.sentinel.api.interfaces.mapper.RelatorioMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public final class RelatorioRepositoryAdapter implements RelatorioRepository {
+public class RelatorioRepositoryAdapter implements RelatorioRepository {
 
     private final JpaRelatorioRepository jpaRelatorioRepository;
 

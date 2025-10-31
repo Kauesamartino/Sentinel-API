@@ -10,7 +10,7 @@ import com.sentinel.api.interfaces.mapper.EstacaoMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public final class EstacaoRepositoryAdapter implements EstacaoRepository {
+public class EstacaoRepositoryAdapter implements EstacaoRepository {
 
     private final JpaEstacaoRepository jpaEstacaoRepository;
     private final JpaCentroControleOperacoesRepository  jpaCentroControleOperacoesRepository;

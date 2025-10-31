@@ -14,7 +14,7 @@ import com.sentinel.api.interfaces.mapper.OcorrenciaMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public final class OcorrenciaRepositoryAdapter implements OcorrenciaRepository {
+public class OcorrenciaRepositoryAdapter implements OcorrenciaRepository {
 
     private final JpaOcorrenciaRepository jpaOcorrenciaRepository;
     private final JpaEstacaoRepository jpaEstacaoRepository;

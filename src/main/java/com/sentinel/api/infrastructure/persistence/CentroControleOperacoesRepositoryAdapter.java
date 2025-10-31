@@ -6,7 +6,7 @@ import com.sentinel.api.infrastructure.entity.JpaCentroControleOperacoesEntity;
 import com.sentinel.api.infrastructure.repository.JpaCentroControleOperacoesRepository;
 import com.sentinel.api.interfaces.mapper.CentroControleOperacoesMapper;
 
-public final class CentroControleOperacoesRepositoryAdapter implements CentroControleOperacoesRepository {
+public class CentroControleOperacoesRepositoryAdapter implements CentroControleOperacoesRepository {
 
     private final JpaCentroControleOperacoesRepository jpaCentroControleOperacoesRepository;
 

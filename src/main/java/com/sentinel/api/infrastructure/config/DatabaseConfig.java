@@ -1,13 +1,7 @@
 package com.sentinel.api.infrastructure.config;
 
-import com.sentinel.api.domain.repository.CentroControleOperacoesRepository;
-import com.sentinel.api.domain.repository.EstacaoRepository;
-import com.sentinel.api.domain.repository.OcorrenciaRepository;
-import com.sentinel.api.domain.repository.RelatorioRepository;
-import com.sentinel.api.infrastructure.persistence.CentroControleOperacoesRepositoryAdapter;
-import com.sentinel.api.infrastructure.persistence.EstacaoRepositoryAdapter;
-import com.sentinel.api.infrastructure.persistence.OcorrenciaRepositoryAdapter;
-import com.sentinel.api.infrastructure.persistence.RelatorioRepositoryAdapter;
+import com.sentinel.api.domain.repository.*;
+import com.sentinel.api.infrastructure.persistence.*;
 import com.sentinel.api.infrastructure.repository.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,5 +27,10 @@ public class DatabaseConfig {
     @Bean
     public EstacaoRepository estacaoRepository(JpaEstacaoRepository jpaEstacaoRepository, JpaCentroControleOperacoesRepository jpaCentroControleOperacoesRepository) {
         return new EstacaoRepositoryAdapter(jpaEstacaoRepository, jpaCentroControleOperacoesRepository);
+    }
+
+    @Bean
+    public CameraRepository cameraRepository(JpaCameraRepository jpaCameraRepository) {
+        return new CameraRepositoryAdapter(jpaCameraRepository);
     }
 }
