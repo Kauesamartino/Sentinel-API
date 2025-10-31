@@ -2,7 +2,6 @@ package com.sentinel.api.infrastructure.entity;
 
 import com.sentinel.api.domain.enums.Linha;
 import com.sentinel.api.domain.model.Endereco;
-import com.sentinel.api.domain.model.Estacao;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,18 +28,12 @@ public class JpaEstacaoEntity {
     @Embedded
     private Endereco endereco;
 
-    public JpaEstacaoEntity(Estacao estacao, JpaCentroControleOperacoesEntity cco) {
-        this.nome = estacao.getNome();
-        this.linha = estacao.getLinha();
+    public JpaEstacaoEntity(String nome, Linha linha, JpaCentroControleOperacoesEntity cco, Endereco endereco) {
+        this.nome = nome;
+        this.linha = linha;
         this.jpaCentroControleOperacoesEntity = cco;
-        this.endereco = new Endereco(
-                estacao.getEndereco().getLogradouro(),
-                estacao.getEndereco().getBairro(),
-                estacao.getEndereco().getCep(),
-                estacao.getEndereco().getNumero(),
-                estacao.getEndereco().getComplemento(),
-                estacao.getEndereco().getCidade(),
-                estacao.getEndereco().getUf()
-        );
+        this.endereco = endereco;
     }
+
+
 }

@@ -6,8 +6,11 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
 public class CentroControleOperacoes {
     private Long id;
     private String name;
+
+    public CentroControleOperacoes(String name) {
+        this.name = name;
+    }
 }

@@ -1,7 +1,6 @@
 package com.sentinel.api.interfaces.dto.relatorio;
 
 import com.sentinel.api.domain.enums.TipoOcorrencia;
-import com.sentinel.api.domain.model.Relatorio;
 
 import java.time.LocalDateTime;
 
@@ -12,15 +11,4 @@ public record RelatorioOutDto(
         TipoOcorrencia tipoOcorrencia,
         LocalDateTime dataInicio,
         LocalDateTime dataFim
-) {
-    public RelatorioOutDto(Relatorio relatorio){
-        this(
-                relatorio.getId(),
-                relatorio.getTitulo(),
-                relatorio.getDescricao(),
-                relatorio.getTipoOcorrencia(),
-                relatorio.getDataInicio(),
-                relatorio.getDataFim()
-        );
-    }
-}
+) {}

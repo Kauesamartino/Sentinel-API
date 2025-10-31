@@ -2,38 +2,33 @@ package com.sentinel.api.interfaces.mapper;
 
 import com.sentinel.api.domain.model.CentroControleOperacoes;
 import com.sentinel.api.domain.model.Estacao;
-import com.sentinel.api.domain.repository.CentroControleOperacoesRepository;
 import com.sentinel.api.infrastructure.entity.JpaCentroControleOperacoesEntity;
 import com.sentinel.api.infrastructure.entity.JpaEstacaoEntity;
 import com.sentinel.api.interfaces.dto.cco.CcoOutDto;
 import com.sentinel.api.interfaces.dto.estacao.EstacaoInDto;
 import com.sentinel.api.interfaces.dto.estacao.EstacaoOutDto;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
-@Component
-@RequiredArgsConstructor
-public class EstacaoMapper {
-    private final CentroControleOperacoesRepository  centroControleOperacoesRepository;
+public final class EstacaoMapper {
 
-    public Estacao inDtoToDomain(@Valid EstacaoInDto dados) {
+    public static Estacao inDtoToDomain(EstacaoInDto dados) {
         return new Estacao(dados);
     }
 
-    public EstacaoOutDto domainToOutDto(Estacao estacao) {
-        CcoOutDto ccoOutDto = null;
-        if (estacao.getIdCco() != null) {
-            CentroControleOperacoes centroControleOperacoes = centroControleOperacoesRepository.findById(estacao.getIdCco());
-            ccoOutDto = new CcoOutDto(
-                    centroControleOperacoes.getId(),
-                    centroControleOperacoes.getName()
-            );
-        }
-        return new EstacaoOutDto(estacao, ccoOutDto);
+    public static EstacaoOutDto domainToOutDto(Estacao estacao, CentroControleOperacoes cco) {
+        CcoOutDto ccoOutDto = new CcoOutDto(
+                cco.getId(),
+                cco.getName()
+        );
+        return new EstacaoOutDto(
+                estacao.getId(),
+                estacao.getNome(),
+                estacao.getLinha(),
+                ccoOutDto,
+                estacao.getEndereco()
+        );
     }
 
-    public Estacao jpaEntityToDomain(JpaEstacaoEntity jpaEstacaoEntity) {
+    public static Estacao jpaEntityToDomain(JpaEstacaoEntity jpaEstacaoEntity) {
         return new Estacao(
                 jpaEstacaoEntity.getId(),
                 jpaEstacaoEntity.getNome(),
@@ -43,7 +38,12 @@ public class EstacaoMapper {
         );
     }
 
-    public JpaEstacaoEntity domainToJpaEntity(Estacao estacao, JpaCentroControleOperacoesEntity cco) {
-        return new JpaEstacaoEntity(estacao, cco);
+    public static JpaEstacaoEntity domainToJpaEntity(Estacao estacao, JpaCentroControleOperacoesEntity cco) {
+        return new JpaEstacaoEntity(
+                estacao.getNome(),
+                estacao.getLinha(),
+                cco,
+                estacao.getEndereco()
+        );
     }
 }

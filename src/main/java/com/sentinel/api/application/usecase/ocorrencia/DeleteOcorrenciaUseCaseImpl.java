@@ -1,17 +1,16 @@
 package com.sentinel.api.application.usecase.ocorrencia;
 
-import com.sentinel.api.application.service.OcorrenciaService;
-import com.sentinel.api.domain.usecase.ocorrencia.DeleteOcorrenciaUseCase;
+import com.sentinel.api.domain.repository.OcorrenciaRepository;
 
-public class DeleteOcorrenciaUseCaseImpl implements DeleteOcorrenciaUseCase {
+public final class DeleteOcorrenciaUseCaseImpl implements DeleteOcorrenciaUseCase {
 
-    private final OcorrenciaService ocorrenciaService;
+    private final OcorrenciaRepository ocorrenciaRepository;
 
-    public DeleteOcorrenciaUseCaseImpl(OcorrenciaService ocorrenciaService) {
-        this.ocorrenciaService = ocorrenciaService;
+    public DeleteOcorrenciaUseCaseImpl(OcorrenciaRepository ocorrenciaRepository) {
+        this.ocorrenciaRepository = ocorrenciaRepository;
     }
 
     public void execute(Long id) {
-        ocorrenciaService.delete(id);
+        ocorrenciaRepository.delete(id);
     }
 }

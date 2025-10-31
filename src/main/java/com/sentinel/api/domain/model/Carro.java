@@ -28,6 +28,11 @@ public class Carro {
         if (placa == null || placa.isEmpty()) {
             throw new DomainValidationException("A placa do carro não pode ser nula ou vázia.");
         }
+
+        // Verifica se a placa está no formato correto (A123)
+        if (!placa.matches("^[A-Z]\\d{3}$")) {
+            throw new DomainValidationException("A placa do carro é inválida. O formato correto é 'AAA-1234'.");
+        }
     }
 
 
@@ -39,11 +44,6 @@ public class Carro {
     private void isAnoFabricacaoValido(Integer anoFabricacao) {
         // Verifica se o ano de fabricação é nulo ou está no futuro
         if (anoFabricacao == null || anoFabricacao.compareTo(LocalDate.now().getYear()) > 0) {
-            throw new DomainValidationException("O ano de fabricação do carro é inválido.");
-        }
-
-        // Verifica se o ano de fabricação esta no intervalo aceitável
-        if (anoFabricacao < 1900) {
             throw new DomainValidationException("O ano de fabricação do carro é inválido.");
         }
     }

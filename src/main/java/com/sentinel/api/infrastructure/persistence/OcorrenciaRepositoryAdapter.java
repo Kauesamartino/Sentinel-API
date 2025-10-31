@@ -11,43 +11,42 @@ import com.sentinel.api.infrastructure.repository.JpaCameraRepository;
 import com.sentinel.api.infrastructure.repository.JpaOcorrenciaRepository;
 import com.sentinel.api.infrastructure.repository.JpaRelatorioRepository;
 import com.sentinel.api.interfaces.mapper.OcorrenciaMapper;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
 
-@Repository
-@RequiredArgsConstructor
 public class OcorrenciaRepositoryAdapter implements OcorrenciaRepository {
 
     private final JpaOcorrenciaRepository jpaOcorrenciaRepository;
-    private final OcorrenciaMapper mapper;
     private final JpaEstacaoRepository jpaEstacaoRepository;
     private final JpaCameraRepository jpaCameraRepository;
     private final JpaRelatorioRepository jpaRelatorioRepository;
 
-    @Transactional
+    public OcorrenciaRepositoryAdapter(JpaOcorrenciaRepository jpaOcorrenciaRepository, JpaEstacaoRepository jpaEstacaoRepository, JpaCameraRepository jpaCameraRepository, JpaRelatorioRepository jpaRelatorioRepository) {
+        this.jpaOcorrenciaRepository = jpaOcorrenciaRepository;
+        this.jpaEstacaoRepository = jpaEstacaoRepository;
+        this.jpaCameraRepository = jpaCameraRepository;
+        this.jpaRelatorioRepository = jpaRelatorioRepository;
+    }
+
     public Ocorrencia save(Ocorrencia ocorrencia) {
         JpaEstacaoEntity estacao = jpaEstacaoRepository.getReferenceById(ocorrencia.getIdEstacao());
         JpaCameraEntity camera = jpaCameraRepository.getReferenceById(ocorrencia.getIdCamera());
-        JpaOcorrenciaEntity entity = mapper.domainToJpa(ocorrencia, estacao, camera);
+        JpaOcorrenciaEntity entity = OcorrenciaMapper.domainToJpa(ocorrencia, estacao, camera);
         JpaOcorrenciaEntity savedEntity = jpaOcorrenciaRepository.save(entity);
-        return mapper.jpaEntityToDomain(savedEntity);
+        return OcorrenciaMapper.jpaEntityToDomain(savedEntity);
     }
 
     public Ocorrencia findById(Long id) {
         JpaOcorrenciaEntity entity = jpaOcorrenciaRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Ocorrência não encontrada"));
-        return mapper.jpaEntityToDomain(entity);
+        return OcorrenciaMapper.jpaEntityToDomain(entity);
     }
 
     public Page<Ocorrencia> findAllByAtivoTrue(Pageable pageable) {
         Page<JpaOcorrenciaEntity> entityPage = jpaOcorrenciaRepository.findAllByAtivoTrue(pageable);
-        return entityPage.map(mapper::jpaEntityToDomain);
+        return entityPage.map(OcorrenciaMapper::jpaEntityToDomain);
     }
 
-    @Transactional
     public void delete(Long id) {
         JpaOcorrenciaEntity jpaOcorrenciaEntity = jpaOcorrenciaRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Ocorrência não encontrada"));
@@ -64,13 +63,13 @@ public class OcorrenciaRepositoryAdapter implements OcorrenciaRepository {
                 pageable
         );
 
-        return entityPage.map(mapper::jpaEntityToDomain);
+        return entityPage.map(OcorrenciaMapper::jpaEntityToDomain);
     }
 
 
     public Page<Ocorrencia> findAllByAtivoFalse(Pageable pageable) {
         Page<JpaOcorrenciaEntity> entityPage = jpaOcorrenciaRepository.findAllByAtivoFalse(pageable);
-        return entityPage.map(mapper::jpaEntityToDomain);
+        return entityPage.map(OcorrenciaMapper::jpaEntityToDomain);
     }
 
     public void ativar(Long id) {

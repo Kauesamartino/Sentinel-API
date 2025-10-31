@@ -1,20 +1,19 @@
 package com.sentinel.api.application.usecase.ocorrencia;
 
-import com.sentinel.api.application.service.OcorrenciaService;
 import com.sentinel.api.domain.model.Ocorrencia;
-import com.sentinel.api.domain.usecase.ocorrencia.GetOcorrenciasAtivoFalseUseCase;
+import com.sentinel.api.domain.repository.OcorrenciaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public class GetOcorrenciasAtivoFalseUseCaseImpl implements GetOcorrenciasAtivoFalseUseCase {
+public final class GetOcorrenciasAtivoFalseUseCaseImpl implements GetOcorrenciasAtivoFalseUseCase {
 
-    private final OcorrenciaService ocorrenciaService;
+    private final OcorrenciaRepository ocorrenciaRepository;
 
-    public GetOcorrenciasAtivoFalseUseCaseImpl(OcorrenciaService ocorrenciaService) {
-        this.ocorrenciaService = ocorrenciaService;
+    public GetOcorrenciasAtivoFalseUseCaseImpl(OcorrenciaRepository ocorrenciaRepository) {
+        this.ocorrenciaRepository = ocorrenciaRepository;
     }
 
     public Page<Ocorrencia> execute(Pageable pageable) {
-        return ocorrenciaService.findAllByAtivoFalse(pageable);
+        return ocorrenciaRepository.findAllByAtivoFalse(pageable);
     }
 }

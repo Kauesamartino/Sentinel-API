@@ -5,25 +5,24 @@ import com.sentinel.api.domain.repository.CentroControleOperacoesRepository;
 import com.sentinel.api.infrastructure.entity.JpaCentroControleOperacoesEntity;
 import com.sentinel.api.infrastructure.repository.JpaCentroControleOperacoesRepository;
 import com.sentinel.api.interfaces.mapper.CentroControleOperacoesMapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 
-@Repository
-@RequiredArgsConstructor
 public class CentroControleOperacoesRepositoryAdapter implements CentroControleOperacoesRepository {
 
     private final JpaCentroControleOperacoesRepository jpaCentroControleOperacoesRepository;
-    private final CentroControleOperacoesMapper mapper;
+
+    public CentroControleOperacoesRepositoryAdapter(JpaCentroControleOperacoesRepository jpaCentroControleOperacoesRepository) {
+        this.jpaCentroControleOperacoesRepository = jpaCentroControleOperacoesRepository;
+    }
 
     public CentroControleOperacoes save(CentroControleOperacoes centroControleOperacoes) {
-        JpaCentroControleOperacoesEntity entityToSave = mapper.domainToJpaEntity(centroControleOperacoes);
+        JpaCentroControleOperacoesEntity entityToSave = CentroControleOperacoesMapper.domainToJpaEntity(centroControleOperacoes);
         JpaCentroControleOperacoesEntity savedEntity = jpaCentroControleOperacoesRepository.save(entityToSave);
-        return mapper.jpaEntityToDomain(savedEntity);
+        return CentroControleOperacoesMapper.jpaEntityToDomain(savedEntity);
     }
 
     public CentroControleOperacoes findById(Long idCco) {
         JpaCentroControleOperacoesEntity entity = jpaCentroControleOperacoesRepository.findById(idCco)
                 .orElseThrow(() -> new IllegalArgumentException("Cco não encontrado"));
-        return mapper.jpaEntityToDomain(entity);
+        return CentroControleOperacoesMapper.jpaEntityToDomain(entity);
     }
 }

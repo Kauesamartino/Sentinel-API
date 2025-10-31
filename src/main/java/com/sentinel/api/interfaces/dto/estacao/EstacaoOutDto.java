@@ -9,17 +9,15 @@ public record EstacaoOutDto(
         Long id,
         String nome,
         Linha linha,
-        CcoOutDto dadosControle,
+        CcoOutDto ccoOutDto,
         Endereco endereco
 ) {
-    public EstacaoOutDto(Estacao estacao, CcoOutDto ccoOutDto) {
-        this(
-                estacao.getId(),
-                estacao.getNome(),
-                estacao.getLinha(),
-                ccoOutDto,
-                estacao.getEndereco()
-        );
+    public EstacaoOutDto(Long id, String nome, Linha linha, CcoOutDto ccoOutDto, Endereco endereco) {
+        this.id = id;
+        this.nome = nome;
+        this.linha = linha;
+        this.ccoOutDto = ccoOutDto;
+        this.endereco = endereco;
     }
 
 }
