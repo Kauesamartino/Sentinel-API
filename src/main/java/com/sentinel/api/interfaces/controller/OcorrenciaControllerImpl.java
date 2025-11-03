@@ -4,6 +4,9 @@ import com.sentinel.api.application.usecase.camera.GetCameraUseCase;
 import com.sentinel.api.application.usecase.cco.GetCcoUseCase;
 import com.sentinel.api.application.usecase.estacao.GetEstacaoUseCase;
 import com.sentinel.api.application.usecase.ocorrencia.*;
+import com.sentinel.api.domain.model.Camera;
+import com.sentinel.api.domain.model.CentroControleOperacoes;
+import com.sentinel.api.domain.model.Estacao;
 import com.sentinel.api.domain.model.Ocorrencia;
 import com.sentinel.api.interfaces.dto.ocorrencia.*;
 import com.sentinel.api.interfaces.mapper.ApiMapper;
@@ -67,7 +70,11 @@ public final class OcorrenciaControllerImpl implements OcorrenciaController {
     @Override
     public OcorrenciaOutDetailDto detalhar(Long id){
         Ocorrencia ocorrencia = getOcorrenciaUseCase.execute(id);
-        return OcorrenciaMapper.domainToOutDto(ocorrencia, getEstacaoUseCase.execute(ocorrencia.getIdEstacao()), getCameraUseCase.execute(ocorrencia.getIdCamera()), getCcoUseCase.execute(getEstacaoUseCase.execute(ocorrencia.getIdEstacao()).getId()));
+        Estacao estacao = getEstacaoUseCase.execute(ocorrencia.getIdEstacao());
+        Camera camera = getCameraUseCase.execute(ocorrencia.getIdCamera());
+        CentroControleOperacoes centroControleOperacoes = getCcoUseCase.execute(estacao.getIdCco());
+
+        return OcorrenciaMapper.domainToOutDto(ocorrencia, estacao, camera, centroControleOperacoes);
     }
 
     @Override
