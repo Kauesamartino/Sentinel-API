@@ -46,4 +46,16 @@ public class Ocorrencia {
         this.severidade = severidade;
         this.ativo = ativo;
     }
+
+    public Ocorrencia(Long id, String titulo, String descricao, LocalDateTime data, Severidade severidade, Status status, TipoOcorrencia tipoOcorrencia, Long idEstacao, Boolean ativo) {
+        this.id = id;
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.data = data;
+        this.severidade = severidade;
+        this.status = status;
+        this.tipoOcorrencia = tipoOcorrencia;
+        this.idEstacao = idEstacao;
+        this.ativo = Objects.requireNonNullElse(ativo, false);
+    }
 }
