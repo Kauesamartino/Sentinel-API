@@ -1,6 +1,8 @@
 package com.sentinel.api.infrastructure.config;
 
+import com.sentinel.api.domain.logging.Logger;
 import com.sentinel.api.domain.repository.*;
+import com.sentinel.api.infrastructure.logging.LoggerFactory;
 import com.sentinel.api.infrastructure.persistence.*;
 import com.sentinel.api.infrastructure.repository.*;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +13,8 @@ public class DatabaseConfig {
 
     @Bean
     public OcorrenciaRepository ocorrenciaRepository(JpaOcorrenciaRepository jpaOcorrenciaRepository, JpaEstacaoRepository jpaEstacaoRepository, JpaCameraRepository jpaCameraRepository, JpaRelatorioRepository jpaRelatorioRepository) {
-        return new OcorrenciaRepositoryAdapter(jpaOcorrenciaRepository, jpaEstacaoRepository, jpaCameraRepository, jpaRelatorioRepository);
+        final Logger logger = LoggerFactory.getLogger(OcorrenciaRepositoryAdapter.class);
+        return new OcorrenciaRepositoryAdapter(jpaOcorrenciaRepository, jpaEstacaoRepository, jpaCameraRepository, jpaRelatorioRepository, logger);
     }
 
     @Bean

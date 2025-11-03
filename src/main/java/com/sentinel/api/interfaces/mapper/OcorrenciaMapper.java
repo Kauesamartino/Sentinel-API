@@ -42,7 +42,7 @@ public final class OcorrenciaMapper {
                 estacao.getEndereco()
         );
 
-        CameraOutDto cameraOutDto = new CameraOutDto(camera.getCodigo());
+        CameraOutDto cameraOutDto = camera != null ? new CameraOutDto(camera.getCodigo()) : null;
 
         return new OcorrenciaOutDetailDto(
                 ocorrencia.getId(),
@@ -70,17 +70,30 @@ public final class OcorrenciaMapper {
     }
 
     public static Ocorrencia jpaEntityToDomain(JpaOcorrenciaEntity entity) {
-        return new Ocorrencia(
-                entity.getId(),
-                entity.getTitulo(),
-                entity.getDescricao(),
-                entity.getData(),
-                entity.getSeveridade(),
-                entity.getStatus(),
-                entity.getTipoOcorrencia(),
-                entity.getJpaEstacaoEntity().getId(),
-                entity.getJpaCameraEntity().getId(),
-                entity.getAtivo());
+        if (entity.getJpaCameraEntity() != null) {
+            return new Ocorrencia(
+                    entity.getId(),
+                    entity.getTitulo(),
+                    entity.getDescricao(),
+                    entity.getData(),
+                    entity.getSeveridade(),
+                    entity.getStatus(),
+                    entity.getTipoOcorrencia(),
+                    entity.getJpaEstacaoEntity().getId(),
+                    entity.getJpaCameraEntity().getId(),
+                    entity.getAtivo());
+        } else {
+            return new Ocorrencia(
+                    entity.getId(),
+                    entity.getTitulo(),
+                    entity.getDescricao(),
+                    entity.getData(),
+                    entity.getSeveridade(),
+                    entity.getStatus(),
+                    entity.getTipoOcorrencia(),
+                    entity.getJpaEstacaoEntity().getId(),
+                    entity.getAtivo());
+        }
     }
 
     public static JpaOcorrenciaEntity domainToJpa(Ocorrencia ocorrencia, JpaEstacaoEntity estacaoEntity, JpaCameraEntity cameraEntity) {
