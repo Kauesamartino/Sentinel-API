@@ -20,7 +20,7 @@ RUN mvn package -DskipTests
 
 # ESTÁGIO 2: Execução da Aplicação
 # Usamos uma imagem leve, apenas com o Java para rodar.
-FROM openjdk:17-slim
+FROM openjdk:17
 
 # Define o diretório de trabalho
 WORKDIR /app

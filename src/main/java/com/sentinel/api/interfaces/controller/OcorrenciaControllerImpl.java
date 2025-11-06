@@ -56,6 +56,9 @@ public final class OcorrenciaControllerImpl implements OcorrenciaController {
     @Override
     public OcorrenciaOutDetailDto cadastrar(OcorrenciaInDto ocorrenciaInDto) {
         Ocorrencia ocorrencia = OcorrenciaMapper.inDtoToDomain(ocorrenciaInDto);
+
+        System.out.println("ID da estacao: "+ ocorrencia.getIdEstacao());
+
         Ocorrencia createdOcorrencia =  createOcorrenciaUseCase.execute(ocorrencia);
         Estacao estacao = getEstacaoUseCase.execute(ocorrencia.getIdEstacao());
         Camera camera = null;
