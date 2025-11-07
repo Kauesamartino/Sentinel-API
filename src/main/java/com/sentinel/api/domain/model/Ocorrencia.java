@@ -28,7 +28,7 @@ public class Ocorrencia {
     public Ocorrencia(String titulo, String descricao, Severidade severidade, TipoOcorrencia tipoOcorrencia, Long idEstacao, Long idCamera, Boolean ativo) {
         this.titulo = titulo;
         this.descricao = descricao;
-        this.data = LocalDateTime.now();
+        this.data = LocalDateTime.now().minusHours(3);
         this.severidade = severidade;
         this.status = Status.ABERTO;
         this.tipoOcorrencia = tipoOcorrencia;
