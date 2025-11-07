@@ -1,5 +1,6 @@
 package com.sentinel.api.infrastructure.repository;
 
+import com.sentinel.api.domain.model.Ocorrencia;
 import com.sentinel.api.infrastructure.entity.JpaOcorrenciaEntity;
 import com.sentinel.api.domain.enums.TipoOcorrencia;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface JpaOcorrenciaRepository extends JpaRepository<JpaOcorrenciaEntity, Long> {
     Page<JpaOcorrenciaEntity> findAllByAtivoTrue(Pageable pageable);
@@ -27,4 +29,6 @@ public interface JpaOcorrenciaRepository extends JpaRepository<JpaOcorrenciaEnti
     );
 
     Page<JpaOcorrenciaEntity> findAllByAtivoFalse(Pageable pageable);
+
+    List<JpaOcorrenciaEntity> findAllByDataBetween(LocalDateTime dataAfter, LocalDateTime dataBefore);
 }

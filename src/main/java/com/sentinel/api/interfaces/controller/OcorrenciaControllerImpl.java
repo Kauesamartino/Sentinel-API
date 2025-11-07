@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public final class OcorrenciaControllerImpl implements OcorrenciaController {
@@ -34,8 +35,9 @@ public final class OcorrenciaControllerImpl implements OcorrenciaController {
     private final GetCcoUseCase getCcoUseCase;
     private final GetOcorrenciasDashboardHoraUseCase getOcorrenciasDashboardHoraUseCase;
     private final GetAllOcorrenciasDashboardUseCase getAllOcorrenciasDashboardUseCase;
+    private final GetAllOcorrenciasBetweenDatesUseCase getAllOcorrenciasBetweenDatesUseCase;
 
-    public OcorrenciaControllerImpl(CreateOcorrenciaUseCase createOcorrenciaUseCase, UpdateOcorrenciaUseCase updateOcorrenciaUseCase, DeleteOcorrenciaUseCase deleteOcorrenciaUseCase, GetOcorrenciasUseCase getOcorrenciasUseCase, GetOcorrenciaUseCase getOcorrenciaUseCase, GetOcorrenciasRelatorioUseCase getOcorrenciasRelatorioUseCase, GetOcorrenciasAtivoFalseUseCase getOcorrenciasAtivoFalseUseCase, PatchOcorrenciaAtivoUseCase patchOcorrenciaAtivoUseCase, GetCameraUseCase getCameraUseCase, GetEstacaoUseCase getEstacaoUseCase, GetCcoUseCase getCcoUseCase, GetOcorrenciasDashboardHoraUseCase getOcorrenciasDashboardHoraUseCase, GetAllOcorrenciasDashboardUseCase getAllOcorrenciasDashboardUseCase) {
+    public OcorrenciaControllerImpl(CreateOcorrenciaUseCase createOcorrenciaUseCase, UpdateOcorrenciaUseCase updateOcorrenciaUseCase, DeleteOcorrenciaUseCase deleteOcorrenciaUseCase, GetOcorrenciasUseCase getOcorrenciasUseCase, GetOcorrenciaUseCase getOcorrenciaUseCase, GetOcorrenciasRelatorioUseCase getOcorrenciasRelatorioUseCase, GetOcorrenciasAtivoFalseUseCase getOcorrenciasAtivoFalseUseCase, PatchOcorrenciaAtivoUseCase patchOcorrenciaAtivoUseCase, GetCameraUseCase getCameraUseCase, GetEstacaoUseCase getEstacaoUseCase, GetCcoUseCase getCcoUseCase, GetOcorrenciasDashboardHoraUseCase getOcorrenciasDashboardHoraUseCase, GetAllOcorrenciasDashboardUseCase getAllOcorrenciasDashboardUseCase, GetAllOcorrenciasBetweenDatesUseCase getAllOcorrenciasBetweenDatesUseCase) {
         this.createOcorrenciaUseCase = createOcorrenciaUseCase;
         this.updateOcorrenciaUseCase = updateOcorrenciaUseCase;
         this.deleteOcorrenciaUseCase = deleteOcorrenciaUseCase;
@@ -49,6 +51,7 @@ public final class OcorrenciaControllerImpl implements OcorrenciaController {
         this.getCcoUseCase = getCcoUseCase;
         this.getOcorrenciasDashboardHoraUseCase = getOcorrenciasDashboardHoraUseCase;
         this.getAllOcorrenciasDashboardUseCase = getAllOcorrenciasDashboardUseCase;
+        this.getAllOcorrenciasBetweenDatesUseCase = getAllOcorrenciasBetweenDatesUseCase;
     }
 
 
@@ -135,6 +138,15 @@ public final class OcorrenciaControllerImpl implements OcorrenciaController {
     @Override
     public List<OcorrenciaDashboardsOutDto> listarTodasOcorrencias() {
         List<Ocorrencia> ocorrencias = getAllOcorrenciasDashboardUseCase.execute();
+
+        return ocorrencias.stream()
+                .map(OcorrenciaMapper::toDashboardOutDto)
+                .toList();
+    }
+
+    @Override
+    public List<OcorrenciaDashboardsOutDto> listarOcorrenciasPorData(LocalDateTime startDate, LocalDateTime endDate) {
+        List<Ocorrencia> ocorrencias = getAllOcorrenciasBetweenDatesUseCase.execute(endDate, startDate);
 
         return ocorrencias.stream()
                 .map(OcorrenciaMapper::toDashboardOutDto)

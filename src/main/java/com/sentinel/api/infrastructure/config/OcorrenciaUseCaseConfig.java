@@ -63,4 +63,9 @@ public class OcorrenciaUseCaseConfig {
     public GetAllOcorrenciasDashboardUseCase getAllOcorrenciasDashboardUseCaseImpl() {
         return new GetAllOcorrenciasDashboardUseCaseImpl(ocorrenciaRepository);
     }
+
+    @Bean
+    public GetAllOcorrenciasBetweenDatesUseCase getAllOcorrenciasBetweenDatesUseCaseImpl() {
+        return new GetAllOcorrenciasBetweenDatesUseCaseImpl(ocorrenciaRepository);
+    }
 }

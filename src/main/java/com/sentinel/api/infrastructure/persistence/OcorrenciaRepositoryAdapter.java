@@ -20,6 +20,8 @@ import org.springframework.data.domain.Pageable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 public class OcorrenciaRepositoryAdapter implements OcorrenciaRepository {
 
     private final JpaOcorrenciaRepository jpaOcorrenciaRepository;
@@ -127,6 +129,14 @@ public class OcorrenciaRepositoryAdapter implements OcorrenciaRepository {
     public List<Ocorrencia> findAll() {
 
         List<JpaOcorrenciaEntity> entities = jpaOcorrenciaRepository.findAll();
+        return entities.stream()
+                .map(OcorrenciaMapper::jpaEntityToDomain)
+                .toList();
+    }
+
+    @Override
+    public List<Ocorrencia> findAllByDataBetween(LocalDateTime endDate, LocalDateTime startDate) {
+        List<JpaOcorrenciaEntity> entities = jpaOcorrenciaRepository.findAllByDataBetween(endDate, startDate);
         return entities.stream()
                 .map(OcorrenciaMapper::jpaEntityToDomain)
                 .toList();

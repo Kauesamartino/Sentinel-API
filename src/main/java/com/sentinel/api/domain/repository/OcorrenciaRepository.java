@@ -4,6 +4,7 @@ import com.sentinel.api.domain.model.Ocorrencia;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface OcorrenciaRepository {
@@ -22,4 +23,6 @@ public interface OcorrenciaRepository {
     List<Ocorrencia> findAllOneHourAgo();
 
     List<Ocorrencia> findAll();
+
+    List<Ocorrencia> findAllByDataBetween(LocalDateTime endDate, LocalDateTime startDate);
 }

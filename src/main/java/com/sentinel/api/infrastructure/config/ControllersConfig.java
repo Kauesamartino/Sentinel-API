@@ -24,14 +24,16 @@ public class ControllersConfig {
             GetOcorrenciaUseCase getOcorrenciaUseCase, GetOcorrenciasRelatorioUseCase getOcorrenciasRelatorioUseCase,
             GetOcorrenciasAtivoFalseUseCase getOcorrenciasAtivoFalseUseCase, PatchOcorrenciaAtivoUseCase patchOcorrenciaAtivoUseCase,
             GetCameraUseCase getCameraUseCase, GetEstacaoUseCase getEstacaoUseCase, GetCcoUseCase getCcoUseCase,
-            GetOcorrenciasDashboardHoraUseCase getOcorrenciasDashboardHoraUseCase, GetAllOcorrenciasDashboardUseCase getAllOcorrenciasDashboardUseCase
+            GetOcorrenciasDashboardHoraUseCase getOcorrenciasDashboardHoraUseCase, GetAllOcorrenciasDashboardUseCase getAllOcorrenciasDashboardUseCase,
+            GetAllOcorrenciasBetweenDatesUseCase getAllOcorrenciasBetweenDatesUseCase
     ) {
         return new OcorrenciaControllerImpl(
                 createOcorrenciaUseCase, updateOcorrenciaUseCase, deleteOcorrenciaUseCase,
                 getOcorrenciasUseCase, getOcorrenciaUseCase, getOcorrenciasRelatorioUseCase,
                 getOcorrenciasAtivoFalseUseCase, patchOcorrenciaAtivoUseCase,
                 getCameraUseCase, getEstacaoUseCase, getCcoUseCase,
-                getOcorrenciasDashboardHoraUseCase, getAllOcorrenciasDashboardUseCase
+                getOcorrenciasDashboardHoraUseCase, getAllOcorrenciasDashboardUseCase,
+                getAllOcorrenciasBetweenDatesUseCase
         );
     }
 

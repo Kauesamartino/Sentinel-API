@@ -4,6 +4,7 @@ import com.sentinel.api.interfaces.dto.ocorrencia.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface OcorrenciaController {
@@ -92,4 +93,13 @@ public interface OcorrenciaController {
      * @return lista de todas as ocorrências
      */
     List<OcorrenciaDashboardsOutDto> listarTodasOcorrencias();
+
+    /**
+     * Lista as ocorrências registradas entre duas datas específicas.
+     *
+     * @param startDate data de início
+     * @param endDate data de fim
+     * @return lista de ocorrências entre as datas
+     */
+    List<OcorrenciaDashboardsOutDto> listarOcorrenciasPorData(LocalDateTime startDate, LocalDateTime endDate);
 }

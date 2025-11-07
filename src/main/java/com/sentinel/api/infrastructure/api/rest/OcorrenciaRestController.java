@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 /**
@@ -85,10 +87,15 @@ public class OcorrenciaRestController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/dashboard/hora")
-    public ResponseEntity<List<OcorrenciaDashboardsOutDto>> listarOcorrenciasDashboardHora() {
+    @GetMapping("/dashboard/data")
+    public ResponseEntity<List<OcorrenciaDashboardsOutDto>> listarOcorrenciasDashboardHora(@RequestParam(name = "startDate") OffsetDateTime startDate,
+                                                                                           @RequestParam(name = "endDate") OffsetDateTime endDate
+    ) {
 
-        List<OcorrenciaDashboardsOutDto> list = ocorrenciaController.listarOcorrenciasDashboardHora();
+        LocalDateTime startDateTime = startDate.toLocalDateTime();
+        LocalDateTime endDateTime = endDate.toLocalDateTime();
+
+        List<OcorrenciaDashboardsOutDto> list = ocorrenciaController.listarOcorrenciasPorData(endDateTime, startDateTime);
         return ResponseEntity.ok(list);
     }
 
